@@ -37,14 +37,14 @@
 │   │   ├── pubilc
 │   │     │  └──存放公共的组件
 │   │   └── topic
-│   │         └──存放topic当前页面的私有组件
+│   │     └──存放topic当前页面的私有组件
 │   └── pages
 │       ├── topic
 │       │ ├── topic.html
 │       │ ├── topic.js
 │       │ └── topic.vue
 │         │  └── router
-│       │      └── index.js
+│       │     └── index.js
 │       └── index
 │           ├── index.html
 │           ├── index.js
@@ -464,7 +464,7 @@ module.exports = webpackConfig
 │           ├── index.js
 │           ├── index.vue
 │           └── router
-│               └── index.js
+│                 └── index.js
 ```
 
 `src`就是我所使用的工程文件了，`assets`,`components`,`pages`分别是静态资源文件、组件文件、页面文件。
