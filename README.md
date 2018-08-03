@@ -31,16 +31,20 @@
 │   └── prod.env.js
 ├── package.json
 ├── src
-│   ├── assets
+│     ├── assets
 │   │   └── logo.png
 │   ├── components
-│   │   ├── Hello.vue
-│   │   └── cell.vue
+│   │   ├── pubilc
+│   │     │  └──存放公共的组件
+│   │   └── topic
+│   │         └──存放topic当前页面的私有组件
 │   └── pages
-│       ├── cell
-│       │   ├── cell.html
-│       │   ├── cell.js
-│       │   └── cell.vue
+│       ├── topic
+│       │ ├── topic.html
+│       │ ├── topic.js
+│       │ └── topic.vue
+│         │  └── router
+│       │      └── index.js
 │       └── index
 │           ├── index.html
 │           ├── index.js
@@ -437,20 +441,24 @@ module.exports = webpackConfig
 但是还没完啦，下面继续。
 
 
-# 文件结构 
+# 文件结构
 
 ```
 ├── src
 │   ├── assets
 │   │   └── logo.png
 │   ├── components
-│   │   ├── Hello.vue
-│   │   └── cell.vue
+│   │   ├── pubilc
+│   │     │  └──存放公共的组件
+│   │   └── topic
+│   │         └──存放topic当前页面的私有组件
 │   └── pages
-│       ├── cell
-│       │   ├── cell.html
-│       │   ├── cell.js
-│       │   └── cell.vue
+│       ├── topic
+│       │ ├── topic.html
+│       │ ├── topic.js
+│       │ └── topic.vue
+│         │  └── router
+│       │      └── index.js
 │       └── index
 │           ├── index.html
 │           ├── index.js
@@ -463,24 +471,24 @@ module.exports = webpackConfig
 
 前两个就不多说，主要是页面文件里，我目前是按照项目的模块分的文件夹，你也可以按照你自己的需求调整。然后在每个模块里又有三个内容：vue文件，js文件和html文件。这三个文件的作用就相当于做spa单页面应用时，根目录的`index.html`页面模板，src文件下的`main.js`和`app.vue`的功能。
 
-原先，入口文件只有一个main.js,但现在由于是多页面，因此入口页面多了，我目前就是两个：index和cell，之后如果打包，就会在`dist`文件下生成两个HTML文件：`index.html`和`cell.html`(可以参考一下单页面应用时，打包只会生成一个index.html,区别在这里)。
+原先，入口文件只有一个main.js,但现在由于是多页面，因此入口页面多了，我目前就是两个：index和cell，之后如果打包，就会在`dist`文件下生成两个HTML文件：`index.html`和`topic.html`(可以参考一下单页面应用时，打包只会生成一个index.html,区别在这里)。
 
-cell文件下的三个文件，就是一般模式的配置，参考index的就可以，但并不完全相同。
+topic，就是一般模式的配置，参考index的就可以，但并不完全相同。
 
 # 特别注意的地方
 
-## cell.js
+## topic.js
 
 在这个文件里，按照写法，应该是这样的吧：
 
 ```javascript
 import Vue from 'Vue'
-import cell from './cell.vue'
+import topic from './topic.vue'
 
 new Vue({
     el:'#app'，// 这里参考cell.html和cell.vue的根节点id，保持三者一致
-    teleplate：'<cell/>',
-    components:{ cell }
+    teleplate：'<topic/>',
+    components:{ topic }
 })
 ```
 
@@ -502,16 +510,16 @@ new Vue({
 resolve: { alias: { 'vue': 'vue/dist/vue.js' } }
 ```
 
-这里是修改`package.json`的resolve下的vue的配置，很多人反应这样修改之后就好了，但是我按照这个方法修改之后依然报错。然后我就想到上面提到的`render`函数，因此我的修改是针对`cell.js`文件的。
+这里是修改`package.json`的resolve下的vue的配置，很多人反应这样修改之后就好了，但是我按照这个方法修改之后依然报错。然后我就想到上面提到的`render`函数，因此我的修改是针对`topic.js`文件的。
 
 ```javascript
 import Vue from 'Vue'
-import cell from './cell.vue'
+import topic from './topic.vue'
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  render: h => h(cell)
+  render: h => h(topic)
 })
 
 ```
@@ -526,7 +534,7 @@ new Vue({
 
 ```html
  <!-- index.html -->
-<a href='../cell/cell.html'></a>
+<a href='../topic/topic.html'></a>
 ```
 
 但这样写，不论是在开发环境还是最后测试，都会报404，找不到这个页面。
@@ -535,10 +543,10 @@ new Vue({
 
 ```html
  <!-- index.html -->
-<a href='cell.html'></a>
+<a href='topic.html'></a>
 ```
 
-这样他就会自己找`cell.html`这个文件。
+这样他就会自己找`topic.html`这个文件。
 
 ## 打包后的资源路径
 
@@ -551,13 +559,13 @@ new Vue({
 │   ├── js
 │   ├── css
 │   ├── index.html
-│   └── cell.html
+│   └── topic.html
 ```
 
 查看index.html文件之后会发现资源的引用路径是：
 
     /dist/js.........
-    
+
 这样，如果你的dist文件不是在根目录下的，就根本找不到资源。
 
 方法当然也有啦，如果你不嫌麻烦，就一个文件一个文件的修改路径咯，或者像我一样偷懒，修改`config`下的`index.js`文件。具体的做法是：
@@ -588,10 +596,10 @@ build: {
 将这里面的
 
     assetsPublicPath: '/',
-    
+
 改成
 
     assetsPublicPath: './',
-    
+
 酱紫，配置文件资源的时候找到的就是相对路径下的资源了，在重新`npm run build`看看吧。
 
