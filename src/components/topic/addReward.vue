@@ -51,12 +51,12 @@
                         label: '算力'
                     },
                     {
-                        value: 2,
-                        label: 'DBEX'
-                    },
-                    {
                         value: 3,
                         label: '经验'
+                    },
+                    {
+                        value: 4,
+                        label:'DBEX'
                     }
                 ],
                 method:'',
