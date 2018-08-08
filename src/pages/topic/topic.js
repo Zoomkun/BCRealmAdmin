@@ -5,20 +5,14 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios'
 import router from './router/index.js'
-
+//test code 
+//test code 
 Vue.use(ElementUI);
 Vue.use(VueRouter)
 Vue.config.productionTip = false
 
 var $ajax = axios.create({
-<<<<<<< HEAD
-    // baseURL: 'http://test.bcrealm.com/api/dbex/admin/', //测试
-    baseURL: 'http://localhost:8003/admin/', //本地
-    // baseURL:'', //线上
-=======
-    // baseURL:'http://test.bcrealm.com/api/dbex/admin/', //测试
-    baseURL:'http://api.bcrealm.com/api/dbex/admin/', //线上
->>>>>>> f87235ed2a241bdfb168574d7ec1c683ae896d29
+    baseURL: 'http://api.bcrealm.com/api/dbex/admin/', //线上
     timeout: 10000,
 });
 
