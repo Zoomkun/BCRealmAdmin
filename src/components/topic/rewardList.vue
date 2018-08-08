@@ -65,7 +65,7 @@
         methods: {
             //计算奖励类型
             formatRewardType(row,col){
-                let data = ['算力', '积分', '经验']
+                let data = ['算力', 'DBEX', '经验']
                 return data[(row.rewardType-1)]
             },
             getData(){
