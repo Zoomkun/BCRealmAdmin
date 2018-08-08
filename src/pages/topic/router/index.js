@@ -8,12 +8,13 @@ import AddReward from '@/components/topic/addReward.vue'
 import RewardList from '@/components/topic/rewardList.vue'
 import AddSuperActivity from '@/components/topic/addSuperActivity.vue'
 import SuperActivityList from '@/components/topic/superActivityList.vue'
+import activityStatisticsList from '@/components/topic/activityStatisticsList.vue'
+import questionAnswerStatistics from '@/components/topic/questionAnswerStatistics.vue'
 Vue.use(Router)
 
 export default new Router({
     mode: 'history',
-    routes: [
-        {
+    routes: [{
             path: '/topic.html',
             name: 'TopicList',
             component: TopicList
@@ -68,5 +69,15 @@ export default new Router({
             name: 'SuperActivityList',
             component: SuperActivityList
         },
+        {
+            path: '/topic.html/activityStatisticsList',
+            name: 'activityStatisticsList',
+            component: activityStatisticsList
+        },
+        {
+            path: '/topic.html/questionAnswerStatistics',
+            name: 'questionAnswerStatistics',
+            component: questionAnswerStatistics
+        }
     ],
 })

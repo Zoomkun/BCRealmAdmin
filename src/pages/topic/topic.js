@@ -11,18 +11,19 @@ Vue.use(VueRouter)
 Vue.config.productionTip = false
 
 var $ajax = axios.create({
-    baseURL:'http://test.bcrealm.com/api/dbex/admin/', //测试
+    // baseURL: 'http://test.bcrealm.com/api/dbex/admin/', //测试
+    baseURL: 'http://localhost:8003/admin/', //本地
     // baseURL:'', //线上
     timeout: 10000,
 });
 
 // 添加响应拦截器
-$ajax.interceptors.response.use(function (response) {
+$ajax.interceptors.response.use(function(response) {
     // 对响应数据做点什么
-    if(response.status===200){
+    if (response.status === 200) {
         return response.data
     }
-}, function (error) {
+}, function(error) {
     // 对响应错误做点什么
     return Promise.reject(error);
 });
