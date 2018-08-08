@@ -2,13 +2,13 @@
     <el-col :span="20">
         <el-form :model="formData" :rules="rules" ref="formData" label-width="100px" class="demo-ruleForm">
             <el-form-item label="免费概率" prop="freeProbability">
-                <el-input-number v-model="formData.freeProbability" :min="0" :max="100" label="免费模式概率"></el-input-number>
+                <el-input-number v-model="formData.freeProbability" :min="0" :max="500" label="免费模式概率"></el-input-number>
             </el-form-item>
             <el-form-item label="积分概率" prop="pointProbability">
-                <el-input-number v-model="formData.pointProbability" :min="0" :max="100" label="积分模式概率"></el-input-number>
+                <el-input-number v-model="formData.pointProbability" :min="0" :max="500" label="积分模式概率"></el-input-number>
             </el-form-item>
             <el-form-item label="奖励数量" prop="rewardQuantity">
-                <el-input-number v-model="formData.rewardQuantity" :min="0" :max="100" label="奖励数量"></el-input-number>
+                <el-input-number v-model="formData.rewardQuantity" :min="0" :max="500" label="奖励数量"></el-input-number>
             </el-form-item>
             <el-form-item label="奖励类型" prop="rewardType">
                 <el-select v-model="formData.rewardType"  placeholder="请选择">
@@ -52,7 +52,7 @@
                     },
                     {
                         value: 2,
-                        label: '积分'
+                        label: 'DBEX'
                     },
                     {
                         value: 3,

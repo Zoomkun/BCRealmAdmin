@@ -65,8 +65,17 @@
                                 cellName: '添加冲顶',
                                 index: '/topic.html/addSuperActivity',
                             },
+                            {
+                                cellName:'冲顶统计',
+                                index:'/topic.html/activityStatisticsList',
+                            },
+                            {
+                                cellName:'问答统计',
+                                index:'/topic.html/questionAnswerStatistics',
+                            }
                         ]
-                    }
+                    },
+                    
                 ]
             };
         },
