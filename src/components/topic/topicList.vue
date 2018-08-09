@@ -13,7 +13,7 @@
             <el-table-column
                     prop="difficulty"
                     label="题目难度"
-                    :span="4">
+                    :span="2">
             </el-table-column>
             <el-table-column
                     prop="title"
@@ -23,8 +23,13 @@
             <el-table-column
                     prop="answerBox"
                     label="题目答案"
-                    :span="2"
+                    :span="3"
                     show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
+                    prop="correctRate"
+                    label="题目正确率"
+                    :span="2">
             </el-table-column>
             <el-table-column label="操作" :span="4">
                 <template slot-scope="scope">
@@ -76,8 +81,26 @@
                         self.tableData = response.data.content;
                         self.totalPages = response.data.totalPages;
                         self.getAnswer()
+                        self.getCorrectRate()
                     }
                 })
+            },
+            // 正确率数据处理
+            getCorrectRate(){
+                var self = this;
+
+                let content = self.tableData
+                for(let i in content){
+                    let correctRate = ''
+                    if(content[i].correctRate > 0){
+                        correctRate = (content[i].correctRate * 100).toFixed(2) + "%"
+                    }else {
+                        correctRate = 0
+                    }
+
+                    self.tableData[i].correctRate = correctRate
+                }
+
             },
             // 答案数据处理
             getAnswer(){
