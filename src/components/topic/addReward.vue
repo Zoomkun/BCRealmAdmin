@@ -13,7 +13,17 @@
             <el-form-item label="奖励类型" prop="rewardType">
                 <el-select v-model="formData.rewardType"  placeholder="请选择">
                     <el-option
-                            v-for="item in options"
+                            v-for="item in options[0]"
+                            :key="item.label"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="是否重要" prop="isImportant">
+                <el-select v-model="formData.isImportant"  placeholder="请选择">
+                    <el-option
+                            v-for="item in options[1]"
                             :key="item.label"
                             :label="item.label"
                             :value="item.value">
@@ -46,26 +56,39 @@
             return {
                 addTitle:'立即添加',
                 options:[
-                    {
-                        value: 1,
-                        label: '算力'
-                    },
-                    {
-                        value: 3,
-                        label: '经验'
-                    },
-                    {
-                        value: 4,
-                        label:'DBEX'
-                    }
+                    [
+                        {
+                            value: 1,
+                            label: '算力'
+                        },
+                        {
+                            value: 3,
+                            label: '经验'
+                        },
+                        {
+                            value: 4,
+                            label:'DBEX'
+                        }
+                    ],
+                    [
+                        {
+                            value: 0,
+                            label:'不是'
+                        },
+                        {
+                            value: 1,
+                            label:'是'
+                        }
+                    ]
                 ],
                 method:'',
-                max:3,
+                max:4,
                 formData: {
                     freeProbability:'',
                     pointProbability:'',
                     rewardQuantity:'',
                     rewardType:'',
+                    isImportant:'',
                 },
                 rules: {
                     freeProbability: [{
@@ -79,6 +102,9 @@
                     }],
                     rewardType: [{
                         required: true, message: '请选择奖励类型', trigger: 'blur'
+                    }],
+                    isImportant: [{
+                        required: true, message: '请选择是否重要标识', trigger: 'blur'
                     }],
                 }
             };
