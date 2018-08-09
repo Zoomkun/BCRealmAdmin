@@ -73,7 +73,7 @@
                     [
                         {
                             value: 0,
-                            label:'不是'
+                            label:'否'
                         },
                         {
                             value: 1,

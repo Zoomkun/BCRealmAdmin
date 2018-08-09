@@ -33,6 +33,13 @@
                     :span="2"
                     show-overflow-tooltip>
             </el-table-column>
+            <el-table-column
+                    prop="isImportant"
+                    label="是否重要"
+                    :formatter="isImportant"
+                    :span="2"
+                    show-overflow-tooltip>
+            </el-table-column>
             <el-table-column label="操作" :span="4">
                 <template slot-scope="scope">
                     <el-button
@@ -67,6 +74,9 @@
             formatRewardType(row,col){
                 let data = ['算力','积分','经验','DBEX']
                 return data[(row.rewardType-1)]
+            },
+            isImportant(row, column){
+                return row.isImportant == 1 ? '是' : '否';
             },
             getData(){
                 var self = this;
