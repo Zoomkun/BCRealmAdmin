@@ -11,8 +11,8 @@ Vue.use(VueRouter)
 Vue.config.productionTip = false
 
 var $ajax = axios.create({
-    baseURL: 'http://test.bcrealm.com/api/dbex/admin/', //测试
-    // baseURL: 'http://api.bcrealm.com/api/dbex/admin/', //线上
+    // baseURL: 'http://test.bcrealm.com/api/dbex/admin/', //测试
+    baseURL: 'http://api.bcrealm.com/api/dbex/admin/', //线上
     timeout: 10000,
 });
 
