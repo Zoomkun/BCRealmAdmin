@@ -57,6 +57,9 @@
                     </el-option>
                 </el-select>
             </el-form-item>
+            <el-form-item label="参与奖概率" prop="failedShareRate">
+                <el-input-number v-model="formData.failedShareRate" :min="0" :max="10000" label="描述文字"></el-input-number>
+            </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('formData')">{{addTitle}}</el-button>
                 <el-button @click="resetForm('formData')">重置</el-button>
@@ -92,7 +95,8 @@
                     endTime:'',
                     previewTime:'',
                     questionNumber:'',
-                    rewardQuantity:''
+                    rewardQuantity:'',
+                    failedShareRate:''
                 },
                 rules: {
                     answerStatus:[{

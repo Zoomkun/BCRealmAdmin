@@ -11,6 +11,11 @@
                     :span="2">
             </el-table-column>
             <el-table-column
+                    prop="topicId"
+                    label="题目ID"
+                    :span="2">
+            </el-table-column>
+            <el-table-column
                     prop="difficulty"
                     label="题目难度"
                     :span="2">
