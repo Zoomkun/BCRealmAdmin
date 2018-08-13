@@ -57,7 +57,7 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="参与奖概率" prop="failedShareRate">
+            <el-form-item label="参与奖比率" prop="failedShareRate">
                 <el-input-number v-model="formData.failedShareRate" :min="0" :max="10000" label="描述文字"></el-input-number>
             </el-form-item>
             <el-form-item>

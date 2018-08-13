@@ -59,7 +59,7 @@
             </el-table-column>
             <el-table-column
                     prop="failedShareRate"
-                    label="参与奖概率"
+                    label="参与奖比率"
                     :span="4">
             </el-table-column>
             <el-table-column label="操作" :span="4">
