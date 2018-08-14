@@ -72,6 +72,10 @@
                             {
                                 cellName:'问答统计',
                                 index:'/topic.html/questionAnswerStatistics',
+                            },
+                            {
+                                cellName:'抽奖统计',
+                                index:'/topic.html/drawStatistics'
                             }
                         ]
                     },
