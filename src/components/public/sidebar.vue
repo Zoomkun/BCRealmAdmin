@@ -79,6 +79,18 @@
                             }
                         ]
                     },
+                    {
+                        index: '/dataAnalysis.html',
+                        icon: 'el-icon-document',
+                        module: '数据分析',
+                        cell: [
+                            {
+                                cellName: '用户统计',
+                                index: '/dataAnalysis.html/userStatistics',
+                            }
+        
+                        ]
+                    },
                     
                 ]
             };
