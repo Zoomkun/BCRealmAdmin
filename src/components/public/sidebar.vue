@@ -85,8 +85,16 @@
                         module: '数据分析',
                         cell: [
                             {
-                                cellName: '用户统计',
+                                cellName: '留存统计',
                                 index: '/dataAnalysis.html/userStatistics',
+                            },
+                            {
+                                cellName: '用户月统计',
+                                index: '/dataAnalysis.html/userMonthStatistics',
+                            },
+                            {
+                                cellName: '数据一览',
+                                index: '/dataAnalysis.html/userTotalStatistics',
                             }
         
                         ]

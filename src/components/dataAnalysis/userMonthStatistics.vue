@@ -38,17 +38,12 @@
                     label="创建时间">
             </el-table-column>
             <el-table-column
-                    prop="registerNum"
+                    prop="registerUser"
                     label="注册用户数">
             </el-table-column>
             <el-table-column
-                    prop="realRegister"
-                    label="真实注册用户数"
-                    show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-                    prop="activeTotal"
-                    label="活跃用户数"
+                    prop="realUser"
+                    label="真实用户数"
                     show-overflow-tooltip>
             </el-table-column>
             <el-table-column
@@ -57,28 +52,8 @@
                     show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                    prop="secondDay"
-                    label="次日留存"
-                    show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-                    prop="thirdDay"
-                    label="三日留存"
-                    show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-                    prop="seventhDay"
-                    label="七日留存"
-                    show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-                    prop="fifteenthDay"
-                    label="十五日留存"
-                    show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-                    prop="thirtiethDay"
-                    label="三十日留存"
+                    prop="totalActive"
+                    label="活跃总数"
                     show-overflow-tooltip>
             </el-table-column>
         </el-table>
@@ -116,7 +91,7 @@ export default {
       var self = this;
       self.$ajax
         .post(
-          "user/statistics/page?size=20&page=" + self.currentPageData,
+          "user/statistics/month/page?size=20&page=" + self.currentPageData,
           {
                 startTime:this.filters.startTime,
                 endTime:this.filters.endTime

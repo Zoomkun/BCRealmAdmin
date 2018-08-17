@@ -38,47 +38,42 @@
                     label="创建时间">
             </el-table-column>
             <el-table-column
-                    prop="registerNum"
-                    label="注册用户数">
+                    prop="totalRegister"
+                    label="总注册用户数">
             </el-table-column>
             <el-table-column
-                    prop="realRegister"
-                    label="真实注册用户数"
+                    prop="totalRealRegister"
+                    label="总的真实注册数"
                     show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                    prop="activeTotal"
-                    label="活跃用户数"
+                    prop="averageActivity"
+                    label="平均活跃"
                     show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                    prop="realActive"
-                    label="真实活跃用户数"
+                    prop="avgSecondDay"
+                    label="平均次日留存"
                     show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                    prop="secondDay"
-                    label="次日留存"
+                    prop="avgThirdDay"
+                    label="平均三日留存"
                     show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                    prop="thirdDay"
-                    label="三日留存"
+                    prop="avgSeventhDay"
+                    label="平均七日留存"
                     show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                    prop="seventhDay"
-                    label="七日留存"
+                    prop="avgFifteenthDay"
+                    label="平均十五日留存"
                     show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                    prop="fifteenthDay"
-                    label="十五日留存"
-                    show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-                    prop="thirtiethDay"
-                    label="三十日留存"
+                    prop="avgThirtiethDay"
+                    label="平均三十日留存"
                     show-overflow-tooltip>
             </el-table-column>
         </el-table>
@@ -116,10 +111,10 @@ export default {
       var self = this;
       self.$ajax
         .post(
-          "user/statistics/page?size=20&page=" + self.currentPageData,
+          "user/statistics/total/page?size=20&page=" + self.currentPageData,
           {
-                startTime:this.filters.startTime,
-                endTime:this.filters.endTime
+              startTime:this.filters.startTime,
+              endTime:this.filters.endTime
           }
         )
         .then(function(response) {
