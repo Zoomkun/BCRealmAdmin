@@ -100,8 +100,6 @@ import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
                                     type: 'success',
                                     duration: 1000
                                 });
-
-                                this.$refs[formName].resetFields();
                             }
                         })
                     } else {
