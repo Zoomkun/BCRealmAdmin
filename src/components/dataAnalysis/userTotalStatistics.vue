@@ -78,12 +78,15 @@
             </el-table-column>
         </el-table>
         <el-pagination
-                @current-change="currentChange"
-                :current-page.sync="currentPageData"
-                background
-                layout="prev, pager, next"
-                :page-count="totalPages"
-                style="margin-top: 20px">
+          @size-change="handleSizeChange"
+          @current-change="currentChange"
+          :current-page.sync="currentPageData"
+          :page-size.sync="pageSize"
+          :page-sizes="[1, 2, 3, 4]"
+          background  
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total"
+          style="margin-top: 20px">
         </el-pagination>
     </div>
 </template>
@@ -95,12 +98,14 @@ export default {
     return {
       totalPages: 0,
       currentPageData: 1,
+      pageSize: 1,
       tableData: [],
       multipleSelection: [],
       filters: {
         startTime: '',
         endTime:''
       },
+      total: 0
     };
   },
   mounted() {
@@ -111,7 +116,7 @@ export default {
       var self = this;
       self.$ajax
         .post(
-          "user/statistics/total/page?size=20&page=" + self.currentPageData,
+          "user/statistics/total/page?size="+ self.pageSize +"&page=" + self.currentPageData,
           {
               startTime:this.filters.startTime,
               endTime:this.filters.endTime
@@ -121,6 +126,7 @@ export default {
           if (response.code === 1) {
             self.tableData = response.data.content;
             self.totalPages = response.data.totalPages;
+            self.total = response.data.totalElements;
           }
         });
     },
@@ -142,8 +148,11 @@ export default {
         duration: 3000
       });
     },
+    handleSizeChange() {
+        console.log(this.pageSize);
+    },
     currentChange() {
-      console.log(this.currentPageData);
+        console.log(this.currentPageData);
     }
   }
 };

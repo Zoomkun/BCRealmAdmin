@@ -99,7 +99,21 @@
         
                         ]
                     },
-                    
+                    {
+                        index: '/news.html',
+                        icon: 'el-icon-document',
+                        module: '资讯管理',
+                        cell: [
+                            {
+                                cellName: '新闻管理',
+                                index: '/news.html/newsList',
+                            },
+                            {
+                                cellName: '添加新闻',
+                                index: '/news.html/addNews',
+                            },
+                        ]
+                    },
                 ]
             };
         },
