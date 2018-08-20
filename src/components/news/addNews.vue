@@ -5,9 +5,9 @@
                 <el-input v-model="ruleForm.title"></el-input>
             </el-form-item>
             <el-form-item label="新闻内容" prop="content">
-                <quill-editor 
-                    ref="myTextEditor" 
-                    v-model="ruleForm.content" 
+                <quill-editor
+                    ref="myTextEditor"
+                    v-model="ruleForm.content"
                     :options="editorOption">
                 </quill-editor>
             </el-form-item>
@@ -20,8 +20,14 @@
 </template>
 
 <script>
-import {quillEditor, Quill} from 'vue-quill-editor'
-import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
+    import Vue from 'Vue'
+    import VueQuillEditor from 'vue-quill-editor'
+    import 'quill/dist/quill.core.css'
+    import 'quill/dist/quill.snow.css'
+    import 'quill/dist/quill.bubble.css'
+    import {quillEditor, Quill} from 'vue-quill-editor'
+    import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
+    Vue.use(VueQuillEditor);
     Quill.register('modules/ImageExtend', ImageExtend)
     export default {
         name: 'addNews',
@@ -69,11 +75,16 @@ import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
                             response: (res) => {
                                 return res.data
                             },
-                            headers: (xhr) => {},  // 可选参数 设置请求头部
-                            start: () => {},  // 可选参数 自定义开始上传触发事件
-                            end: () => {},  // 可选参数 自定义上传结束触发的事件，无论成功或者失败
-                            error: () => {},  // 可选参数 自定义网络错误触发的事件
-                            change: (xhr, formData) => {} // 可选参数 选择图片触发，也可用来设置头部，但比headers多了一个参数，可设置formData
+                            headers: (xhr) => {
+                            },  // 可选参数 设置请求头部
+                            start: () => {
+                            },  // 可选参数 自定义开始上传触发事件
+                            end: () => {
+                            },  // 可选参数 自定义上传结束触发的事件，无论成功或者失败
+                            error: () => {
+                            },  // 可选参数 自定义网络错误触发的事件
+                            change: (xhr, formData) => {
+                            } // 可选参数 选择图片触发，也可用来设置头部，但比headers多了一个参数，可设置formData
                         },
                         toolbar: {
                             container: container,  // container为工具栏，此次引入了全部工具栏，也可自行配置

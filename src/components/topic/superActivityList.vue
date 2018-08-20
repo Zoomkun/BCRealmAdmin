@@ -207,7 +207,7 @@
                 })
             },
             handleEdit(index,row){
-                this.$router.push({path: '/topic.html/addSuperActivity', query: {data:row}});
+                this.$router.push({path: '/addSuperActivity', query: {data:row}});
             }
         }
     }

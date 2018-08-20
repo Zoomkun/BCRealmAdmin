@@ -1,112 +1,112 @@
 <template>
     <div>
         <el-table
-                ref="multipleTable"
-                :data="tableData"
-                tooltip-effect="dark"
-                style="width: 100%"
-                @selection-change="handleSelectionChange">
+            ref="multipleTable"
+            :data="tableData"
+            tooltip-effect="dark"
+            style="width: 100%"
+            @selection-change="handleSelectionChange">
             <el-table-column
-                    type="selection"
-                    :span="2">
+                type="selection"
+                :span="2">
             </el-table-column>
             <el-table-column
-                    prop="startTime"
-                    label="开始时间">
+                prop="startTime"
+                label="开始时间">
 
             </el-table-column>
             <el-table-column
-                    prop="endTime"
-                    label="结束时间">
+                prop="endTime"
+                label="结束时间">
             </el-table-column>
             <el-table-column
-                    prop="difficulty"
-                    label="难度系数"
-                    :formatter="formatDifficulty"
-                    show-overflow-tooltip>
+                prop="difficulty"
+                label="难度系数"
+                :formatter="formatDifficulty"
+                show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                    prop="rewardIsForce"
-                    label="奖励算力"
-                    show-overflow-tooltip>
+                prop="rewardIsForce"
+                label="奖励算力"
+                show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                    prop="rewardQuestionNumber"
-                    label="奖励题数"
-                    show-overflow-tooltip>
+                prop="rewardQuestionNumber"
+                label="奖励题数"
+                show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                    prop="topicNumber"
-                    label="题目数量"
-                    show-overflow-tooltip>
+                prop="topicNumber"
+                label="题目数量"
+                show-overflow-tooltip>
             </el-table-column>
             <el-table-column label="操作" width="200px">
                 <template slot-scope="scope">
                     <el-button
-                            size="mini"
-                            @click="handleEdit(scope.$index, scope.row)">编辑
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)">编辑
                     </el-button>
                     <el-button
-                            size="mini"
-                            type="danger"
-                            @click="handleDelete(scope.$index, scope.row)">删除
+                        size="mini"
+                        type="danger"
+                        @click="handleDelete(scope.$index, scope.row)">删除
                     </el-button>
                 </template>
             </el-table-column>
         </el-table>
         <el-pagination
-                @current-change="currentChange"
-                :current-page.sync="currentPageData"
-                background
-                layout="prev, pager, next"
-                :page-count="totalPages"
-                style="margin-top: 20px">
+            @current-change="currentChange"
+            :current-page.sync="currentPageData"
+            background
+            layout="prev, pager, next"
+            :page-count="totalPages"
+            style="margin-top: 20px">
         </el-pagination>
     </div>
 </template>
 
 <script>
     export default {
-        name:'topicList',
+        name: 'topicList',
         data() {
             return {
-                totalPages:0,
-                currentPageData:1,
+                totalPages: 0,
+                currentPageData: 1,
                 tableData: [],
                 multipleSelection: []
             }
         },
-        mounted(){
+        mounted() {
             this.getData()
         },
         methods: {
             // 难度系数处理
-            formatDifficulty(row,column){
-                let data = ['简单', '容易','难', '较难','非常难']
-                return data[(row.difficulty -1)]
+            formatDifficulty(row, column) {
+                let data = ['简单', '容易', '难', '较难', '非常难']
+                return data[(row.difficulty - 1)]
             },
-            getData(){
+            getData() {
                 var self = this;
-                self.$ajax.post('question/page?size=20&page=' + self.currentPageData ,{}).then(function (response) {
-                    if(response.code === 1){
+                self.$ajax.post('question/page?size=20&page=' + self.currentPageData, {}).then(function (response) {
+                    if (response.code === 1) {
                         self.tableData = response.data.content
                         self.totalPages = response.data.totalPages
                     }
                 })
             },
-            handleEdit(index,row) {
-                this.$router.push({path: '/topic.html/addExaminationPaper', query: {data:row}});
+            handleEdit(index, row) {
+                this.$router.push({path: '/addExaminationPaper', query: {data: row}});
             },
-            handleDelete(index,row) {
+            handleDelete(index, row) {
                 var self = this
-                self.$ajax.delete('question/'+row.questionId).then(function (response) {
-                    if(response.code === 1){
-                        self.tableData.splice(index,1)
+                self.$ajax.delete('question/' + row.questionId).then(function (response) {
+                    if (response.code === 1) {
+                        self.tableData.splice(index, 1)
                         self.$notify({
-                            title:'提示',
+                            title: '提示',
                             message: '删除成功',
                             type: 'success',
-                            duration:3000
+                            duration: 3000
                         });
                     }
                 })
@@ -123,7 +123,7 @@
             handleSelectionChange(val) {
                 this.multipleSelection = val;
             },
-            currentChange(){
+            currentChange() {
                 console.log(this.currentPageData)
             }
         }

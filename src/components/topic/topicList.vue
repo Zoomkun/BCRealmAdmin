@@ -105,7 +105,6 @@
 
                     self.tableData[i].correctRate = correctRate
                 }
-
             },
             // 答案数据处理
             getAnswer(){
@@ -164,7 +163,7 @@
                 })
             },
             handleEdit(index,row){
-                this.$router.push({path: '/topic.html/addTopic', query: {data:row}});
+                this.$router.push({path: '/addTopic', query: {data:row}});
             }
         }
     }

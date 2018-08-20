@@ -2,14 +2,14 @@ import Vue from 'vue'
 import App from './index.vue'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import router from './router'
+import router from './router/index'
 import axios from 'axios'
 
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 
 var $ajax = axios.create({
-    baseURL:'http://192.168.31.62:8003/', //测试
+    baseURL:'http://192.168.31.124:8007/admin', //测试
     // baseURL:'', //线上
     timeout: 10000,
 });

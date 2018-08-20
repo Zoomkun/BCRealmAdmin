@@ -2,31 +2,31 @@
     <el-col :span="20">
         <el-form :model="formData" :rules="rules" ref="formData" label-width="100px" class="demo-ruleForm">
             <el-form-item label="免费概率" prop="freeProbability">
-                <el-input-number v-model="formData.freeProbability"  label="免费模式概率"></el-input-number>
+                <el-input-number v-model="formData.freeProbability" label="免费模式概率"></el-input-number>
             </el-form-item>
             <el-form-item label="积分概率" prop="pointProbability">
                 <el-input-number v-model="formData.pointProbability" label="积分模式概率"></el-input-number>
             </el-form-item>
             <el-form-item label="奖励数量" prop="rewardQuantity">
-                <el-input-number v-model="formData.rewardQuantity"  label="奖励数量"></el-input-number>
+                <el-input-number v-model="formData.rewardQuantity" label="奖励数量"></el-input-number>
             </el-form-item>
             <el-form-item label="奖励类型" prop="rewardType">
-                <el-select v-model="formData.rewardType"  placeholder="请选择">
+                <el-select v-model="formData.rewardType" placeholder="请选择">
                     <el-option
-                            v-for="item in options[0]"
-                            :key="item.label"
-                            :label="item.label"
-                            :value="item.value">
+                        v-for="item in options[0]"
+                        :key="item.label"
+                        :label="item.label"
+                        :value="item.value">
                     </el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="是否重要" prop="isImportant">
-                <el-select v-model="formData.isImportant"  placeholder="请选择">
+                <el-select v-model="formData.isImportant" placeholder="请选择">
                     <el-option
-                            v-for="item in options[1]"
-                            :key="item.label"
-                            :label="item.label"
-                            :value="item.value">
+                        v-for="item in options[1]"
+                        :key="item.label"
+                        :label="item.label"
+                        :value="item.value">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -40,22 +40,22 @@
 
 <script>
     export default {
-        name:'addTopic',
-        mounted(){
+        name: 'addTopic',
+        mounted() {
             let self = this
             let data = self.$route.query.data;
-            if(data){
+            if (data) {
                 self.addTitle = '立即修改'
                 self.formData = data
                 self.method = 'PUT'
-            }else{
+            } else {
                 self.method = 'POST'
             }
         },
         data() {
             return {
-                addTitle:'立即添加',
-                options:[
+                addTitle: '立即添加',
+                options: [
                     [
                         {
                             value: 1,
@@ -67,28 +67,28 @@
                         },
                         {
                             value: 4,
-                            label:'DBEX'
+                            label: 'DBEX'
                         }
                     ],
                     [
                         {
                             value: 0,
-                            label:'否'
+                            label: '否'
                         },
                         {
                             value: 1,
-                            label:'是'
+                            label: '是'
                         }
                     ]
                 ],
-                method:'',
-                max:4,
+                method: '',
+                max: 4,
                 formData: {
-                    freeProbability:'',
-                    pointProbability:'',
-                    rewardQuantity:'',
-                    rewardType:'',
-                    isImportant:'',
+                    freeProbability: '',
+                    pointProbability: '',
+                    rewardQuantity: '',
+                    rewardType: '',
+                    isImportant: '',
                 },
                 rules: {
                     freeProbability: [{
@@ -114,13 +114,17 @@
                 var self = this
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        self.$ajax({url:'rewardSector/' ,method:self.method ,data:self.formData}).then(function (response) {
-                            if(response.code === 1){
+                        self.$ajax({
+                            url: 'rewardSector/',
+                            method: self.method,
+                            data: self.formData
+                        }).then(function (response) {
+                            if (response.code === 1) {
                                 self.$notify({
                                     title: '成功',
                                     message: '题目添加成功',
                                     type: 'success',
-                                    duration:1000
+                                    duration: 1000
                                 });
                             }
                         })

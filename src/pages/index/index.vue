@@ -18,7 +18,7 @@
     import Cheader from '@/components/public/publicHeader.vue'
 
     export default {
-        name:'Topic',
+        name:'Index',
         data() {
             return {
                 side: {

@@ -20,8 +20,6 @@
 </style>
 
 <script>
-    // import bus from '@/js/event'
-
     export default {
         name: 'Sidebar',
         data() {
@@ -29,88 +27,88 @@
                 sideBarActive:'',
                 sideBarData: [
                     {
-                        index: '/topic.html/topicList',
+                        index: '/topicList',
                         icon: 'el-icon-tickets',
                         module: '题目问答',
                         cell: [
                             {
                                 cellName: '题库列表',
-                                index: '/topic.html/topicList',
+                                index: '/topicList',
                             },
                             {
                                 cellName: '新增题目',
-                                index: '/topic.html/addTopic',
+                                index: '/addTopic',
                             },
                             {
                                 cellName: '问答列表',
-                                index: '/topic.html/examinationPaperList',
+                                index: '/examinationPaperList',
                             },
                             {
                                 cellName: '创建问答',
-                                index: '/topic.html/addExaminationPaper',
+                                index: '/addExaminationPaper',
                             },
                             {
                                 cellName: '奖盘列表',
-                                index: '/topic.html/rewardList',
+                                index: '/rewardList',
                             },
                             {
                                 cellName: '添加奖盘',
-                                index: '/topic.html/addReward',
+                                index: '/addReward',
                             },
                             {
                                 cellName: '冲顶列表',
-                                index: '/topic.html/superActivityList',
+                                index: '/superActivityList',
                             },
                             {
                                 cellName: '添加冲顶',
-                                index: '/topic.html/addSuperActivity',
+                                index: '/addSuperActivity',
                             },
                             {
                                 cellName:'冲顶统计',
-                                index:'/topic.html/activityStatisticsList',
+                                index:'/activityStatisticsList',
                             },
                             {
                                 cellName:'问答统计',
-                                index:'/topic.html/questionAnswerStatistics',
+                                index:'/questionAnswerStatistics',
                             },
                             {
                                 cellName:'抽奖统计',
-                                index:'/topic.html/drawStatistics'
+                                index:'/drawStatistics'
                             }
                         ]
                     },
                     {
-                        index: '/dataAnalysis.html',
+                        index: '/userTotalStatistics',
                         icon: 'el-icon-document',
                         module: '数据分析',
                         cell: [
                             {
                                 cellName: '留存统计',
-                                index: '/dataAnalysis.html/userStatistics',
+                                index: '/userStatistics',
                             },
                             {
                                 cellName: '用户月统计',
-                                index: '/dataAnalysis.html/userMonthStatistics',
+                                index: '/userMonthStatistics',
                             },
                             {
                                 cellName: '数据一览',
-                                index: '/dataAnalysis.html/userTotalStatistics',
+                                index: '/userTotalStatistics',
                             }
-        
+
                         ]
                     },
                     {
-                        index: '/news.html',
+                        index: '/newsList',
                         icon: 'el-icon-document',
                         module: '资讯管理',
                         cell: [
                             {
                                 cellName: '新闻管理',
-                                index: '/news.html/newsList',
+                                index: '/newsList',
                             },
                             {
                                 cellName: '添加新闻',
-                                index: '/news.html/addNews',
+                                index: '/addNews',
                             },
                         ]
                     },

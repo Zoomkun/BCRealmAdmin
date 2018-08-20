@@ -534,7 +534,7 @@ new Vue({
 
 ```html
  <!-- index.html -->
-<a href='../topic/topic.html'></a>
+<a href='../topic'></a>
 ```
 
 但这样写，不论是在开发环境还是最后测试，都会报404，找不到这个页面。

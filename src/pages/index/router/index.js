@@ -1,9 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import TopicList from '@/components/topic/topicList.vue';
-import AddTopic from '@/components/topic/addTopic.vue';
-import AddExaminationPaper from '@/components/topic/addExaminationPaper.vue';
-import ExaminationPaperList from '@/components/topic/examinationPaperList.vue';
+
+//题目问答
+import TopicList from '@/components/topic/topicList.vue'
+import AddTopic from '@/components/topic/addTopic.vue'
+import AddExaminationPaper from '@/components/topic/addExaminationPaper.vue'
+import ExaminationPaperList from '@/components/topic/examinationPaperList.vue'
+import AddReward from '@/components/topic/addReward.vue'
+import RewardList from '@/components/topic/rewardList.vue'
+import AddSuperActivity from '@/components/topic/addSuperActivity.vue'
+import SuperActivityList from '@/components/topic/superActivityList.vue'
+import ActivityStatisticsList from '@/components/topic/activityStatisticsList.vue'
+import QuestionAnswerStatistics from '@/components/topic/questionAnswerStatistics.vue'
+import DrawStatistics from '@/components/topic/drawStatistics.vue'
+
+// 数据分析
+import UserStatistics from '@/components/dataAnalysis/userStatistics.vue'
+import UserMonthStatistics from '@/components/dataAnalysis/userMonthStatistics.vue'
+import UserTotalStatistics from '@/components/dataAnalysis/userTotalStatistics.vue'
+
+// 资讯管理
+import NewsList from '@/components/news/newsList.vue'
+import AddNews from '@/components/news/addNews.vue'
 
 Vue.use(Router)
 
@@ -11,7 +29,7 @@ export default new Router({
     mode: 'history',
     routes: [
         {
-            path: '/',
+            path: '/topicList',
             name: 'TopicList',
             component: TopicList
         },
@@ -40,5 +58,65 @@ export default new Router({
             name: 'ExaminationPaperList',
             component: ExaminationPaperList
         },
+        {
+            path: '/addReward',
+            name: 'AddReward',
+            component: AddReward
+        },
+        {
+            path: '/rewardList',
+            name: 'RewardList',
+            component: RewardList
+        },
+        {
+            path: '/addSuperActivity',
+            name: 'AddSuperActivity',
+            component: AddSuperActivity
+        },
+        {
+            path: '/superActivityList',
+            name: 'SuperActivityList',
+            component: SuperActivityList
+        },
+        {
+            path: '/activityStatisticsList',
+            name: 'ActivityStatisticsList',
+            component: ActivityStatisticsList
+        },
+        {
+            path: '/questionAnswerStatistics',
+            name: 'QuestionAnswerStatistics',
+            component: QuestionAnswerStatistics
+        },
+        {
+            path: '/drawStatistics',
+            name: 'DrawStatistics',
+            component: DrawStatistics
+        },
+        {
+            path: '/userStatistics',
+            name: 'UserStatistics',
+            component: UserStatistics
+        },
+        {
+            path: '/userMonthStatistics',
+            name: 'UserMonthStatistics',
+            component: UserMonthStatistics
+        },
+        {
+            path: '/userTotalStatistics',
+            name: 'UserTotalStatistics',
+            component: UserTotalStatistics
+        },
+        {
+            path: '/newsList',
+            name: 'NewsList',
+            component: NewsList
+        },
+        {
+            path: '/addNews',
+            name: 'AddNews',
+            component: AddNews
+        }
     ],
 })
