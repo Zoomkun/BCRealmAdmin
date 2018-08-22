@@ -20,14 +20,11 @@
 </template>
 
 <script>
-    import Vue from 'Vue'
-    import VueQuillEditor from 'vue-quill-editor'
     import 'quill/dist/quill.core.css'
     import 'quill/dist/quill.snow.css'
     import 'quill/dist/quill.bubble.css'
     import {quillEditor, Quill} from 'vue-quill-editor'
     import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
-    Vue.use(VueQuillEditor);
     Quill.register('modules/ImageExtend', ImageExtend)
     export default {
         name: 'addNews',
@@ -68,7 +65,7 @@
                             loading: true,  // 可选参数 是否显示上传进度和提示语
                             name: 'uploadOss',  // 图片参数名
                             size: 500,  // 可选参数 图片大小，单位为M，1M = 1024kb
-                            action: 'http://localhost:8007/oss/uploadFile',  // 服务器地址, 如果action为空，则采用base64插入图片
+                            action: 'http://localhost:8001/oss/uploadFile',  // 服务器地址, 如果action为空，则采用base64插入图片
                             // response 为一个函数用来获取服务器返回的具体图片地址
                             // 例如服务器返回{code: 200; data:{ url: 'baidu.com'}}
                             // 则 return res.data.url
@@ -127,12 +124,6 @@
 </script>
 
 <style lang="stylus">
-    .el-rate
-        display inline-block
-        vertical-align middle
-
-    .el-row
-        margin-bottom 20px
 </style>
 
 

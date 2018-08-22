@@ -197,12 +197,6 @@
 </script>
 
 <style lang="stylus">
-    .el-rate
-        display inline-block
-        vertical-align middle
-
-    .el-row
-        margin-bottom 20px
 </style>
 
 
