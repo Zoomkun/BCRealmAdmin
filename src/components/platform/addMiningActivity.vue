@@ -1,8 +1,8 @@
 <template>
-    <el-col :span="20">
+    <el-col :span="15">
         <el-form :model="formData" :rules="rules" ref="formData" label-width="100px" class="demo-ruleForm">
-            <el-form-item label="冲顶状态" prop="answerStatus">
-                <el-select v-model="formData.answerStatus" placeholder="请选择">
+            <el-form-item label="活动状态" prop="state">
+                <el-select v-model="formData.state" placeholder="请选择">
                     <el-option
                             v-for="item in select[0]"
                             :key="item.value"
@@ -35,30 +35,27 @@
                         placeholder="选择日期时间">
                 </el-date-picker>
             </el-form-item>
-            <el-form-item label="答题时长" prop="answerTime">
-                <el-input-number v-model="formData.answerTime" :min="0" :max="10000" label="描述文字"></el-input-number>
+            <el-form-item label="奖励间隔" prop="rewardTime">
+                <el-input-number v-model="formData.rewardTime" :min="0" :max="10000" label="描述文字"></el-input-number>
             </el-form-item>
-            <el-form-item label="问题数量" prop="questionNumber">
-                <el-input-number v-model="formData.questionNumber" :min="0" :max="10000" label="描述文字"></el-input-number>
+            <el-form-item label="最大奖励值" prop="stageGainMaxValue">
+                <el-input-number v-model="formData.stageGainMaxValue" :min="0" :max="10000" label="描述文字"></el-input-number>
             </el-form-item>
-            <el-form-item label="奖励数量" prop="rewardQuantity">
-                <el-input-number v-model="formData.rewardQuantity" :min="0" :max="10000" label="描述文字"></el-input-number>
+            <el-form-item label="总奖励值" prop="totalRewardValue">
+                <el-input-number v-model="formData.totalRewardValue" :min="0" :max="10000" label="描述文字"></el-input-number>
             </el-form-item>
-            <el-form-item label="冲顶描述" prop="description">
+            <el-form-item label="活动描述" prop="description">
                 <el-input v-model="formData.description" placeholder="请输入内容"></el-input>
             </el-form-item>
             <el-form-item label="奖励类型" prop="rewardType">
                 <el-select v-model="formData.rewardType" placeholder="请选择">
                     <el-option
-                            v-for="item in select[1]"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
+                            v-for="item in tableData"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
                     </el-option>
                 </el-select>
-            </el-form-item>
-            <el-form-item label="参与奖比率" prop="failedShareRate">
-                <el-input-number v-model="formData.failedShareRate" :min="0" :max="10000" label="描述文字"></el-input-number>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('formData')">{{addTitle}}</el-button>
@@ -70,8 +67,9 @@
 
 <script>
     export default {
-        name: 'addSuperActivity',
+        name: 'addMiningActivity',
         mounted() {
+            this.getRewardType()
             let self = this
             let data = self.$route.query.data;
             if (data) {
@@ -84,29 +82,29 @@
         },
         data() {
             return {
+                tableData:[],
                 method:'',//修改还是新增
                 addTitle: '立即添加',
                 formData: {
-                    answerStatus: '',
+                    state: '',
                     description: '',
-                    answerTime:'',
-                    rewardType:'',
+                    rewardTime:'',
+                    stageGainMaxValue:'',
                     startTime:'',
                     endTime:'',
                     previewTime:'',
-                    questionNumber:'',
-                    rewardQuantity:'',
-                    failedShareRate:''
+                    rewardType:'',
+                    totalRewardValue:''
                 },
                 rules: {
-                    answerStatus:[{
-                        required: true, message: '请选择冲顶状态', trigger: 'change'
+                    state:[{
+                        required: true, message: '请选择活动状态', trigger: 'change'
                     }],
                     description:[{
-                        required: true, message: '请输入冲顶描述', trigger: 'blur'
+                        required: true, message: '请输入活动描述', trigger: 'blur'
                     }],
-                    answerTime:[{
-                        required: true, message: '请输入答题时间', trigger: 'blur'
+                    rewardTime:[{
+                        required: true, message: '请输入奖励时间间隔', trigger: 'blur'
                     }],
                     rewardType:[{
                         required: true, message: '请选择奖励类型', trigger: 'blur'
@@ -120,11 +118,11 @@
                     previewTime:[{
                         required: true, message: '请选择预告时间', trigger: 'blur'
                     }],
-                    questionNumber:[{
-                        required: true, message: '请选择问题数量', trigger: 'blur'
+                    stageGainMaxValue:[{
+                        required: true, message: '请输入阶段最大奖励值', trigger: 'blur'
                     }],
-                    rewardQuantity:[{
-                        required: true, message: '请选择奖励类型', trigger: 'change'
+                    totalRewardValue:[{
+                        required: true, message: '请输入总奖励值', trigger: 'change'
                     }],
 
                 },
@@ -144,29 +142,26 @@
                         }
                     ],
                     [
-                        {
-                            value: 1,
-                            label: '算力'
-                        }, {
-                            value: 2,
-                            label: '积分'
-                        }, {
-                            value: 3,
-                            label: '经验'
-                        }, {
-                            value: 4,
-                            label: 'dbex'
-                        }
-                    ]
+
+                    ]                 
                 ],
             }
         },
         methods: {
+            //获取奖励类型接口
+            getRewardType(){
+                var self = this;
+                self.$ajax.get('wcoin/internal/list').then(function (response) {
+                    if(response.code === 1){
+                        self.tableData = response.data;
+                    }
+                })
+            },
             submitForm(formName) {
                 var self = this
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        self.$ajax({url:'dbex/admin/activity/', method: self.method,data:self.formData}).then(function (response) {
+                        self.$ajax({url:'wplatform/admin/mining/activity/', method: self.method,data:self.formData}).then(function (response) {
                             if (response.code === 1) {
                                 self.$notify({
                                     title: '成功',

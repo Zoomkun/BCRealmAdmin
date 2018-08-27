@@ -105,7 +105,7 @@
                 var self = this
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        self.$ajax({url: 'topic/', data: self.ruleForm, method: self.method}).then(function (response) {
+                        self.$ajax({url: 'dbex/admin/topic/', data: self.ruleForm, method: self.method}).then(function (response) {
                             if (response.code === 1) {
                                 self.$notify({
                                     title: '成功',

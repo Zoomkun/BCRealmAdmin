@@ -81,7 +81,7 @@
             //获取列表数据
             getData(){
                 var self = this;
-                self.$ajax.post('topic/page?size=20&page=' + self.currentPageData ,{}).then(function (response) {
+                self.$ajax.post('dbex/admin/topic/page?size=20&page=' + self.currentPageData ,{}).then(function (response) {
                     if(response.code === 1){
                         self.tableData = response.data.content;
                         self.totalPages = response.data.totalPages;
@@ -150,7 +150,7 @@
             },
             handleDelete(index,row){
                 var self = this
-                self.$ajax.delete('topic/'+row.topicId).then(function (response) {
+                self.$ajax.delete('dbex/admin/topic/'+row.topicId).then(function (response) {
                     if(response.code === 1){
                         self.tableData.splice(index,1)
                         self.$notify({

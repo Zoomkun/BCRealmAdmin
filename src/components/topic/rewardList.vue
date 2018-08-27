@@ -80,7 +80,7 @@
             },
             getData() {
                 var self = this;
-                self.$ajax.get('rewardSector/list').then(function (response) {
+                self.$ajax.get('dbex/admin/rewardSector/list').then(function (response) {
                     if (response.code === 1) {
                         self.tableData = response.data
                     }
@@ -106,7 +106,7 @@
             },
             handleDelete(index, row) {
                 var self = this
-                self.$ajax.delete('rewardSector/' + row.id).then(function (response) {
+                self.$ajax.delete('dbex/admin/rewardSector/' + row.id).then(function (response) {
                     if (response.code === 1) {
                         self.tableData.splice(index, 1)
                         self.$notify({

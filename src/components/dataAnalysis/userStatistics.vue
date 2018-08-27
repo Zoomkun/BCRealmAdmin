@@ -25,6 +25,7 @@
         </el-col>
         <el-table
             ref="multipleTable"
+            border
             :data="tableData"
             tooltip-effect="dark"
             style="width: 100%"
@@ -76,18 +77,20 @@
                 label="十五日留存"
                 show-overflow-tooltip>
             </el-table-column>
-            <el-table-column
+            <el-table-column    
                 prop="thirtiethDay"
                 label="三十日留存"
                 show-overflow-tooltip>
             </el-table-column>
         </el-table>
         <el-pagination
+            @size-change="sizeChange"
+            :page-size.sync="pageSizeData"
             @current-change="currentChange"
             :current-page.sync="currentPageData"
-            background
-            layout="prev, pager, next"
-            :page-count="totalPages"
+            :page-sizes="[10, 20, 30, 40]"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total"
             style="margin-top: 20px">
         </el-pagination>
     </div>
@@ -100,12 +103,14 @@
             return {
                 totalPages: 0,
                 currentPageData: 1,
+                pageSizeData: 10,
+                total: 0,
                 tableData: [],
                 multipleSelection: [],
                 filters: {
                     startTime: '',
                     endTime: ''
-                },
+                }           
             };
         },
         mounted() {
@@ -116,7 +121,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "user/statistics/page?size=20&page=" + self.currentPageData,
+                        "wuser/admin/user/statistics/page?size="+ self.pageSizeData + "&page=" + self.currentPageData,
                         {
                             startTime: this.filters.startTime,
                             endTime: this.filters.endTime
@@ -125,7 +130,8 @@
                     .then(function (response) {
                         if (response.code === 1) {
                             self.tableData = response.data.content;
-                            self.totalPages = response.data.totalPages;
+                            // self.totalPages = response.data.totalPages;
+                            self.total = response.data.totalElements;
                         }
                     });
             },
@@ -147,8 +153,11 @@
                     duration: 3000
                 });
             },
+            sizeChange() {
+                this.getData()
+            },
             currentChange() {
-                console.log(this.currentPageData);
+                this.getData()
             }
         }
     };

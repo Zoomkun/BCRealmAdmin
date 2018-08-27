@@ -37,7 +37,7 @@
                 self.method = 'PUT'
             } else {
                 self.method = 'POST'
-            }
+            };
         },
         components: {
             quillEditor
@@ -64,8 +64,8 @@
                         ImageExtend: {
                             loading: true,  // 可选参数 是否显示上传进度和提示语
                             name: 'uploadOss',  // 图片参数名
-                            size: 500,  // 可选参数 图片大小，单位为M，1M = 1024kb
-                            action: 'http://localhost:8001/oss/uploadFile',  // 服务器地址, 如果action为空，则采用base64插入图片
+                            size: 500,  // 可选参数 图片大小，单位为M，1M = 1024kb                           
+                            action: 'http://test.bcrealm.com/api/wuser/oss/uploadFile',  // 服务器地址, 如果action为空，则采用base64插入图片
                             // response 为一个函数用来获取服务器返回的具体图片地址
                             // 例如服务器返回{code: 200; data:{ url: 'baidu.com'}}
                             // 则 return res.data.url
@@ -100,7 +100,7 @@
                 var self = this
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        self.$ajax({url: 'news/', data: self.ruleForm, method: self.method}).then(function (response) {
+                        self.$ajax({url: 'wnews/admin/news/', data: self.ruleForm, method: self.method}).then(function (response) {
                             if (response.code === 1) {
                                 self.$notify({
                                     title: '成功',

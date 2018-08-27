@@ -87,7 +87,7 @@
             },
             getData() {
                 var self = this;
-                self.$ajax.post('question/page?size=20&page=' + self.currentPageData, {}).then(function (response) {
+                self.$ajax.post('dbex/admin/question/page?size=20&page=' + self.currentPageData, {}).then(function (response) {
                     if (response.code === 1) {
                         self.tableData = response.data.content
                         self.totalPages = response.data.totalPages
@@ -99,7 +99,7 @@
             },
             handleDelete(index, row) {
                 var self = this
-                self.$ajax.delete('question/' + row.questionId).then(function (response) {
+                self.$ajax.delete('dbex/admin/question/' + row.questionId).then(function (response) {
                     if (response.code === 1) {
                         self.tableData.splice(index, 1)
                         self.$notify({

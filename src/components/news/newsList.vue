@@ -19,21 +19,6 @@
                 label="标题">
             </el-table-column>
             <el-table-column
-                prop="content"
-                label="内容"
-                show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-                prop="gameId"
-                label="游戏ID"
-                show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
-                prop="gameName"
-                label="游戏名字"
-                show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
                 prop="createTime"
                 label="创建日期"
                 show-overflow-tooltip>
@@ -86,7 +71,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "news/page?page=" + self.currentPageData + "&pageSize=10",
+                        "wnews/admin/news/page?page=" + self.currentPageData + "&pageSize=10",
                         {}
                     )
                     .then(function (response) {
@@ -116,7 +101,7 @@
             },
             handleDelete(index, row) {
                 var self = this
-                self.$ajax.delete('news/' + row.id).then(function (response) {
+                self.$ajax.delete('wnews/admin/news/' + row.id).then(function (response) {
                     if (response.code === 1) {
                         self.tableData.splice(index, 1)
                         self.$notify({

@@ -25,6 +25,7 @@
         </el-col>
         <el-table
             ref="multipleTable"
+            border
             :data="tableData"
             tooltip-effect="dark"
             style="width: 100%"
@@ -82,7 +83,7 @@
             @current-change="currentChange"
             :current-page.sync="currentPageData"
             :page-size.sync="pageSize"
-            :page-sizes="[1, 2, 3, 4]"
+            :page-sizes="[10, 20, 30, 40]"
             background
             layout="total, sizes, prev, pager, next, jumper"
             :total="total"
@@ -98,7 +99,7 @@
             return {
                 totalPages: 0,
                 currentPageData: 1,
-                pageSize: 1,
+                pageSize: 10,
                 tableData: [],
                 multipleSelection: [],
                 filters: {
@@ -116,7 +117,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "user/statistics/total/page?size=" + self.pageSize + "&page=" + self.currentPageData,
+                        "wuser/admin/user/statistics/total/page?size=" + self.pageSize + "&page=" + self.currentPageData,
                         {
                             startTime: this.filters.startTime,
                             endTime: this.filters.endTime

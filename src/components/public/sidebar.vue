@@ -112,6 +112,21 @@
                             },
                         ]
                     },
+                    {
+                        index:'miningActivityList',
+                        icon:'el-icon-document',
+                        module:'平台管理',
+                        cell:[
+                            {
+                                cellName:'挖矿活动列表',
+                                index:'/miningActivityList',
+                            },
+                            {
+                                cellName:'添加挖矿活动',
+                                index:'/addMiningActivity',
+                            }
+                        ]
+                    }
                 ]
             };
         },

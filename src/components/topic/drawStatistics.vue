@@ -119,7 +119,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "draw/statistics/page?size=20&page=" + self.currentPageData,
+                        "dbex/admin/draw/statistics/page?size=20&page=" + self.currentPageData,
                         {}
                     )
                     .then(function (response) {
@@ -152,7 +152,7 @@
                 this.dialogStatus = 'detail'
                 this.dialogFormVisible = true
                 var self = this
-                self.$ajax.get('draw/statistics/' + row.id).then(function (response) {
+                self.$ajax.get('dbex/admin/draw/statistics/' + row.id).then(function (response) {
                     if (response.code === 1) {
                         self.shadowData = response.data;
                         self.getSectorGetRate()

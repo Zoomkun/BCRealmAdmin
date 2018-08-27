@@ -23,12 +23,15 @@ import UserTotalStatistics from '@/components/dataAnalysis/userTotalStatistics.v
 import NewsList from '@/components/news/newsList.vue'
 import AddNews from '@/components/news/addNews.vue'
 
+//平台挖矿
+import MiningActivityList from '@/components/platform/miningActivityList.vue'
+import AddMiningActivity from '@/components/platform/addMiningActivity.vue'
+
 Vue.use(Router)
 
 export default new Router({
     mode: 'history',
-    routes: [
-        {
+    routes: [{
             path: '/topicList',
             name: 'TopicList',
             component: TopicList
@@ -117,6 +120,16 @@ export default new Router({
             path: '/addNews',
             name: 'AddNews',
             component: AddNews
+        },
+        {
+            path: '/miningActivityList',
+            name: 'MiningActivityList',
+            component: MiningActivityList
+        },
+        {
+            path: '/addMiningActivity',
+            name: 'AddMiningActivity',
+            component: AddMiningActivity
         }
     ],
 })

@@ -8,14 +8,14 @@ import axios from 'axios'
 
 Vue.use(ElementUI);
 Vue.use(VueQuillEditor);
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-let url = ''
+let url = '';
 if (window.location.href.indexOf('test') == 0) {
-    url = 'http://api.bcrealm.com/api/dbex/admin'
+    url = 'http://api.bcrealm.com/api/'
 } else {
-    url = 'http://test.bcrealm.com/api/dbex/admin'
-}
+    url = 'http://test.bcrealm.com/api/'
+};
 
 var $ajax = axios.create({
     baseURL: url,

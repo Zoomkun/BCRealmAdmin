@@ -25,6 +25,7 @@
         </el-col>
         <el-table
             ref="multipleTable"
+            border
             :data="tableData"
             tooltip-effect="dark"
             style="width: 100%"
@@ -91,7 +92,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "user/statistics/month/page?size=20&page=" + self.currentPageData,
+                        "wuser/admin/user/statistics/month/page?size=20&page=" + self.currentPageData,
                         {
                             startTime: this.filters.startTime,
                             endTime: this.filters.endTime

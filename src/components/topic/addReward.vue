@@ -115,7 +115,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         self.$ajax({
-                            url: 'rewardSector/',
+                            url: 'dbex/admin/rewardSector/',
                             method: self.method,
                             data: self.formData
                         }).then(function (response) {

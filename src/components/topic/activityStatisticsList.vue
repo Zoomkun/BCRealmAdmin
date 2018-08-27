@@ -79,7 +79,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "activity/statistics/page?size=20&page=" + self.currentPageData,
+                        "dbex/admin/activity/statistics/page?size=20&page=" + self.currentPageData,
                         {}
                     )
                     .then(function (response) {
