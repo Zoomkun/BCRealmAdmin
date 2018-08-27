@@ -85,10 +85,11 @@
         </el-table>
         <el-pagination
             @size-change="sizeChange"
-            :page-size.sync="pageSizeData"
             @current-change="currentChange"
+            :page-size.sync="pageSize"
             :current-page.sync="currentPageData"
-            :page-sizes="[10, 20, 30, 40]"
+            :page-sizes="[10, 20, 30, 50]"
+            background
             layout="total, sizes, prev, pager, next, jumper"
             :total="total"
             style="margin-top: 20px">
@@ -101,9 +102,8 @@
         name: "userStatistics",
         data() {
             return {
-                totalPages: 0,
                 currentPageData: 1,
-                pageSizeData: 10,
+                pageSize: 10,
                 total: 0,
                 tableData: [],
                 multipleSelection: [],
@@ -121,7 +121,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "wuser/admin/user/statistics/page?size="+ self.pageSizeData + "&page=" + self.currentPageData,
+                        "wuser/admin/user/statistics/page?size="+ self.pageSize + "&page=" + self.currentPageData,
                         {
                             startTime: this.filters.startTime,
                             endTime: this.filters.endTime
@@ -130,7 +130,6 @@
                     .then(function (response) {
                         if (response.code === 1) {
                             self.tableData = response.data.content;
-                            // self.totalPages = response.data.totalPages;
                             self.total = response.data.totalElements;
                         }
                     });
@@ -153,7 +152,8 @@
                     duration: 3000
                 });
             },
-            sizeChange() {
+            sizeChange(val) {
+                this.pageSize = val
                 this.getData()
             },
             currentChange() {

@@ -51,11 +51,14 @@
             </el-table-column>
         </el-table>
         <el-pagination
+                @size-change="handleSizeChange"
                 @current-change="currentChange"
                 :current-page.sync="currentPageData"
+                :page-size.sync="pageSize"
+                :page-sizes="[10, 20, 30, 50]"
                 background
-                layout="prev, pager, next"
-                :page-count="totalPages"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total"
                 style="margin-top: 20px">
         </el-pagination>
     </div>
@@ -68,8 +71,9 @@
         name:'topicList',
         data() {
             return {
-                totalPages:0,
+                total:0,
                 currentPageData:1,
+                pageSize: 10,
                 tableData: [],
                 multipleSelection: [],
             }
@@ -81,10 +85,10 @@
             //获取列表数据
             getData(){
                 var self = this;
-                self.$ajax.post('dbex/admin/topic/page?size=20&page=' + self.currentPageData ,{}).then(function (response) {
+                self.$ajax.post('dbex/admin/topic/page?size='+ self.pageSize + '&page=' + self.currentPageData ,{}).then(function (response) {
                     if(response.code === 1){
                         self.tableData = response.data.content;
-                        self.totalPages = response.data.totalPages;
+                        self.total = response.data.totalElements;
                         self.getAnswer()
                         self.getCorrectRate()
                     }
@@ -146,6 +150,10 @@
                 });
             },
             currentChange(){
+                this.getData()
+            },
+            handleSizeChange(val){
+                this.pageSize = val
                 this.getData()
             },
             handleDelete(index,row){

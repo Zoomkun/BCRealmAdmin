@@ -83,7 +83,7 @@
             @current-change="currentChange"
             :current-page.sync="currentPageData"
             :page-size.sync="pageSize"
-            :page-sizes="[10, 20, 30, 40]"
+            :page-sizes="[10, 20, 30, 50]"
             background
             layout="total, sizes, prev, pager, next, jumper"
             :total="total"
@@ -97,16 +97,15 @@
         name: "userStatistics",
         data() {
             return {
-                totalPages: 0,
                 currentPageData: 1,
+                total: 0,
                 pageSize: 10,
                 tableData: [],
                 multipleSelection: [],
                 filters: {
                     startTime: '',
                     endTime: ''
-                },
-                total: 0
+                }
             };
         },
         mounted() {
@@ -149,11 +148,12 @@
                     duration: 3000
                 });
             },
-            handleSizeChange() {
-                console.log(this.pageSize);
+            handleSizeChange(val) {
+                this.pageSize = val 
+                this.getData()
             },
             currentChange() {
-                console.log(this.currentPageData);
+                this.getData()
             }
         }
     };

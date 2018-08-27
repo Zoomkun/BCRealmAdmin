@@ -177,8 +177,8 @@
                 }
 
             },
-            currentChange() {
-                console.log(this.currentPageData);
+            currentChange(){
+                this.getData()
             }
         }
     };
