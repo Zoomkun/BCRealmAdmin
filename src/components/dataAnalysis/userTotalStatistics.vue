@@ -125,7 +125,6 @@
                     .then(function (response) {
                         if (response.code === 1) {
                             self.tableData = response.data.content;
-                            self.totalPages = response.data.totalPages;
                             self.total = response.data.totalElements;
                         }
                     });
