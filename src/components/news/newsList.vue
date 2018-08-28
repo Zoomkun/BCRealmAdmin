@@ -227,7 +227,7 @@
                 this.dialogStatus = 'detail'
                 this.dialogFormVisible = true
                 var self = this
-                self.$ajax.get('http://localhost:8000/admin/list?newsId='+ row.id).then(function (response) {
+                self.$ajax.get('http://localhost:8000/admin/game/list?newsId='+ row.id).then(function (response) {
                     if(response.code === 1){
                         self.gameData = response.data;
                         self.newsId = row.id;

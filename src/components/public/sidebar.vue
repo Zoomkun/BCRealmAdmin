@@ -124,6 +124,14 @@
                             {
                                 cellName:'添加挖矿活动',
                                 index:'/addMiningActivity',
+                            },
+                            {
+                                cellName:'添加游戏',
+                                index:'/addGame',
+                            },
+                            {
+                                cellName:'游戏列表',
+                                index:'/gameList'
                             }
                         ]
                     }
