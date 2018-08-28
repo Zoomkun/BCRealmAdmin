@@ -172,6 +172,8 @@
                             duration: 1000
                         })                   
                     }
+                    self.dialogFormVisible = false
+                    self.getData()
                 })
                 }).catch(function(){
                     alert(0)

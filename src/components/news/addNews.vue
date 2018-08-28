@@ -35,7 +35,6 @@ Quill.register("modules/ImageExtend", ImageExtend);
 export default {
   name: "addNews",
   mounted() {
-    this.getGameData()
     let self = this;
     let data = self.$route.query.data;
     if (data) {
@@ -109,15 +108,6 @@ export default {
     };
   },
   methods: {
-    //获取游戏信息接口
-    getGameData(){
-        var self = this;
-        self.$ajax.get('admin/list').then(function (response) {
-            if(response.code === 1){
-                self.gameData = response.data;
-            }
-        })
-    },
     submitForm(formName) {
       var self = this;
       this.$refs[formName].validate(valid => {
