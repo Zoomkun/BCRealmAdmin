@@ -5,16 +5,16 @@
                 <el-form-item>
                     <el-date-picker
                         v-model="filters.startTime"
-                        type="date"
+                        type="month"
                         placeholder="开始时间"
-                        value-format="yyyy-MM-dd 00:00:00">
+                        value-format="yyyy-MM-01 00:00:00">
                     </el-date-picker>
                 </el-form-item>
                 <el-form-item>
                     <el-date-picker
                         v-model="filters.endTime"
-                        type="date"
-                        value-format="yyyy-MM-dd 23:59:59"
+                        type="month"
+                        value-format="yyyy-MM-31 23:59:59"
                         placeholder="结束时间">
                     </el-date-picker>
                 </el-form-item>
@@ -92,7 +92,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "wuser/admin/user/statistics/month/page?size=20&page=" + self.currentPageData,
+                        "admin/user/statistics/month/page?size=20&page=" + self.currentPageData,
                         {
                             startTime: this.filters.startTime,
                             endTime: this.filters.endTime

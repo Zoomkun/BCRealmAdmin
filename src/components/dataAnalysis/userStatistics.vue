@@ -121,7 +121,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "wuser/admin/user/statistics/page?size="+ self.pageSize + "&page=" + self.currentPageData,
+                        "admin/user/statistics/page?size="+ self.pageSize + "&page=" + self.currentPageData,
                         {
                             startTime: this.filters.startTime,
                             endTime: this.filters.endTime
