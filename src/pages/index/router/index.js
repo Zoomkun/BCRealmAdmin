@@ -26,6 +26,8 @@ import AddNews from '@/components/news/addNews.vue'
 //平台挖矿
 import MiningActivityList from '@/components/platform/miningActivityList.vue'
 import AddMiningActivity from '@/components/platform/addMiningActivity.vue'
+import AddGame from '@/components/platform/addGame.vue'
+import GameList from '@/components/platform/gameList.vue'
 
 Vue.use(Router)
 
@@ -130,6 +132,16 @@ export default new Router({
             path: '/addMiningActivity',
             name: 'AddMiningActivity',
             component: AddMiningActivity
+        },
+        {
+            path: '/addGame',
+            name: 'AddGame',
+            component: AddGame
+        },
+        {
+            path: '/gameList',
+            name: 'GameList',
+            component: GameList
         }
     ],
 })
