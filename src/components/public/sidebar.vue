@@ -48,13 +48,16 @@
                                 index: '/addExaminationPaper',
                             },
                             {
-                                cellName: '奖盘列表',
-                                index: '/rewardList',
+                                cellName:'问答统计',
+                                index:'/questionAnswerStatistics',
                             },
-                            {
-                                cellName: '添加奖盘',
-                                index: '/addReward',
-                            },
+                        ]
+                    },
+                    {
+                        index:'/superActivityList',
+                        icon:'el-icon-document',
+                        module:'冲顶管理',
+                        cell:[
                             {
                                 cellName: '冲顶列表',
                                 index: '/superActivityList',
@@ -67,9 +70,20 @@
                                 cellName:'冲顶统计',
                                 index:'/activityStatisticsList',
                             },
+                        ]
+                    },
+                    {
+                        index:'rewardList',
+                        icon:'el-icon-view',
+                        module:'抽奖管理',
+                        cell:[
                             {
-                                cellName:'问答统计',
-                                index:'/questionAnswerStatistics',
+                                cellName: '奖盘列表',
+                                index: '/rewardList',
+                            },
+                            {
+                                cellName: '添加奖盘',
+                                index: '/addReward',
                             },
                             {
                                 cellName:'抽奖统计',
@@ -79,7 +93,7 @@
                     },
                     {
                         index: '/userTotalStatistics',
-                        icon: 'el-icon-document',
+                        icon: 'el-icon-message',
                         module: '数据分析',
                         cell: [
                             {
@@ -99,7 +113,7 @@
                     },
                     {
                         index: '/newsList',
-                        icon: 'el-icon-document',
+                        icon: 'el-icon-news',
                         module: '资讯管理',
                         cell: [
                             {
@@ -114,7 +128,7 @@
                     },
                     {
                         index:'miningActivityList',
-                        icon:'el-icon-document',
+                        icon:'el-icon-menu',
                         module:'平台管理',
                         cell:[
                             {

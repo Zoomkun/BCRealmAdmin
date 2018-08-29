@@ -59,21 +59,13 @@ export default {
             isShow: 0
         },
         rules: {
-        title: [
-          {
-            required: true,
-            message: "请输入新闻标题",
-            trigger: "blur"
-          }
-        ],
-        content: [
-          {
-            required: true,
-            message: "请输入新闻内容",
-            trigger: "change"
-          }
-        ]
-      },
+            title: [{
+                required: true,message: "请输入新闻标题",trigger: "blur"
+            }],
+            content: [{
+                required: true,message: "请输入新闻内容",trigger: "change"
+            }]
+        },
       content: "",
       editorOption: {
         modules: {
