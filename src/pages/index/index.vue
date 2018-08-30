@@ -32,9 +32,6 @@
         },
         mounted() {
             bus.$on('loginIng',function(data){
-                $emit(loginIng.static,data)
-                this.loginIng = data
-                console.log(this.loginIng)
             })
         },
         components: {
