@@ -77,7 +77,7 @@
                 label="十五日留存"
                 show-overflow-tooltip>
             </el-table-column>
-            <el-table-column    
+            <el-table-column
                 prop="thirtiethDay"
                 label="三十日留存"
                 show-overflow-tooltip>
@@ -110,7 +110,7 @@
                 filters: {
                     startTime: '',
                     endTime: ''
-                }           
+                }
             };
         },
         mounted() {
@@ -121,7 +121,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "admin/user/statistics/page?size="+ self.pageSize + "&page=" + self.currentPageData,
+                        "admin/user/statistics/page?size=" + self.pageSize + "&page=" + self.currentPageData,
                         {
                             startTime: this.filters.startTime,
                             endTime: this.filters.endTime

@@ -37,10 +37,10 @@ Vue.use(Router)
 export default new Router({
     mode: 'history',
     routes: [{
-            path: '/topicList',
-            name: 'TopicList',
-            component: TopicList
-        },
+        path: '/topicList',
+        name: 'TopicList',
+        component: TopicList
+    },
         {
             path: '/addTopic/:id',
             name: 'AddTopic',

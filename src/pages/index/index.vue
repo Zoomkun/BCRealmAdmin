@@ -2,7 +2,7 @@
     <div id="app">
 
         <el-container style=" border: 1px solid #eee">
-            <Sidebar v-if="loginIng.static"></Sidebar>
+            <Sidebar v-if="login.status"></Sidebar>
             <el-container>
                 <el-main>
                     <Cheader></Cheader>
@@ -22,8 +22,8 @@
         name:'Index',
         data() {
             return {
-                loginIng:{
-                    static:false
+                login:{
+                    status:false
                 },
                 side: {
                     sideNow:'1-1'
@@ -31,7 +31,11 @@
             }
         },
         mounted() {
-            bus.$on('loginIng',function(data){
+            let self = this
+            bus.$on('loginStatus',function(data){
+                self.$forceUpdate()
+                self.$set(self.login, 'status', data)
+                console.log(self.login)
             })
         },
         components: {

@@ -107,7 +107,7 @@
                     duration: 3000
                 });
             },
-            currentChange(){
+            currentChange() {
                 this.getData()
             }
         }

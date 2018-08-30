@@ -12,8 +12,8 @@
             </el-form-item>
             <el-form-item label="游戏状态">
                 <el-radio-group v-model="ruleForm.status">
-                  <el-radio class="radio" :label=1>开始</el-radio>
-                  <el-radio class="radio" :label=2>关闭</el-radio>
+                    <el-radio class="radio" :label=1>开始</el-radio>
+                    <el-radio class="radio" :label=2>关闭</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item>

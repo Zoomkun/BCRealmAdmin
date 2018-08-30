@@ -4,35 +4,35 @@
             <el-form-item label="冲顶状态" prop="answerStatus">
                 <el-select v-model="formData.answerStatus" placeholder="请选择">
                     <el-option
-                            v-for="item in select[0]"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
+                        v-for="item in select[0]"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
                     </el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="开始时间" prop="startTime">
                 <el-date-picker
-                        v-model="formData.startTime"
-                        type="datetime"
-                        placeholder="选择日期时间"
-                        value-format="yyyy-MM-dd HH:mm:ss">
+                    v-model="formData.startTime"
+                    type="datetime"
+                    placeholder="选择日期时间"
+                    value-format="yyyy-MM-dd HH:mm:ss">
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="结束时间" prop="endTime">
                 <el-date-picker
-                        v-model="formData.endTime"
-                        type="datetime"
-                        value-format="yyyy-MM-dd HH:mm:ss"
-                        placeholder="选择日期时间">
+                    v-model="formData.endTime"
+                    type="datetime"
+                    value-format="yyyy-MM-dd HH:mm:ss"
+                    placeholder="选择日期时间">
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="预告时间" prop="previewTime">
                 <el-date-picker
-                        v-model="formData.previewTime"
-                        type="datetime"
-                        value-format="yyyy-MM-dd HH:mm:ss"
-                        placeholder="选择日期时间">
+                    v-model="formData.previewTime"
+                    type="datetime"
+                    value-format="yyyy-MM-dd HH:mm:ss"
+                    placeholder="选择日期时间">
                 </el-date-picker>
             </el-form-item>
             <el-form-item label="答题时长" prop="answerTime">
@@ -50,15 +50,16 @@
             <el-form-item label="奖励类型" prop="rewardType">
                 <el-select v-model="formData.rewardType" placeholder="请选择">
                     <el-option
-                            v-for="item in select[1]"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
+                        v-for="item in select[1]"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
                     </el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="参与奖比率" prop="failedShareRate">
-                <el-input-number v-model="formData.failedShareRate" :min="0" :max="10000" label="描述文字"></el-input-number>
+                <el-input-number v-model="formData.failedShareRate" :min="0" :max="10000"
+                                 label="描述文字"></el-input-number>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('formData')">{{addTitle}}</el-button>
@@ -78,52 +79,52 @@
                 self.addTitle = '立即修改'
                 self.formData = data;
                 self.method = 'PUT'
-            }else{
+            } else {
                 self.method = 'POST'
             }
         },
         data() {
             return {
-                method:'',//修改还是新增
+                method: '',//修改还是新增
                 addTitle: '立即添加',
                 formData: {
                     answerStatus: '',
                     description: '',
-                    answerTime:'',
-                    rewardType:'',
-                    startTime:'',
-                    endTime:'',
-                    previewTime:'',
-                    questionNumber:'',
-                    rewardQuantity:'',
-                    failedShareRate:''
+                    answerTime: '',
+                    rewardType: '',
+                    startTime: '',
+                    endTime: '',
+                    previewTime: '',
+                    questionNumber: '',
+                    rewardQuantity: '',
+                    failedShareRate: ''
                 },
                 rules: {
-                    answerStatus:[{
+                    answerStatus: [{
                         required: true, message: '请选择冲顶状态', trigger: 'change'
                     }],
-                    description:[{
+                    description: [{
                         required: true, message: '请输入冲顶描述', trigger: 'blur'
                     }],
-                    answerTime:[{
+                    answerTime: [{
                         required: true, message: '请输入答题时间', trigger: 'blur'
                     }],
-                    rewardType:[{
+                    rewardType: [{
                         required: true, message: '请选择奖励类型', trigger: 'blur'
                     }],
-                    startTime:[{
+                    startTime: [{
                         required: true, message: '请选择开始时间', trigger: 'blur'
                     }],
-                    endTime:[{
+                    endTime: [{
                         required: true, message: '请选择结束时间', trigger: 'blur'
                     }],
-                    previewTime:[{
+                    previewTime: [{
                         required: true, message: '请选择预告时间', trigger: 'blur'
                     }],
-                    questionNumber:[{
+                    questionNumber: [{
                         required: true, message: '请选择问题数量', trigger: 'blur'
                     }],
-                    rewardQuantity:[{
+                    rewardQuantity: [{
                         required: true, message: '请选择奖励类型', trigger: 'change'
                     }],
 
@@ -148,15 +149,15 @@
                             value: 1,
                             label: '算力'
                         }, {
-                            value: 2,
-                            label: '积分'
-                        }, {
-                            value: 3,
-                            label: '经验'
-                        }, {
-                            value: 4,
-                            label: 'dbex'
-                        }
+                        value: 2,
+                        label: '积分'
+                    }, {
+                        value: 3,
+                        label: '经验'
+                    }, {
+                        value: 4,
+                        label: 'dbex'
+                    }
                     ]
                 ],
             }
@@ -166,7 +167,11 @@
                 var self = this
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        self.$ajax({url:'dbex/admin/activity/', method: self.method,data:self.formData}).then(function (response) {
+                        self.$ajax({
+                            url: 'dbex/admin/activity/',
+                            method: self.method,
+                            data: self.formData
+                        }).then(function (response) {
                             if (response.code === 1) {
                                 self.$notify({
                                     title: '成功',
@@ -174,12 +179,12 @@
                                     type: 'success',
                                     duration: 1000
                                 });
-                            }else{
+                            } else {
                                 self.$notify({
                                     title: '失败',
-                                    message:response.msg,
+                                    message: response.msg,
                                     type: 'error',
-                                    duration:1000
+                                    duration: 1000
                                 });
                             }
                         })

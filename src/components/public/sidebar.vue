@@ -24,7 +24,7 @@
         name: 'Sidebar',
         data() {
             return {
-                sideBarActive:'',
+                sideBarActive: '',
                 sideBarData: [
                     {
                         index: '/topicList',
@@ -48,16 +48,16 @@
                                 index: '/addExaminationPaper',
                             },
                             {
-                                cellName:'问答统计',
-                                index:'/questionAnswerStatistics',
+                                cellName: '问答统计',
+                                index: '/questionAnswerStatistics',
                             },
                         ]
                     },
                     {
-                        index:'/superActivityList',
-                        icon:'el-icon-document',
-                        module:'冲顶管理',
-                        cell:[
+                        index: '/superActivityList',
+                        icon: 'el-icon-document',
+                        module: '冲顶管理',
+                        cell: [
                             {
                                 cellName: '冲顶列表',
                                 index: '/superActivityList',
@@ -67,16 +67,16 @@
                                 index: '/addSuperActivity',
                             },
                             {
-                                cellName:'冲顶统计',
-                                index:'/activityStatisticsList',
+                                cellName: '冲顶统计',
+                                index: '/activityStatisticsList',
                             },
                         ]
                     },
                     {
-                        index:'rewardList',
-                        icon:'el-icon-view',
-                        module:'抽奖管理',
-                        cell:[
+                        index: 'rewardList',
+                        icon: 'el-icon-view',
+                        module: '抽奖管理',
+                        cell: [
                             {
                                 cellName: '奖盘列表',
                                 index: '/rewardList',
@@ -86,8 +86,8 @@
                                 index: '/addReward',
                             },
                             {
-                                cellName:'抽奖统计',
-                                index:'/drawStatistics'
+                                cellName: '抽奖统计',
+                                index: '/drawStatistics'
                             }
                         ]
                     },
@@ -127,25 +127,25 @@
                         ]
                     },
                     {
-                        index:'miningActivityList',
-                        icon:'el-icon-menu',
-                        module:'平台管理',
-                        cell:[
+                        index: 'miningActivityList',
+                        icon: 'el-icon-menu',
+                        module: '平台管理',
+                        cell: [
                             {
-                                cellName:'挖矿活动列表',
-                                index:'/miningActivityList',
+                                cellName: '挖矿活动列表',
+                                index: '/miningActivityList',
                             },
                             {
-                                cellName:'添加挖矿活动',
-                                index:'/addMiningActivity',
+                                cellName: '添加挖矿活动',
+                                index: '/addMiningActivity',
                             },
                             {
-                                cellName:'添加游戏',
-                                index:'/addGame',
+                                cellName: '添加游戏',
+                                index: '/addGame',
                             },
                             {
-                                cellName:'游戏列表',
-                                index:'/gameList'
+                                cellName: '游戏列表',
+                                index: '/gameList'
                             }
                         ]
                     }

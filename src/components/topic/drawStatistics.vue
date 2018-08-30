@@ -177,7 +177,7 @@
                 }
 
             },
-            currentChange(){
+            currentChange() {
                 this.getData()
             }
         }

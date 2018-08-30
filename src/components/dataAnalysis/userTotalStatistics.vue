@@ -148,7 +148,7 @@
                 });
             },
             handleSizeChange(val) {
-                this.pageSize = val 
+                this.pageSize = val
                 this.getData()
             },
             currentChange() {
