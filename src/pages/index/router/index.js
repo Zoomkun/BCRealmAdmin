@@ -29,6 +29,9 @@ import AddMiningActivity from '@/components/platform/addMiningActivity.vue'
 import AddGame from '@/components/platform/addGame.vue'
 import GameList from '@/components/platform/gameList.vue'
 
+//登录
+import Login from '@/components/adminUser/login.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -142,6 +145,11 @@ export default new Router({
             path: '/gameList',
             name: 'GameList',
             component: GameList
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: Login
         }
     ],
 })

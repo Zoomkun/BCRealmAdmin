@@ -2,7 +2,7 @@
     <div id="app">
 
         <el-container style=" border: 1px solid #eee">
-            <Sidebar></Sidebar>
+            <Sidebar v-if="loginIng.static"></Sidebar>
             <el-container>
                 <el-main>
                     <Cheader></Cheader>
@@ -16,15 +16,26 @@
 <script>
     import Sidebar from '@/components/public/sidebar.vue'
     import Cheader from '@/components/public/publicHeader.vue'
+    import bus from '@/js/event'
 
     export default {
         name:'Index',
         data() {
             return {
+                loginIng:{
+                    static:false
+                },
                 side: {
                     sideNow:'1-1'
                 }
             }
+        },
+        mounted() {
+            bus.$on('loginIng',function(data){
+                $emit(loginIng.static,data)
+                this.loginIng = data
+                console.log(this.loginIng)
+            })
         },
         components: {
             Sidebar,

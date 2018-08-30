@@ -11,7 +11,7 @@ Vue.use(VueQuillEditor);
 Vue.config.productionTip = false;
 
 let url = '';
-if (window.location.href.indexOf('test') == 0) {
+if (window.location.href.indexOf('test') != 0) {
     url = 'http://api.bcrealm.com/api/'
 } else {
     url = 'http://test.bcrealm.com/api/'
