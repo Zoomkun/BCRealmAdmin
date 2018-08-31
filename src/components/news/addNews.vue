@@ -112,7 +112,7 @@
                     if (valid) {
                         self
                             .$ajax({
-                                url: "admin/news/",
+                                url: "wnews/admin/news/",
                                 data: self.ruleForm,
                                 method: self.method
                             })

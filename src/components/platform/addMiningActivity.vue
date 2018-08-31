@@ -49,8 +49,8 @@
             <el-form-item label="活动描述" prop="description">
                 <el-input v-model="formData.description" placeholder="请输入内容"></el-input>
             </el-form-item>
-            <el-form-item label="奖励类型" prop="rewardType">
-                <el-select v-model="formData.rewardType" placeholder="请选择">
+            <el-form-item label="奖励类型" prop="rewardCoinId">
+                <el-select v-model="formData.rewardCoinId" placeholder="请选择">
                     <el-option
                         v-for="item in tableData"
                         :key="item.id"
@@ -95,7 +95,7 @@
                     startTime: '',
                     endTime: '',
                     previewTime: '',
-                    rewardType: '',
+                    rewardCoinId: '',
                     totalRewardValue: ''
                 },
                 rules: {
@@ -108,7 +108,7 @@
                     rewardTime: [{
                         required: true, message: '请输入奖励时间间隔', trigger: 'blur'
                     }],
-                    rewardType: [{
+                    rewardCoinId: [{
                         required: true, message: '请选择奖励类型', trigger: 'blur'
                     }],
                     startTime: [{

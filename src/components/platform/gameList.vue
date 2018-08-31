@@ -159,7 +159,7 @@
             //获取列表数据
             getData() {
                 var self = this;
-                self.$ajax.get('admin/game/all').then(function (response) {
+                self.$ajax.get('wgame/admin/game/all').then(function (response) {
                     if (response.code === 1) {
                         self.tableData = response.data;
                     }
@@ -199,7 +199,7 @@
                 let data = self.ruleForm
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        self.$ajax.put('http://localhost:8022/admin/option/', data).then(function (response) {
+                        self.$ajax.put('wglobal/admin/option/', data).then(function (response) {
                             if (response.code === 1) {
                                 self.$notify({
                                     title: '成功',
@@ -231,7 +231,7 @@
             handleOptionList(index, row) {
                 this.dialogTableVisible = true
                 var self = this
-                self.$ajax.get('http://localhost:8022/admin/option/list/' + row.id).then(function (response) {
+                self.$ajax.get('wglobal/admin/option/list/' + row.id).then(function (response) {
                     if (response.code === 1) {
                         self.gameData = response.data;
                     }

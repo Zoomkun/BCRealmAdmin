@@ -32,7 +32,7 @@
                 :span="4">
             </el-table-column>
             <el-table-column
-                prop="rewardType"
+                prop="rewardCoinId"
                 label="奖励类型"
                 :span="4">
             </el-table-column>

@@ -128,7 +128,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "admin/news/page?page=" + self.currentPageData + "&pageSize=10",
+                        "wuser/admin/news/page?page=" + self.currentPageData + "&pageSize=10",
                         {}
                     )
                     .then(function (response) {
@@ -160,7 +160,7 @@
                     .then(function () {
                         let data = self.getId(self.selectionList, 'id');
                         // data.push(self.newsId)
-                        self.$ajax.post('http://localhost:8007/admin/news/news/join', {
+                        self.$ajax.post('wnews/admin/news/news/join', {
                             newsId: self.newsId,
                             gameId: data
                         }).then(function (response) {
@@ -204,7 +204,7 @@
             },
             handleDelete(index, row) {
                 var self = this
-                self.$ajax.delete('admin/news/' + row.id).then(function (response) {
+                self.$ajax.delete('wnews/admin/news/' + row.id).then(function (response) {
                     if (response.code === 1) {
                         self.tableData.splice(index, 1)
                         self.$notify({
@@ -227,7 +227,7 @@
                 this.dialogStatus = 'detail'
                 this.dialogFormVisible = true
                 var self = this
-                self.$ajax.get('http://localhost:8000/admin/game/list?newsId=' + row.id).then(function (response) {
+                self.$ajax.get('wgame/admin/game/list?newsId=' + row.id).then(function (response) {
                     if (response.code === 1) {
                         self.gameData = response.data;
                         self.newsId = row.id;
