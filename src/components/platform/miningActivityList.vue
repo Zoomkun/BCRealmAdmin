@@ -32,11 +32,6 @@
                 :span="4">
             </el-table-column>
             <el-table-column
-                prop="rewardCoinId"
-                label="奖励类型"
-                :span="4">
-            </el-table-column>
-            <el-table-column
                 prop="rewardTime"
                 label="奖励时间间隔"
                 :span="4">

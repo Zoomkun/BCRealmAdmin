@@ -4,20 +4,20 @@
     <div class="note">
         <!--login框，表单+tab标签页的组合-->
         <div class="loginFrame">
-            <el-form ref="AccountForm" :model="account" :rules="rules" label-position="left" label-width="0px"
+            <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-position="left" label-width="0px"
                      class="demo-ruleForm login-container">
                 <!--tab标签-->
                 <span class="login-title">登录</span>
                 <el-form-item prop="userName">
-                    <el-input size="small" type="text" v-model="account.userName" auto-complete="off"
+                    <el-input type="text" v-model="ruleForm.userName" auto-complete="off"
                               placeholder="请输入您的账号"></el-input>
                 </el-form-item>
                 <el-form-item prop="passWord">
-                    <el-input type="passWord" v-model="account.passWord" auto-complete="off"
+                    <el-input type="passWord" v-model="ruleForm.passWord" auto-complete="off"
                               placeholder="请输入密码"></el-input>
                 </el-form-item>
                 <el-form-item style="width:100%;">
-                    <el-button type="primary" style="width:100%;" @click="login">登录</el-button>
+                    <el-button type="primary" style="width:100%;" @click="login('ruleForm')">登录</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -33,26 +33,61 @@
         data() {
             return {
                 logining: false,// 是否登入
-                account: {
+                ruleForm: {
                     userName: "",
-                    password: ""
+                    passWord: ""
                 },
                 rules: {
                     userName: [
                         {required: true, message: "请输入账号", trigger: "blur"}
-                        //{ validator: validaePass }
                     ],
                     passWord: [
                         {required: true, message: "请输入密码", trigger: "blur"}
-                        //{ validator: validaePass2 }
                     ]
                 },
                 checked: false
             }
         },
         methods: {
-            login() {
-                bus.$emit('loginStatus', true)
+            login(formName) {
+                var self = this;
+                this.$refs[formName].validate(valid => {
+                    if (valid) {
+                        self.$ajax.post('http://localhost:8006/admin/login',
+                                {
+                                    userName:this.ruleForm.userName,
+                                    passWord:this.ruleForm.passWord
+                                }
+                            )
+                            .then(function (response) {
+                                if (response.code === 1) {
+                                    self.$notify({
+                                        title: "成功",
+                                        message: "登陆成功  ",
+                                        type: "success",
+                                        duration: 1000
+                                    });
+                                    let data = response.data;
+                                    localStorage.setItem('user', JSON.stringify(data));
+                                    bus.$emit('loginStatus', true)
+                                    self.$router.push('/topicList')
+                                }else{
+                                    self.$notify({
+                                        title: '失败',
+                                        message: response.msg,
+                                        type: 'danger',
+                                        duration: 1000
+                                    });
+                                }
+                            });
+                    } else {
+                        console.log("error submit!!");
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
             }
         }
     };
@@ -87,5 +122,11 @@
         height: "100%";
         background-size: "100% 100%";
         background-repeat: "no-repeat";
+        position: relative;
     }
+    .loginFrame{
+        padding-left: 550px;
+        padding-top: 200px;
+    }   
+    
 </style>

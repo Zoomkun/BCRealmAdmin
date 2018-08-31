@@ -22,6 +22,12 @@ var $ajax = axios.create({
     timeout: 10000,
 });
 
+let token = ''
+
+localStorage.getItem('user') ? token = JSON.parse(localStorage.getItem('user')).token : token = '';
+console.log(JSON.parse(localStorage.getItem('user')).token)
+$ajax.defaults.headers.token = token;
+
 // 添加响应拦截器
 $ajax.interceptors.response.use(function(response) {
     // 对响应数据做点什么
