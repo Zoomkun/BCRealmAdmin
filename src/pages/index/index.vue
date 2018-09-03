@@ -28,8 +28,7 @@
         },
         mounted() {
             let self = this;
-
-            if (localStorage.getItem('user')) {
+            if (self.$cookies.get('user')) {
                 self.$set(self.login, 'status', true)
             }else{
                 self.$set(self.login, 'status', false)

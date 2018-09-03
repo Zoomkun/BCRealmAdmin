@@ -45,7 +45,7 @@
                             type: 'success',
                             duration: 1000
                         })
-                        localStorage.removeItem('user')
+                        self.$cookies.remove('user')
                         bus.$emit('loginStatus', false)
                         self.$router.push('/login');
                     }else{

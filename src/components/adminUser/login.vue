@@ -74,7 +74,7 @@
                                         duration: 1000
                                     });
                                     let data = response.data;
-                                    localStorage.setItem('user', JSON.stringify(data));
+                                    self.$cookies.set('user', JSON.stringify(data),'2h')
 
                                     self.$ajax.defaults.headers.token = data.token;
 

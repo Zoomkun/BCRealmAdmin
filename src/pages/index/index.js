@@ -5,9 +5,11 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import router from './router/index'
 import axios from 'axios'
+import VueCookies from 'vue-cookies'
 
 Vue.use(ElementUI);
 Vue.use(VueQuillEditor);
+Vue.use(VueCookies)
 Vue.config.productionTip = false;
 
 let url = '';
