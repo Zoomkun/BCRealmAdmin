@@ -1,8 +1,7 @@
 <template>
     <div id="app">
-
         <el-container style=" border: 1px solid #eee">
-            <Sidebar v-if="login.status"></Sidebar>
+            <Sidebar v-show="login.status"></Sidebar>
             <el-container>
                 <el-main v-bind:class="{ Bg: !login.status }">
                     <Cheader v-if="login.status"></Cheader>
@@ -19,22 +18,26 @@
     import bus from '@/js/event'
 
     export default {
-        name:'Index',
+        name: 'Index',
         data() {
             return {
-                login:{
-                    status:false
-                },
-                side: {
-                    sideNow:'1-1'
+                login: {
+                    status: false
                 }
             }
         },
         mounted() {
-            let self = this
-            bus.$on('loginStatus',function(data){
+            let self = this;
+
+            if (localStorage.getItem('user')) {
+                self.$set(self.login, 'status', true)
+            }else{
+                self.$set(self.login, 'status', false)
+                self.$router.push('/login')
+            }
+
+            bus.$on('loginStatus', function (data) {
                 self.$forceUpdate()
-                console.log(data)
                 self.$set(self.login, 'status', data)
             })
         },
@@ -51,7 +54,8 @@
 
     .el-container
         height 100%
+
     .Bg
-        background:url('../../../static/img/login.png');
+        background: url('../../../static/img/login.png');
 </style>
 

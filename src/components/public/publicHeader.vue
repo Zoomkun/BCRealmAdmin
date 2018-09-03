@@ -36,7 +36,7 @@
                 this.$confirm('确认退出吗?', '提示', {
                     type: 'warning'
                 }).then(function(){
-                    self.$ajax.delete('http://localhost:8006/admin/loginOut'
+                    self.$ajax.delete('admin/loginOut'
                     ).then(function(response){
                     if(response.code === 1){
                         self.$notify({
@@ -45,6 +45,7 @@
                             type: 'success',
                             duration: 1000
                         })
+                        localStorage.removeItem('user')
                         bus.$emit('loginStatus', false)
                         self.$router.push('/login');
                     }else{

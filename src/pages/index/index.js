@@ -11,22 +11,19 @@ Vue.use(VueQuillEditor);
 Vue.config.productionTip = false;
 
 let url = '';
-if (window.location.href.indexOf('test') == 0) {
+if (window.location.href.indexOf('test') > -1) {
     url = 'http://api.bcrealm.com/api/'
-} else {
+} else if(window.location.href.indexOf('localhost') > -1) {
+    // url = 'http://localhost:8006/'
+    url = 'http://192.168.31.124:8006/'
+}else{
     url = 'http://test.bcrealm.com/api/'
-};
+}
 
 var $ajax = axios.create({
     baseURL: url,
     timeout: 10000,
 });
-
-let token = ''
-
-localStorage.getItem('user') ? token = JSON.parse(localStorage.getItem('user')).token : token = '';
-console.log(JSON.parse(localStorage.getItem('user')).token)
-$ajax.defaults.headers.token = token;
 
 // 添加响应拦截器
 $ajax.interceptors.response.use(function(response) {

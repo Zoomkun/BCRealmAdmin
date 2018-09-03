@@ -29,10 +29,9 @@
     import bus from '@/js/event'
 
     export default {
-        name: "login",
+        name: "Login",
         data() {
             return {
-                logining: false,// 是否登入
                 ruleForm: {
                     userName: "",
                     passWord: ""
@@ -48,12 +47,19 @@
                 checked: false
             }
         },
+        beforeRouteEnter(to, from, next){
+            if(to.name === 'Login'){
+                next(vm => {
+                    bus.$emit('loginStatus', false)
+                })
+            }
+        },
         methods: {
             login(formName) {
                 var self = this;
                 this.$refs[formName].validate(valid => {
                     if (valid) {
-                        self.$ajax.post('http://localhost:8006/admin/login',
+                        self.$ajax.post('admin/login',
                                 {
                                     userName:this.ruleForm.userName,
                                     passWord:this.ruleForm.passWord
@@ -69,6 +75,9 @@
                                     });
                                     let data = response.data;
                                     localStorage.setItem('user', JSON.stringify(data));
+
+                                    self.$ajax.defaults.headers.token = data.token;
+
                                     bus.$emit('loginStatus', true)
                                     self.$router.push('/topicList')
                                 }else{
@@ -127,6 +136,6 @@
     .loginFrame{
         padding-left: 550px;
         padding-top: 200px;
-    }   
-    
+    }
+
 </style>
