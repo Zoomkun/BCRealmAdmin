@@ -1,13 +1,14 @@
 <template>
     <el-header>
-        <el-dropdown trigger="hover">
-            <span class="el-dropdown-link userinfo-inner">admin</span>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>我的消息</el-dropdown-item>
-                <el-dropdown-item>设置</el-dropdown-item>
-                <el-dropdown-item divided @click.native="logoutFun">退出登录</el-dropdown-item>
-            </el-dropdown-menu>
-        </el-dropdown>
+        <el-col :span="4" class="userinfo">
+            <el-dropdown trigger="hover">
+                <span class="el-dropdown-link userinfo-inner">{{sysUserName}}</span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>修改密码</el-dropdown-item>
+                    <el-dropdown-item divided @click.native="logoutFun">退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
+        </el-col>
     </el-header>
 </template>
 
@@ -19,7 +20,14 @@
         margin-bottom 20px
         text-align: right
         font-size: 12px
-
+    .userinfo
+            text-align: right
+            padding-right: 35px
+            float: right
+            .userinfo-inner
+                cursor: pointer
+                color: #fff
+        
 </style>
 <script>
     import bus from '@/js/event'
@@ -27,7 +35,9 @@
     export default {
         name: 'publicHeader',
         data() {
-            return {};
+            return {
+                sysUserName:''
+            };
         },
         methods: {
             //退出登录
@@ -57,12 +67,15 @@
                         })
                     }
                 })
-                }).catch(() => {
-
                 });
-
-
             },
+        },
+        mounted() {
+            var user = $cookies.get('user');
+            if (user) {
+                user = JSON.parse(user);
+                this.sysUserName = user.userName || '';
+            }
         }
     }
 </script>

@@ -41,7 +41,7 @@
                     </el-button>
                     <el-button
                         size="small"
-                        @click="handleGameList(scope.$index, scope.row)">绑定游戏
+                        @click="handleGameList(scope.row.id)">绑定游戏
                     </el-button>
                 </template>
             </el-table-column>
@@ -112,8 +112,7 @@
                 dialogFormVisible: false,
                 selectionList: [], // 列表选中列
                 selectionListIds: [], // 列表选中列ID
-                newsId: '',
-                index: ''
+                newsId:'',
             };
         },
         mounted() {
@@ -128,7 +127,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "wuser/admin/news/page?page=" + self.currentPageData + "&pageSize=10",
+                        "wnews/admin/news/page?page=" + self.currentPageData + "&pageSize=10",
                         {}
                     )
                     .then(function (response) {
@@ -159,9 +158,10 @@
                 })
                     .then(function () {
                         let data = self.getId(self.selectionList, 'id');
+                        let newsId = self.newsId;
                         // data.push(self.newsId)
-                        self.$ajax.post('wnews/admin/news/news/join', {
-                            newsId: self.newsId,
+                        self.$ajax.post('admin/news/news/join', {
+                            newsId: newsId,
                             gameId: data
                         }).then(function (response) {
                             if (response.code === 1) {
@@ -172,7 +172,7 @@
                                     duration: 1000
                                 })
                             self.dialogFormVisible = false
-                            self.getData()
+                            self.handleGameList(self.newsId)
                             }
                         })
                     }).catch(function () {
@@ -219,18 +219,18 @@
             handleEdit(index, row) {
                 this.$router.push({path: '/addNews', query: {data: row}});
             },
-            currentChange() {
-
+            currentChange(){
+                this.getData();
             },
             // 显示游戏列表
-            handleGameList(index, row) {
+            handleGameList(row) {
                 this.dialogStatus = 'detail'
                 this.dialogFormVisible = true
                 var self = this
-                self.$ajax.get('wgame/admin/game/list?newsId=' + row.id).then(function (response) {
+                self.$ajax.get('wgame/admin/game/list?newsId=' + row).then(function (response) {
                     if (response.code === 1) {
                         self.gameData = response.data;
-                        self.newsId = row.id;
+                        self.newsId = row;
                     }
                 })
             },

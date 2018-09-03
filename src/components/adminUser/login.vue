@@ -134,8 +134,8 @@
         position: relative;
     }
     .loginFrame{
-        padding-left: 550px;
-        padding-top: 200px;
+        padding-left: 950px;
+        padding-top: 160px;
     }
 
 </style>

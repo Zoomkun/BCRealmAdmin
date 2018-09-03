@@ -68,7 +68,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         self.$ajax({
-                            url: 'wgame/admin/game/',
+                            url: 'wgame/admin/game/add',
                             method: self.method,
                             data: self.ruleForm
                         }).then(function (response) {
