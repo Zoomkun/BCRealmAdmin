@@ -146,7 +146,15 @@
                             {
                                 cellName: '游戏列表',
                                 index: '/gameList'
-                            }
+                            },
+                            {
+                                cellName:'添加用户',
+                                index:'/addUser'
+                            },
+                            {
+                                cellName:'用户列表',
+                                index:'/userList'
+                            }                            
                         ]
                     }
                 ]

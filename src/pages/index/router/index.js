@@ -31,6 +31,9 @@ import GameList from '@/components/platform/gameList.vue'
 
 //登录
 import Login from '@/components/adminUser/login.vue'
+import AddUser from '@/components/adminUser/addUser.vue'
+import UserList from '@/components/adminUser/userList.vue'
+import EditPwd from '@/components/adminUser/EditPwd.vue'
 
 Vue.use(Router)
 
@@ -150,6 +153,21 @@ export default new Router({
             path: '/login',
             name: 'Login',
             component: Login
+        },
+        {
+            path: '/addUser',
+            name: 'AddUser',
+            component: AddUser
+        },
+        {
+            path: '/userList',
+            name: 'UserList',
+            component: UserList
+        },
+        {
+            path: '/editPwd',
+            name: 'EditPwd',
+            component: EditPwd
         }
     ],
 })

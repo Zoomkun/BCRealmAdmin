@@ -1,6 +1,16 @@
 <template>
     <el-col :span="20">
         <el-form :model="formData" :rules="rules" ref="formData" label-width="100px" class="demo-ruleForm">
+            <el-form-item label="关联游戏" prop="refGameId">
+                <el-select v-model="formData.refGameId" placeholder="请选择">
+                    <el-option
+                        v-for="item in gameData"
+                        :key="item.id"
+                        :label="item.gameName"
+                        :value="item.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item label="免费概率" prop="freeProbability">
                 <el-input-number v-model="formData.freeProbability" label="免费模式概率"></el-input-number>
             </el-form-item>
@@ -10,20 +20,20 @@
             <el-form-item label="奖励数量" prop="rewardQuantity">
                 <el-input-number v-model="formData.rewardQuantity" label="奖励数量"></el-input-number>
             </el-form-item>
-            <el-form-item label="奖励类型" prop="rewardType">
-                <el-select v-model="formData.rewardType" placeholder="请选择">
+            <el-form-item label="是否重要" prop="isImportant">
+                <el-select v-model="formData.isImportant" placeholder="请选择">
                     <el-option
-                        v-for="item in options[0]"
+                        v-for="item in options[1]"
                         :key="item.label"
                         :label="item.label"
                         :value="item.value">
                     </el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="是否重要" prop="isImportant">
-                <el-select v-model="formData.isImportant" placeholder="请选择">
+            <el-form-item label="奖励类型" prop="rewardType">
+                <el-select v-model="formData.rewardType" placeholder="请选择">
                     <el-option
-                        v-for="item in options[1]"
+                        v-for="item in options[0]"
                         :key="item.label"
                         :label="item.label"
                         :value="item.value">
@@ -41,7 +51,9 @@
 <script>
     export default {
         name: 'addTopic',
+        checked: Boolean,
         mounted() {
+            this.getGameType()
             let self = this
             let data = self.$route.query.data;
             if (data) {
@@ -54,6 +66,8 @@
         },
         data() {
             return {
+                checked: [],
+                gameData:[],
                 addTitle: '立即添加',
                 options: [
                     [
@@ -89,6 +103,7 @@
                     rewardQuantity: '',
                     rewardType: '',
                     isImportant: '',
+                    refGameId:''
                 },
                 rules: {
                     freeProbability: [{
@@ -110,6 +125,14 @@
             };
         },
         methods: {
+            getGameType(){
+                var self = this;
+                self.$ajax.get('wgame/admin/game/all').then(function (response) {
+                    if (response.code === 1) {
+                        self.gameData = response.data;
+                    }
+                })
+            },
             submitForm(formName) {
                 var self = this
                 this.$refs[formName].validate((valid) => {
@@ -130,6 +153,7 @@
                         })
                     } else {
                         console.log('error submit!!');
+                         console.log(this.checked)
                         return false;
                     }
                 });
@@ -145,3 +169,4 @@
 </style>
 
 
+    

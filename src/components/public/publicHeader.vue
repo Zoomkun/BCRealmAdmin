@@ -4,7 +4,7 @@
             <el-dropdown trigger="hover">
                 <span class="el-dropdown-link userinfo-inner">{{sysUserName}}</span>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>修改密码</el-dropdown-item>
+                    <el-dropdown-item  divided @click.native="editPwd()">修改密码</el-dropdown-item>
                     <el-dropdown-item divided @click.native="logoutFun">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
@@ -69,6 +69,9 @@
                 })
                 });
             },
+            editPwd() {
+                this.$router.push({path: '/editPwd'});
+            }
         },
         mounted() {
             var user = $cookies.get('user');
