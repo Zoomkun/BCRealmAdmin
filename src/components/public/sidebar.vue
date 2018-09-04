@@ -154,7 +154,7 @@
                             {
                                 cellName:'用户列表',
                                 index:'/userList'
-                            }                            
+                            }
                         ]
                     }
                 ]
