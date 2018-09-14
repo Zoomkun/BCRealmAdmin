@@ -1,16 +1,6 @@
 <template>
     <el-col :span="20">
         <el-form :model="formData" :rules="rules" ref="formData" label-width="100px" class="demo-ruleForm">
-            <el-form-item label="关联游戏" prop="refGameId">
-                <el-select v-model="formData.refGameId" placeholder="请选择">
-                    <el-option
-                        v-for="item in gameData"
-                        :key="item.id"
-                        :label="item.gameName"
-                        :value="item.id">
-                    </el-option>
-                </el-select>
-            </el-form-item>
             <el-form-item label="免费概率" prop="freeProbability">
                 <el-input-number v-model="formData.freeProbability" label="免费模式概率"></el-input-number>
             </el-form-item>
@@ -53,7 +43,6 @@
         name: 'addTopic',
         checked: Boolean,
         mounted() {
-            this.getGameType()
             let self = this
             let data = self.$route.query.data;
             if (data) {
@@ -67,7 +56,6 @@
         data() {
             return {
                 checked: [],
-                gameData:[],
                 addTitle: '立即添加',
                 options: [
                     [
@@ -102,8 +90,7 @@
                     pointProbability: '',
                     rewardQuantity: '',
                     rewardType: '',
-                    isImportant: '',
-                    refGameId:''
+                    isImportant: ''
                 },
                 rules: {
                     freeProbability: [{
@@ -125,14 +112,6 @@
             };
         },
         methods: {
-            getGameType(){
-                var self = this;
-                self.$ajax.get('wgame/admin/game/all').then(function (response) {
-                    if (response.code === 1) {
-                        self.gameData = response.data;
-                    }
-                })
-            },
             submitForm(formName) {
                 var self = this
                 this.$refs[formName].validate((valid) => {

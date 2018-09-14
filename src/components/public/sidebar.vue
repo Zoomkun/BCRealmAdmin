@@ -29,7 +29,7 @@
                     {
                         index: '/topicList',
                         icon: 'el-icon-tickets',
-                        module: '题目问答',
+                        module: 'dbex游戏管理',
                         cell: [
                             {
                                 cellName: '题库列表',
@@ -51,13 +51,6 @@
                                 cellName: '问答统计',
                                 index: '/questionAnswerStatistics',
                             },
-                        ]
-                    },
-                    {
-                        index: '/superActivityList',
-                        icon: 'el-icon-document',
-                        module: '冲顶管理',
-                        cell: [
                             {
                                 cellName: '冲顶列表',
                                 index: '/superActivityList',
@@ -70,13 +63,6 @@
                                 cellName: '冲顶统计',
                                 index: '/activityStatisticsList',
                             },
-                        ]
-                    },
-                    {
-                        index: 'rewardList',
-                        icon: 'el-icon-view',
-                        module: '抽奖管理',
-                        cell: [
                             {
                                 cellName: '奖盘列表',
                                 index: '/rewardList',
@@ -88,6 +74,94 @@
                             {
                                 cellName: '抽奖统计',
                                 index: '/drawStatistics'
+                            }
+                        ]
+                    },
+                    {
+                        index: 'miningActivityList',
+                        icon: 'el-icon-menu',
+                        module: '平台管理',
+                        cell: [
+                            {
+                                cellName: '挖矿活动列表',
+                                index: '/miningActivityList',
+                            },
+                            {
+                                cellName: '添加挖矿活动',
+                                index: '/addMiningActivity',
+                            },
+                            {
+                                cellName: '添加游戏',
+                                index: '/addGame',
+                            },
+                            {
+                                cellName: '游戏列表',
+                                index: '/gameList'
+                            },
+                            {
+                                cellName:'添加用户',
+                                index:'/addUser'
+                            },
+                            {
+                                cellName:'用户列表',
+                                index:'/userList'
+                            }                            
+                        ]
+                    },
+                    {
+                        index: '/headerList',
+                        icon: 'el-icon-document',
+                        module: '冲顶管理',
+                        cell: [
+                            {
+                                cellName: '冲顶列表',
+                                index: '/headerList',
+                            },
+                            {
+                                cellName: '添加冲顶',
+                                index: '/addHeader',
+                            },
+                            {
+                                cellName: '冲顶统计',
+                                index: '/headerStatistics',
+                            },
+                        ]
+                    },
+                    {
+                        index: 'lotterySectorList',
+                        icon: 'el-icon-view',
+                        module: '抽奖管理',
+                        cell: [
+                            {
+                                cellName:'添加抽奖',
+                                index:'/addLotterySector'
+                            },
+                            {
+                                cellName:'奖盘列表',
+                                index:'/lotterySectorList'
+                            },
+                            {
+                                cellName:'抽奖统计',
+                                index:'/lotteryStatistics'
+                            }
+                        ]
+                    },
+                    {
+                        index: 'questionList',
+                        icon: 'el-icon-edit',
+                        module: '问答管理',
+                        cell: [
+                            {
+                                cellName: '问答列表',
+                                index: '/questionList',
+                            },
+                            {
+                                cellName: '创建问答',
+                                index: '/addQuestion',
+                            },
+                            {
+                                cellName: '问答统计',
+                                index: '/questionStatistics',
                             }
                         ]
                     },
@@ -126,37 +200,7 @@
                             },
                         ]
                     },
-                    {
-                        index: 'miningActivityList',
-                        icon: 'el-icon-menu',
-                        module: '平台管理',
-                        cell: [
-                            {
-                                cellName: '挖矿活动列表',
-                                index: '/miningActivityList',
-                            },
-                            {
-                                cellName: '添加挖矿活动',
-                                index: '/addMiningActivity',
-                            },
-                            {
-                                cellName: '添加游戏',
-                                index: '/addGame',
-                            },
-                            {
-                                cellName: '游戏列表',
-                                index: '/gameList'
-                            },
-                            {
-                                cellName:'添加用户',
-                                index:'/addUser'
-                            },
-                            {
-                                cellName:'用户列表',
-                                index:'/userList'
-                            }
-                        ]
-                    }
+                    
                 ]
             };
         },

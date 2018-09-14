@@ -29,6 +29,21 @@ import AddMiningActivity from '@/components/platform/addMiningActivity.vue'
 import AddGame from '@/components/platform/addGame.vue'
 import GameList from '@/components/platform/gameList.vue'
 
+//平台游戏奖盘
+import AddLotterySector from '@/components/platform/addLotterySector.vue'
+import LotterySectorList from '@/components/platform/lotterySectorList.vue'
+import LotteryStatistics from '@/components/platform/lotteryStatistics.vue'
+
+//平台游戏冲顶
+import AddHeader from '@/components/header/addHeader.vue'
+import HeaderList from '@/components/header/headerList.vue'
+import HeaderStatistics from '@/components/header/headerStatistics.vue'
+
+//平台游戏问答
+import AddQuestion from '@/components/question/addQuestion.vue'
+import QuestionList from '@/components/question/questionList.vue'
+import QuestionStatistics from '@/components/question/questionStatistics.vue'
+
 //登录
 import Login from '@/components/adminUser/login.vue'
 import AddUser from '@/components/adminUser/addUser.vue'
@@ -168,6 +183,51 @@ export default new Router({
             path: '/editPwd',
             name: 'EditPwd',
             component: EditPwd
+        },
+        {
+            path: '/addLotterySector',
+            name: 'AddLotterySector',
+            component: AddLotterySector
+        },
+        {
+            path: '/lotterySectorList',
+            name: 'LotterySectorList',
+            component: LotterySectorList
+        },
+        {
+            path: '/lotteryStatistics',
+            name: 'LotteryStatistics',
+            component: LotteryStatistics
+        },
+        {
+            path: '/addHeader',
+            name: 'AddHeader',
+            component: AddHeader
+        },
+        {
+            path: '/headerList',
+            name: 'HeaderList',
+            component: HeaderList
+        },
+        {
+            path: '/headerStatistics',
+            name: 'HeaderStatistics',
+            component: HeaderStatistics
+        },
+        {
+            path: '/addQuestion',
+            name: 'AddQuestion',
+            component: AddQuestion
+        },
+        {
+            path: '/questionList',
+            name: 'QuestionList',
+            component: QuestionList
+        },
+        {
+            path: '/questionStatistics',
+            name: 'QuestionStatistics',
+            component: QuestionStatistics
         }
     ],
 })
