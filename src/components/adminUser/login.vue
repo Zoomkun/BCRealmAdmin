@@ -17,7 +17,7 @@
                               placeholder="请输入密码"></el-input>
                 </el-form-item>
                 <el-form-item style="width:100%;">
-                    <el-button type="primary" style="width:100%;" @click="login('ruleForm')">登录</el-button>
+                    <el-button type="primary" style="width:100%;border-radius: 28px;" @click="login('ruleForm')">登录</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -134,7 +134,7 @@
         position: relative;
     }
     .loginFrame{
-        padding-left: 950px;
+        padding-left: 1000px;
         padding-top: 160px;
     }
 

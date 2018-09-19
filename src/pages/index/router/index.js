@@ -26,8 +26,6 @@ import AddNews from '@/components/news/addNews.vue'
 //平台挖矿
 import MiningActivityList from '@/components/platform/miningActivityList.vue'
 import AddMiningActivity from '@/components/platform/addMiningActivity.vue'
-import AddGame from '@/components/platform/addGame.vue'
-import GameList from '@/components/platform/gameList.vue'
 
 //平台游戏奖盘
 import AddLotterySector from '@/components/platform/addLotterySector.vue'
@@ -49,6 +47,15 @@ import Login from '@/components/adminUser/login.vue'
 import AddUser from '@/components/adminUser/addUser.vue'
 import UserList from '@/components/adminUser/userList.vue'
 import EditPwd from '@/components/adminUser/EditPwd.vue'
+
+//游戏
+import AddGame from '@/components/game/addGame.vue'
+import GameList from '@/components/game/gameList.vue'
+import GameStatistics from '@/components/game/gameStatistics.vue'
+import GameTotalStatistics from '@/components/game/gameTotalStatistics.vue'
+
+//货币
+import CoinStatistics from '@/components/coin/CoinStatistics.vue'
 
 Vue.use(Router)
 
@@ -228,6 +235,21 @@ export default new Router({
             path: '/questionStatistics',
             name: 'QuestionStatistics',
             component: QuestionStatistics
+        },
+        {
+            path: '/gameTotalStatistics',
+            name: 'GameTotalStatistics',
+            component: GameTotalStatistics
+        },
+        {
+            path: '/gameStatistics',
+            name: 'GameStatistics',
+            component: GameStatistics
+        },
+        {
+            path: '/coinStatistics',
+            name: 'CoinStatistics',
+            component: CoinStatistics
         }
     ],
 })

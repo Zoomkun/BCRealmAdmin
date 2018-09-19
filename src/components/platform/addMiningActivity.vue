@@ -151,7 +151,7 @@
             //获取奖励类型接口
             getRewardType() {
                 var self = this;
-                self.$ajax.get('wcoin/admin/internal/list').then(function (response) {
+                self.$ajax.get('wcoin/admin/coin/list').then(function (response) {
                     if (response.code === 1) {
                         self.tableData = response.data;
                     }

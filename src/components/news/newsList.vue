@@ -127,7 +127,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "wnews/admin/news/page?page=" + self.currentPageData + "&pageSize=10",
+                        "http://localhost:8007/admin/news/page?page=" + self.currentPageData + "&pageSize=10",
                         {}
                     )
                     .then(function (response) {
@@ -155,12 +155,11 @@
                 var self = this;
                 this.$confirm('确认绑定该新闻吗？', '提示', {
                     type: 'warning'
-                })
-                    .then(function () {
+                }).then(function () {
                         let data = self.getId(self.selectionList, 'id');
                         let newsId = self.newsId;
                         // data.push(self.newsId)
-                        self.$ajax.post('admin/news/news/join', {
+                        self.$ajax.post('http://localhost:8007/admin/news/news/join', {
                             newsId: newsId,
                             gameId: data
                         }).then(function (response) {
@@ -171,12 +170,12 @@
                                     type: 'success',
                                     duration: 1000
                                 })
-                            self.dialogFormVisible = false
-                            self.handleGameList(self.newsId)
+                                self.dialogFormVisible = false
                             }
                         })
                     }).catch(function () {
-                    alert(0)
+                     console.log('error submit!!');
+                        return false;
                 })
 
             },
@@ -227,7 +226,7 @@
                 this.dialogStatus = 'detail'
                 this.dialogFormVisible = true
                 var self = this
-                self.$ajax.get('wgame/admin/game/list?newsId=' + row).then(function (response) {
+                self.$ajax.get('http://localhost:8007/admin/news/notjoinNewsGame/'+ row).then(function (response) {
                     if (response.code === 1) {
                         self.gameData = response.data;
                         self.newsId = row;

@@ -180,7 +180,7 @@
             //获取列表数据
             getData() {
                 var self = this;
-                self.$ajax.get('wgame/admin/game/all').then(function (response) {
+                self.$ajax.get('http://localhost:9091/admin/game/all').then(function (response) {
                     if (response.code === 1) {
                         self.gameData = response.data;
                     }

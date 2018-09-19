@@ -16,7 +16,7 @@ let url = '';
 if (window.location.href.indexOf('test') > -1) {
     url = 'http://api.bcrealm.com/api/'
 } else if (window.location.href.indexOf('localhost') > -1) {
-    url = 'http://192.168.31.124:8006/'
+    url = 'http://192.168.31.124:8066/'
 } else {
     url = 'http://test.bcrealm.com/api/'
 }

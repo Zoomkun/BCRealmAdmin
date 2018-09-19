@@ -51,7 +51,7 @@
                     if(response.code === 1){
                         self.$notify({
                             title: '提示',
-                            message: '绑定成功',
+                            message: '退出成功',
                             type: 'success',
                             duration: 1000
                         })

@@ -78,26 +78,10 @@
                         ]
                     },
                     {
-                        index: 'miningActivityList',
-                        icon: 'el-icon-menu',
-                        module: '平台管理',
+                        index: 'userList',
+                        icon: 'el-icon-setting',
+                        module: '用户设置',
                         cell: [
-                            {
-                                cellName: '挖矿活动列表',
-                                index: '/miningActivityList',
-                            },
-                            {
-                                cellName: '添加挖矿活动',
-                                index: '/addMiningActivity',
-                            },
-                            {
-                                cellName: '添加游戏',
-                                index: '/addGame',
-                            },
-                            {
-                                cellName: '游戏列表',
-                                index: '/gameList'
-                            },
                             {
                                 cellName:'添加用户',
                                 index:'/addUser'
@@ -109,8 +93,23 @@
                         ]
                     },
                     {
+                        index: 'miningActivityList',
+                        icon: 'el-icon-menu',
+                        module: '挖矿管理',
+                        cell: [
+                            {
+                                cellName: '挖矿活动列表',
+                                index: '/miningActivityList',
+                            },
+                            {
+                                cellName: '添加挖矿活动',
+                                index: '/addMiningActivity',
+                            }                                          
+                        ]
+                    },
+                    {
                         index: '/headerList',
-                        icon: 'el-icon-document',
+                        icon: 'el-icon-edit-outline',
                         module: '冲顶管理',
                         cell: [
                             {
@@ -168,18 +167,18 @@
                     {
                         index: '/userTotalStatistics',
                         icon: 'el-icon-message',
-                        module: '数据分析',
+                        module: '用户数据分析',
                         cell: [
                             {
-                                cellName: '留存统计',
+                                cellName: '注册留存统计',
                                 index: '/userStatistics',
                             },
                             {
-                                cellName: '用户月统计',
+                                cellName: '月注册统计',
                                 index: '/userMonthStatistics',
                             },
                             {
-                                cellName: '数据一览',
+                                cellName: '总数据一览',
                                 index: '/userTotalStatistics',
                             }
 
@@ -198,6 +197,40 @@
                                 cellName: '添加新闻',
                                 index: '/addNews',
                             },
+                        ]
+                    },
+                    {
+                        index: '/gameList',
+                        icon: 'el-icon-setting',
+                        module: '游戏管理',
+                        cell: [
+                            {
+                                cellName: '添加游戏',
+                                index: '/addGame',
+                            },
+                            {
+                                cellName: '游戏列表',
+                                index: '/gameList'
+                            },
+                            {
+                                cellName:'游戏注册留存',
+                                index:'/gameStatistics'
+                            },
+                            {
+                                cellName:'游戏总数据',
+                                index:'/gameTotalStatistics'
+                            }
+                        ]
+                    },
+                    {
+                        index: '/coinStatistics',
+                        icon: 'el-icon-sold-out',
+                        module: '货币数据',
+                        cell: [
+                            {
+                                cellName: '货币详细',
+                                index: '/coinStatistics',
+                            }
                         ]
                     },
                     
