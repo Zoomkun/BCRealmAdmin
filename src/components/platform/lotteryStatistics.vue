@@ -15,6 +15,13 @@
                 label="时间">
             </el-table-column>
             <el-table-column
+                prop="refGameId"
+                label="游戏名称"
+                :formatter="formatGameType"
+                :span="2"
+                show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
                 prop="drawTimes"
                 label="每日抽奖次数"
                 show-overflow-tooltip>
@@ -104,13 +111,24 @@
                     detail: '奖励获得比率详情'
                 },
                 dialogFormVisible: false,
+                gameData:[],    //游戏数据
             };
         },
         mounted() {
             this.getData();
+            this.getGameData();
         },
         methods: {
-
+            //游戏类型名称处理
+            formatGameType(row, col) {
+                var self = this
+                let data = self.gameData;
+                for(let i in data){
+                    if(row.refGameId = data[i].id){
+                        return data[i].gameName
+                    }
+                }
+            },
             formatRewardType(row, col) {
                 let data = ['算力', '积分', '经验', 'DBEX']
                 return data[(row.rewardType - 1)]
@@ -119,7 +137,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "http://localhost:8000/admin/lottery/statistics/page?size=20&page=" + self.currentPageData,
+                        "wlottery/admin/lottery/statistics/page?size=20&page=" + self.currentPageData,
                         {}
                     )
                     .then(function (response) {
@@ -128,6 +146,14 @@
                             self.totalPages = response.data.pages;
                         }
                     });
+            },
+            getGameData(){
+                var self = this;
+                self.$ajax.get('wgame/admin/game/all').then(function (response) {
+                    if (response.code === 1) {
+                        self.gameData = response.data;             
+                    }
+                })
             },
             toggleSelection(rows) {
                 if (rows) {
@@ -152,7 +178,7 @@
                 this.dialogStatus = 'detail'
                 this.dialogFormVisible = true
                 var self = this
-                self.$ajax.get('http://localhost:8000/admin/lottery/' + row.id).then(function (response) {
+                self.$ajax.get('wlottery/admin/lottery/' + row.id).then(function (response) {
                     if (response.code === 1) {
                         self.shadowData = response.data;
                         self.getSectorGetRate()

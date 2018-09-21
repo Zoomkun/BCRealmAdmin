@@ -50,6 +50,13 @@
                 label="创建时间">
             </el-table-column>
             <el-table-column
+                prop="refGameId"
+                label="游戏名称"
+                :formatter="formatGameType"
+                :span="2"
+                show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
                 prop="registerNumber"
                 label="激活人数">
             </el-table-column>
@@ -133,12 +140,22 @@
         },
         mounted() {
             this.getData();
-            this.getGameType();
+            this.getGameData();
         },
         methods: {
-            getGameType(){
+            //游戏类型名称处理
+            formatGameType(row, col) {
+                var self = this
+                let data = self.gameData;
+                for(let i in data){
+                    if(row.refGameId = data[i].id){
+                        return data[i].gameName
+                    }
+                }
+            },
+            getGameData(){
                 var self = this;
-                self.$ajax.get('http://localhost:9091/admin/game/all').then(function (response) {
+                self.$ajax.get('wgame/admin/game/all').then(function (response) {
                     if (response.code === 1) {
                         self.gameData = response.data;                  
                     }
@@ -148,7 +165,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "http://localhost:8002/admin/player/statistics/page?size=" + self.pageSize + "&page=" + self.currentPageData,
+                        "wuser/admin/player/statistics/page?size=" + self.pageSize + "&page=" + self.currentPageData,
                         {
                             startTime: this.filters.startTime,
                             endTime: this.filters.endTime,

@@ -91,7 +91,7 @@
     export default {
         name: 'addHeader',
         mounted() {
-            this.getGameType()
+            this.getGameData()
             let self = this
             let data = self.$route.query.data;
             if (data) {
@@ -192,7 +192,7 @@
             }
         },
         methods: {
-            getGameType(){
+            getGameData(){
                 var self = this;
                 self.$ajax.get('wgame/admin/game/all').then(function (response) {
                     if (response.code === 1) {
@@ -205,7 +205,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         self.$ajax({
-                            url: 'http://localhost:8009/admin/header/',
+                            url: 'wquestion/admin/header/',
                             method: self.method,
                             data: self.formData
                         }).then(function (response) {

@@ -12,6 +12,13 @@
                 :span="2">
             </el-table-column>
             <el-table-column
+                prop="refGameId"
+                label="游戏名称"
+                :formatter="formatGameType"
+                :span="2"
+                show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
                 prop="freeSpan"
                 label=" 免费概率"
                 :span="4">
@@ -25,13 +32,6 @@
                 prop="rewardAmount"
                 label="奖励数量"
                 :span="12">
-            </el-table-column>
-            <el-table-column
-                prop="refGameId"
-                label="游戏"
-                :formatter="formatGameType"
-                :span="2"
-                show-overflow-tooltip>
             </el-table-column>
             <el-table-column
                 prop="weight"
@@ -77,44 +77,38 @@
                 currentPageData: 1,
                 tableData: [],
                 multipleSelection: [],
-                gameData:[],
-                gameNameData:[]
+                gameData:[],    //  游戏数据
             }
         },
         mounted() {
             this.getData()
-            this.getGameType()
+            this.getGameData()
         },
         methods: {
-            //计算奖励类型
+            //游戏类型名称处理
             formatGameType(row, col) {
                 var self = this
-                let data = self.gameNameData;
-                return data[(row.refGameId - 1)]
+                let data = self.gameData;
+                for(let i in data){
+                    if(row.refGameId = data[i].id){
+                        return data[i].gameName
+                    }
+                }
             },
             isImportant(row, column) {
                 return row.isImportant == 1 ? '是' : '否';
             },
-            getGameType(){
+            getGameData(){
                 var self = this;
                 self.$ajax.get('wgame/admin/game/all').then(function (response) {
                     if (response.code === 1) {
-                        self.gameData = response.data;
-                        self.getId(self.gameData);                  
+                        self.gameData = response.data;             
                     }
                 })
             },
-            getId(gameData) {// 数据过滤
-                let gameNameData = [];
-                for (let i in gameData) {
-                    gameNameData.push(gameData[i].gameName)
-                }
-                console.log(gameNameData)
-                return gameNameData;
-            },
             getData() {
                 var self = this;
-                self.$ajax.post('http://localhost:8000/admin/lottery/page?page=' + self.currentPageData + "&pageSize=10",
+                self.$ajax.post('wlottery/admin/lottery/page?page=' + self.currentPageData + "&pageSize=10",
                     {}
                 ).then(function (response) {
                     if (response.code === 1) {
@@ -146,7 +140,7 @@
             },
             handleDelete(index, row) {
                 var self = this
-                self.$ajax.delete('http://localhost:8000/admin/lottery/' + row.id).then(function (response) {
+                self.$ajax.delete('wlottery/admin/lottery/' + row.id).then(function (response) {
                     if (response.code === 1) {
                         self.tableData.splice(index, 1)
                         self.$notify({

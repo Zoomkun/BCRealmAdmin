@@ -45,7 +45,7 @@
     export default {
         name: 'addLotterySector',
         mounted() {
-            this.getGameType()
+            this.getGameData()
             let self = this
             let data = self.$route.query.data;
             if (data) {
@@ -94,7 +94,7 @@
             };
         },
         methods: {
-            getGameType(){
+            getGameData(){
                 var self = this;
                 self.$ajax.get('wgame/admin/game/all').then(function (response) {
                     if (response.code === 1) {
@@ -104,7 +104,7 @@
             },
             getRewardType(gameId){
                 var self = this;
-                self.$ajax.get('http://localhost:9091/internal/rewards/getGameRewards?gameId=' + gameId).then(function (response) {
+                self.$ajax.get('wgame/internal/rewards/getGameRewards?gameId=' + gameId).then(function (response) {
                     if (response.code === 1) {
                         self.rewardData = response.data;
                     }
@@ -115,7 +115,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         self.$ajax({
-                            url: 'http://localhost:8000/admin/lottery',
+                            url: 'wlottery/admin/lottery',
                             method: self.method,
                             data: self.formData
                         }).then(function (response) {

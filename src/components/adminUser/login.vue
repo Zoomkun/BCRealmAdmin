@@ -59,7 +59,7 @@
                 var self = this;
                 this.$refs[formName].validate(valid => {
                     if (valid) {
-                        self.$ajax.post('admin/login',
+                        self.$ajax.post('http://192.168.31.124:8067/admin/login',
                                 {
                                     userName:this.ruleForm.userName,
                                     passWord:this.ruleForm.passWord
@@ -75,7 +75,6 @@
                                     });
                                     let data = response.data;
                                     self.$cookies.set('user', JSON.stringify(data),'2h')
-
                                     self.$ajax.defaults.headers.token = data.token;
 
                                     bus.$emit('loginStatus', true)
@@ -102,40 +101,37 @@
     };
 </script>
 
-<style>
-    .login-container {
-        box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
-        -webkit-border-radius: 5px;
-        border-radius: 5px;
-        -moz-border-radius: 5px;
-        background-clip: padding-box;
-        margin: 180px auto;
-        width: 350px;
-        padding: 35px 35px 15px 35px;
-        background: #fff;
-        border: 1px solid #eaeaea;
-        box-shadow: 0 0 25px #cac6c6;
-    }
+<style lang="stylus">
+    .login-container
+        box-shadow 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02)
+        -webkit-border-radius 5px
+        border-radius 5px
+        -moz-border-radius 5px
+        background-clip padding-box
+        margin 0 auto
+        width 240px
+        padding 35px 35px 15px 35px
+        background #fff
+        border 1px solid #eaeaea
+        box-shadow 0 0 25px #cac6c6
 
-    .login-title {
-        font-size: 30px;
-        margin-left: 150px;
-        line-height: 90px;
-    }
+    .login-title
+        width 100%
+        text-align center
+        float left
+        font-size 30px
+        line-height 30px
+        margin-bottom 20px
 
-    .note {
-        position: "absolute";
-        top: "0px";
-        left: "0px";
-        width: "100%";
-        height: "100%";
-        background-size: "100% 100%";
-        background-repeat: "no-repeat";
-        position: relative;
-    }
-    .loginFrame{
-        padding-left: 1000px;
-        padding-top: 160px;
-    }
+    .note
+        width 100%
+        height 100%
+        background rgba(0,0,0,0.2)
+        padding 0
+
+    .loginFrame
+        position absolute
+        right 10%
+        top 35%
 
 </style>

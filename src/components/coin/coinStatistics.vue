@@ -118,7 +118,7 @@
             //获取奖励类型接口
             getCoinType() {
                 var self = this;
-                self.$ajax.get('http://localhost:8025/admin/coin/list').then(function (response) {
+                self.$ajax.get('wcoin/admin/coin/list').then(function (response) {
                     if (response.code === 1) {
                         self.coinData = response.data;
                     }
@@ -128,7 +128,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "http://localhost:8025/admin/coin/statistics/page?size=" + self.pageSize + "&page=" + self.currentPageData,
+                        "wcoin/admin/coin/statistics/page?size=" + self.pageSize + "&page=" + self.currentPageData,
                         {
                             startTime: this.filters.startTime,
                             endTime: this.filters.endTime,

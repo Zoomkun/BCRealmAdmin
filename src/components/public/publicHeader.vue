@@ -27,7 +27,7 @@
             .userinfo-inner
                 cursor: pointer
                 color: #fff
-        
+
 </style>
 <script>
     import bus from '@/js/event'
@@ -46,7 +46,7 @@
                 this.$confirm('确认退出吗?', '提示', {
                     type: 'warning'
                 }).then(function(){
-                    self.$ajax.delete('admin/loginOut'
+                    self.$ajax.delete('http://192.168.31.124:8067/admin/loginOut'
                     ).then(function(response){
                     if(response.code === 1){
                         self.$notify({
@@ -76,7 +76,6 @@
         mounted() {
             var user = $cookies.get('user');
             if (user) {
-                user = JSON.parse(user);
                 this.sysUserName = user.userName || '';
             }
         }

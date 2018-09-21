@@ -11,6 +11,13 @@
                 :span="2">
             </el-table-column>
             <el-table-column
+                prop="refGameId"
+                label="游戏名称"
+                :formatter="formatGameType"
+                :span="2"
+                show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
                 prop="startTime"
                 label="开始时间">
             </el-table-column>
@@ -68,18 +75,30 @@
                 totalPages: 0,
                 currentPageData: 1,
                 tableData: [],
-                multipleSelection: []
+                multipleSelection: [],
+                gameData:[],    //游戏数据
             };
         },
         mounted() {
             this.getData();
+            this.getGameData();
         },
         methods: {
+            //游戏类型名称处理
+            formatGameType(row, col) {
+                var self = this
+                let data = self.gameData;
+                for(let i in data){
+                    if(row.refGameId = data[i].id){
+                        return data[i].gameName
+                    }
+                }
+            },
             getData() {
                 var self = this;
                 self.$ajax
                     .post(
-                        "http://localhost:8009/admin/header/statistics/page?size=20&page=" + self.currentPageData,
+                        "wquestion/admin/header/statistics/page?size=20&page=" + self.currentPageData,
                         {}
                     )
                     .then(function (response) {
@@ -88,6 +107,14 @@
                             self.totalPages = response.data.totalPages;
                         }
                     });
+            },
+            getGameData(){
+                var self = this;
+                self.$ajax.get('wgame/admin/game/all').then(function (response) {
+                    if (response.code === 1) {
+                        self.gameData = response.data;             
+                    }
+                })
             },
             toggleSelection(rows) {
                 if (rows) {

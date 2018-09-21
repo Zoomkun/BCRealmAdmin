@@ -67,7 +67,9 @@
                 :header-cell-style="{'text-align':'center'}"
                 @selection-change="selsChange">
                 <el-table-column
+                    :selectable='checkboxT'
                     type="selection"
+                    disabled='true'
                     :span="2">
                 </el-table-column>
                 <el-table-column
@@ -127,7 +129,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "http://localhost:8007/admin/news/page?page=" + self.currentPageData + "&pageSize=10",
+                        "wnews/admin/news/page?page=" + self.currentPageData + "&pageSize=10",
                         {}
                     )
                     .then(function (response) {
@@ -159,7 +161,7 @@
                         let data = self.getId(self.selectionList, 'id');
                         let newsId = self.newsId;
                         // data.push(self.newsId)
-                        self.$ajax.post('http://localhost:8007/admin/news/news/join', {
+                        self.$ajax.post('wnews/admin/news/news/join', {
                             newsId: newsId,
                             gameId: data
                         }).then(function (response) {
@@ -226,12 +228,16 @@
                 this.dialogStatus = 'detail'
                 this.dialogFormVisible = true
                 var self = this
-                self.$ajax.get('http://localhost:8007/admin/news/notjoinNewsGame/'+ row).then(function (response) {
+                self.$ajax.get('wnews/admin/news/notjoinNewsGame/'+ row).then(function (response) {
                     if (response.code === 1) {
                         self.gameData = response.data;
                         self.newsId = row;
                     }
                 })
+            },
+            //复选框(已经绑定的游戏禁用不可点击选择)
+            checkboxT(row){
+                return row.disabled;
             },
         }
     };

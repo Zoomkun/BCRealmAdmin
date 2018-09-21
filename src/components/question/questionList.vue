@@ -11,9 +11,15 @@
                 :span="2">
             </el-table-column>
             <el-table-column
+                prop="refGameId"
+                label="游戏名称"
+                :formatter="formatGameType"
+                :span="2"
+                show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
                 prop="startTime"
                 label="开始时间">
-
             </el-table-column>
             <el-table-column
                 prop="endTime"
@@ -73,13 +79,25 @@
                 totalPages: 0,
                 currentPageData: 1,
                 tableData: [],
-                multipleSelection: []
+                multipleSelection: [],
+                gameData:[],    //游戏数据
             }
         },
         mounted() {
-            this.getData()
+            this.getData();
+            this.getGameData();
         },
         methods: {
+            //游戏类型名称处理
+            formatGameType(row, col) {
+                var self = this
+                let data = self.gameData;
+                for(let i in data){
+                    if(row.refGameId = data[i].id){
+                        return data[i].gameName
+                    }
+                }
+            },
             // 难度系数处理
             formatDifficulty(row, column) {
                 let data = ['简单', '容易', '难', '较难', '非常难']
@@ -87,10 +105,18 @@
             },
             getData() {
                 var self = this;
-                self.$ajax.post('http://localhost:8009/admin/question/page?size=20&page=' + self.currentPageData, {}).then(function (response) {
+                self.$ajax.post('wquestion/admin/question/page?size=20&page=' + self.currentPageData, {}).then(function (response) {
                     if (response.code === 1) {
                         self.tableData = response.data.content
                         self.totalPages = response.data.totalPages
+                    }
+                })
+            },
+            getGameData(){
+                var self = this;
+                self.$ajax.get('wgame/admin/game/all').then(function (response) {
+                    if (response.code === 1) {
+                        self.gameData = response.data;             
                     }
                 })
             },
@@ -99,7 +125,7 @@
             },
             handleDelete(index, row) {
                 var self = this
-                self.$ajax.delete('http://localhost:8009/admin/question/' + row.id).then(function (response) {
+                self.$ajax.delete('wquestion/admin/question/' + row.id).then(function (response) {
                     if (response.code === 1) {
                         self.tableData.splice(index, 1)
                         self.$notify({

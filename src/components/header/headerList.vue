@@ -11,6 +11,13 @@
                 :span="2">
             </el-table-column>
             <el-table-column
+                prop="refGameId"
+                label="游戏名称"
+                :formatter="formatGameType"
+                :span="2"
+                show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
                 prop="answerStatus"
                 :formatter="formatStatus"
                 label="活动状态"
@@ -92,13 +99,25 @@
                 totalPages: 0,
                 currentPageData: 1,
                 tableData: [],
-                multipleSelection: []
+                multipleSelection: [],
+                gameData:[],    // 游戏数据
             }
         },
         mounted() {
-            this.getData()
+            this.getData();
+            this.getGameData();
         },
         methods: {
+            //游戏类型名称处理
+            formatGameType(row, col) {
+                var self = this
+                let data = self.gameData;
+                for(let i in data){
+                    if(row.refGameId = data[i].id){
+                        return data[i].gameName
+                    }
+                }
+            },
             //活动状态数据处理
             formatStatus(row, column) {
                 return row.answerStatus == 1 ? '未开始' : row.answerStatus == 2 ? '进行中' : '已结束';
@@ -110,21 +129,20 @@
             },
             getData() {
                 var self = this;
-                self.$ajax.post('http://localhost:8009/admin/header/page?size=20&page=' + self.currentPageData, {}).then(function (response) {
+                self.$ajax.post('wquestion/admin/header/page?size=20&page=' + self.currentPageData, {}).then(function (response) {
                     if (response.code === 1) {
                         self.tableData = response.data.content
                         self.totalPages = response.data.totalPages
                     }
                 })
             },
-            toggleSelection(rows) {
-                if (rows) {
-                    rows.forEach(row => {
-                        this.$refs.multipleTable.toggleRowSelection(row);
-                    });
-                } else {
-                    this.$refs.multipleTable.clearSelection();
-                }
+            getGameData(){
+                var self = this;
+                self.$ajax.get('wgame/admin/game/all').then(function (response) {
+                    if (response.code === 1) {
+                        self.gameData = response.data;             
+                    }
+                })
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
@@ -140,7 +158,7 @@
             },
             handleDelete(index, row) {
                 var self = this
-                self.$ajax.delete('http://localhost:8009/admin/header/' + row.id).then(function (response) {
+                self.$ajax.delete('wquestion/admin/header/' + row.id).then(function (response) {
                     if (response.code === 1) {
                         self.tableData.splice(index, 1)
                         self.$notify({
