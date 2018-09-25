@@ -55,6 +55,6 @@
         height 100%
 
     .Bg
-        background: url('../../../static/img/login.png');
+        background: url('/../../../static/img/login.png');
 </style>
 

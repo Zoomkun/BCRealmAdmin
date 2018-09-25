@@ -1,6 +1,22 @@
 <template>
-
     <div>
+        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+            <el-form :inline="true" :model="filters" @submit.native.prevent>
+                <el-form-item>
+                    <el-select v-model="filters.refGameId" clearable placeholder="请选择游戏">
+                        <el-option
+                            v-for="item in gameData"
+                            :key="item.id"
+                            :label="item.gameName"
+                            :value="item.id">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" icon="el-icon-search" v-on:click="getData">查询</el-button>
+                </el-form-item>
+            </el-form>
+        </el-col>
         <el-table
             ref="multipleTable"
             :data="tableData"
@@ -12,9 +28,8 @@
                 :span="2">
             </el-table-column>
             <el-table-column
-                prop="refGameId"
+                prop="refGameName"
                 label="游戏名称"
-                :formatter="formatGameType"
                 :span="2"
                 show-overflow-tooltip>
             </el-table-column>
@@ -78,6 +93,9 @@
                 tableData: [],
                 multipleSelection: [],
                 gameData:[],    //  游戏数据
+                filters: {
+                    refGameId:''
+                },
             }
         },
         mounted() {
@@ -85,16 +103,6 @@
             this.getGameData()
         },
         methods: {
-            //游戏类型名称处理
-            formatGameType(row, col) {
-                var self = this
-                let data = self.gameData;
-                for(let i in data){
-                    if(row.refGameId = data[i].id){
-                        return data[i].gameName
-                    }
-                }
-            },
             isImportant(row, column) {
                 return row.isImportant == 1 ? '是' : '否';
             },
@@ -102,13 +110,13 @@
                 var self = this;
                 self.$ajax.get('wgame/admin/game/all').then(function (response) {
                     if (response.code === 1) {
-                        self.gameData = response.data;             
+                        self.gameData = response.data;
                     }
                 })
             },
             getData() {
                 var self = this;
-                self.$ajax.post('wlottery/admin/lottery/page?page=' + self.currentPageData + "&pageSize=10",
+                self.$ajax.post('wlottery/admin/lottery/page?page=' + self.currentPageData + "&pageSize=10&gameId=" + this.filters.refGameId,
                     {}
                 ).then(function (response) {
                     if (response.code === 1) {

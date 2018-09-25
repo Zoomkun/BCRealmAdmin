@@ -50,9 +50,8 @@
                 label="创建时间">
             </el-table-column>
             <el-table-column
-                prop="refGameId"
+                prop="refGameName"
                 label="游戏名称"
-                :formatter="formatGameType"
                 :span="2"
                 show-overflow-tooltip>
             </el-table-column>
@@ -122,7 +121,8 @@
                 multipleSelection: [],
                 filters: {
                     startTime: '',
-                    endTime: ''
+                    endTime: '',
+                    refGameId:''
                 },
                 gameData:[], //游戏列表
             };
@@ -132,21 +132,11 @@
             this.getGameData();
         },
         methods: {
-            //游戏类型名称处理
-            formatGameType(row, col) {
-                var self = this
-                let data = self.gameData;
-                for(let i in data){
-                    if(row.refGameId = data[i].id){
-                        return data[i].gameName
-                    }
-                }
-            },
             getGameData(){
                 var self = this;
                 self.$ajax.get('wgame/admin/game/all').then(function (response) {
                     if (response.code === 1) {
-                        self.gameData = response.data;                  
+                        self.gameData = response.data;
                     }
                 })
             },

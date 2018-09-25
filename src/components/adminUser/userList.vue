@@ -74,7 +74,7 @@
             },
             getData() {
                 var self = this;
-                self.$ajax.get('admin/user/list').then(function (response) {
+                self.$ajax.get('wadmin/admin/user/list').then(function (response) {
                     if (response.code === 1) {
                         self.tableData = response.data
                     }
@@ -100,7 +100,7 @@
             },
             handleDelete(index, row) {
                 var self = this
-                self.$ajax.delete('admin/user/' + row.id).then(function (response) {
+                self.$ajax.delete('wadmin/admin/user/' + row.id).then(function (response) {
                     if (response.code === 1) {
                         self.tableData.splice(index, 1)
                         self.$notify({

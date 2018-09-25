@@ -59,7 +59,7 @@
                 var self = this;
                 this.$refs[formName].validate(valid => {
                     if (valid) {
-                        self.$ajax.post('http://192.168.31.124:8067/admin/login',
+                        self.$ajax.post('wadmin/admin/login',
                                 {
                                     userName:this.ruleForm.userName,
                                     passWord:this.ruleForm.passWord

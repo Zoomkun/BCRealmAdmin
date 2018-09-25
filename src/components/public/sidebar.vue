@@ -26,54 +26,69 @@
             return {
                 sideBarActive: '',
                 sideBarData: [
+                    // {
+                    //     index: '/topicList',
+                    //     icon: 'el-icon-tickets',
+                    //     module: 'dbex游戏管理',
+                    //     cell: [
+                    //         {
+                    //             cellName: '题库列表',
+                    //             index: '/topicList',
+                    //         },
+                    //         {
+                    //             cellName: '新增题目',
+                    //             index: '/addTopic',
+                    //         },
+                    //         {
+                    //             cellName: '问答列表',
+                    //             index: '/examinationPaperList',
+                    //         },
+                    //         {
+                    //             cellName: '创建问答',
+                    //             index: '/addExaminationPaper',
+                    //         },
+                    //         {
+                    //             cellName: '问答统计',
+                    //             index: '/questionAnswerStatistics',
+                    //         },
+                    //         {
+                    //             cellName: '冲顶列表',
+                    //             index: '/superActivityList',
+                    //         },
+                    //         {
+                    //             cellName: '添加冲顶',
+                    //             index: '/addSuperActivity',
+                    //         },
+                    //         {
+                    //             cellName: '冲顶统计',
+                    //             index: '/activityStatisticsList',
+                    //         },
+                    //         {
+                    //             cellName: '奖盘列表',
+                    //             index: '/rewardList',
+                    //         },
+                    //         {
+                    //             cellName: '添加奖盘',
+                    //             index: '/addReward',
+                    //         },
+                    //         {
+                    //             cellName: '抽奖统计',
+                    //             index: '/drawStatistics'
+                    //         }
+                    //     ]
+                    // },
                     {
-                        index: '/topicList',
+                        index: 'topicList',
                         icon: 'el-icon-tickets',
-                        module: 'dbex游戏管理',
+                        module: '题库管理',
                         cell: [
                             {
-                                cellName: '题库列表',
-                                index: '/topicList',
+                                cellName:'题目列表',
+                                index:'/topicList'
                             },
                             {
-                                cellName: '新增题目',
-                                index: '/addTopic',
-                            },
-                            {
-                                cellName: '问答列表',
-                                index: '/examinationPaperList',
-                            },
-                            {
-                                cellName: '创建问答',
-                                index: '/addExaminationPaper',
-                            },
-                            {
-                                cellName: '问答统计',
-                                index: '/questionAnswerStatistics',
-                            },
-                            {
-                                cellName: '冲顶列表',
-                                index: '/superActivityList',
-                            },
-                            {
-                                cellName: '添加冲顶',
-                                index: '/addSuperActivity',
-                            },
-                            {
-                                cellName: '冲顶统计',
-                                index: '/activityStatisticsList',
-                            },
-                            {
-                                cellName: '奖盘列表',
-                                index: '/rewardList',
-                            },
-                            {
-                                cellName: '添加奖盘',
-                                index: '/addReward',
-                            },
-                            {
-                                cellName: '抽奖统计',
-                                index: '/drawStatistics'
+                                cellName:'添加题目',
+                                index:'/addTopic'
                             }
                         ]
                     },
@@ -89,7 +104,7 @@
                             {
                                 cellName:'用户列表',
                                 index:'/userList'
-                            }                            
+                            }
                         ]
                     },
                     {
@@ -104,7 +119,7 @@
                             {
                                 cellName: '添加挖矿活动',
                                 index: '/addMiningActivity',
-                            }                                          
+                            }
                         ]
                     },
                     {
@@ -166,7 +181,7 @@
                     },
                     {
                         index: '/userTotalStatistics',
-                        icon: 'el-icon-message',
+                        icon: 'el-icon-tickets',
                         module: '用户数据分析',
                         cell: [
                             {
@@ -201,7 +216,7 @@
                     },
                     {
                         index: '/gameList',
-                        icon: 'el-icon-setting',
+                        icon: 'el-icon-message',
                         module: '游戏管理',
                         cell: [
                             {
@@ -233,7 +248,7 @@
                             }
                         ]
                     },
-                    
+
                 ]
             };
         },

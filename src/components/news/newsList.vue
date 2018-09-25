@@ -67,12 +67,7 @@
                 :header-cell-style="{'text-align':'center'}"
                 @selection-change="selsChange">
                 <el-table-column
-                    :selectable='checkboxT'
-                    type="selection"
-                    disabled='true'
-                    :span="2">
-                </el-table-column>
-                <el-table-column
+                    width="100"
                     prop="id"
                     label="游戏ID">
                 </el-table-column>
@@ -88,10 +83,34 @@
                     :span="2"
                     show-overflow-tooltip>
                 </el-table-column>
+                <el-table-column
+                    width="100"
+                    prop="disabled"
+                    label="是否已绑定"
+                    :formatter="disabled"
+                    :span="2"
+                    show-overflow-tooltip>
+                </el-table-column>
+                <el-table-column label="操作" :span="4" width="130">
+                    <template slot-scope="scope">
+                        <span v-if="scope.row.disabled == false">
+                            <el-button
+                                size="mini"
+                                @click="delGames(scope.row.id)">解绑
+                            </el-button>
+                        </span>
+                        <span v-if="scope.row.disabled == true">
+                            <el-button
+                                size="mini"
+                                type="primary"
+                                @click="addGames(scope.row.id)">绑定
+                            </el-button>
+                        </span>
+                    </template>
+                </el-table-column>
             </el-table>
             <div slot="footer" class="dialog-footer">
                 <el-button @click.native="dialogFormVisible=false">取消</el-button>
-                <el-button type="primary" @click="addGames()" :disabled="this.selectionList.length===0">确定</el-button>
             </div>
         </el-dialog>
     </div>
@@ -125,6 +144,9 @@
             formatShow: function (row, column) {
                 return row.isShow == 1 ? '是' : '否';
             },
+            disabled(row, column) {
+                return row.disabled == false ? '是' : '否';
+            },
             getData() {
                 var self = this;
                 self.$ajax
@@ -152,18 +174,44 @@
             selsChange(val) {
                 this.selectionList = val
             },
+            //解绑游戏
+            delGames(row) {
+                var self = this;
+                this.$confirm('确认解绑该新闻吗？', '提示', {
+                    type: 'warning'
+                }).then(function () {
+                    let newsId = self.newsId;
+                    self.$ajax.post('wnews/admin/news/del/news/join', {
+                        newsId: newsId,
+                        gameId: row
+                    }).then(function (response) {
+                        if (response.code === 1) {
+                            self.$notify({
+                                title: '提示',
+                                message: '解绑成功',
+                                type: 'success',
+                                duration: 1000
+                            })
+                            self.dialogFormVisible = false
+                            self.handleGameList(newsId)
+                        }
+                    })
+                }).catch(function () {
+                    console.log('error submit!!');
+                    return false;
+                })
+
+            },
             //绑定游戏
-            addGames() {
+            addGames(row) {
                 var self = this;
                 this.$confirm('确认绑定该新闻吗？', '提示', {
                     type: 'warning'
                 }).then(function () {
-                        let data = self.getId(self.selectionList, 'id');
                         let newsId = self.newsId;
-                        // data.push(self.newsId)
                         self.$ajax.post('wnews/admin/news/news/join', {
                             newsId: newsId,
-                            gameId: data
+                            gameId: row
                         }).then(function (response) {
                             if (response.code === 1) {
                                 self.$notify({
@@ -173,6 +221,7 @@
                                     duration: 1000
                                 })
                                 self.dialogFormVisible = false
+                                self.handleGameList(newsId)
                             }
                         })
                     }).catch(function () {
@@ -205,16 +254,20 @@
             },
             handleDelete(index, row) {
                 var self = this
-                self.$ajax.delete('wnews/admin/news/' + row.id).then(function (response) {
-                    if (response.code === 1) {
-                        self.tableData.splice(index, 1)
-                        self.$notify({
-                            title: '提示',
-                            message: '删除成功',
-                            type: 'success',
-                            duration: 1500
-                        })
-                    }
+                this.$confirm('确认删除吗?', '提示', {
+                    type: 'warning'
+                }).then(function(){
+                    self.$ajax.delete('wnews/admin/news/' + row.id).then(function (response) {
+                        if (response.code === 1) {
+                            self.tableData.splice(index, 1)
+                            self.$notify({
+                                title: '提示',
+                                message: '删除成功',
+                                type: 'success',
+                                duration: 1500
+                            })
+                        }
+                    })
                 })
             },
             handleEdit(index, row) {

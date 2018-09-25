@@ -61,7 +61,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         self.$ajax({
-                            url: 'admin/edit/pwd',
+                            url: 'wadmin/admin/edit/pwd',
                             method: self.method,
                             data: self.ruleForm
                         }).then(function (response) {

@@ -11,8 +11,9 @@
                 :span="2">
             </el-table-column>
             <el-table-column
-                prop="topicId"
+                prop="id"
                 label="题目ID"
+                width="150"
                 :span="2">
             </el-table-column>
             <el-table-column
@@ -23,18 +24,21 @@
             <el-table-column
                 prop="title"
                 label="题目名称"
+                width="480"
                 :span="12">
             </el-table-column>
             <el-table-column
                 prop="answerBox"
                 label="题目答案"
                 :span="3"
+                width="480"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                prop="correctRate"
-                label="题目正确率"
-                :span="2">
+                prop="isCommon"
+                label="是否显示"
+                width="155"
+                :formatter="formatShow">
             </el-table-column>
             <el-table-column label="操作" :span="4">
                 <template slot-scope="scope">
@@ -82,10 +86,14 @@
             this.getData()
         },
         methods: {
+            // 显示转换
+            formatShow: function (row, column) {
+                return row.isCommon == 1 ? '是' : '否';
+            },
             //获取列表数据
             getData() {
                 var self = this;
-                self.$ajax.post('dbex/admin/topic/page?size=' + self.pageSize + '&page=' + self.currentPageData, {}).then(function (response) {
+                self.$ajax.post('wquestion/admin/topic/page?size=' + self.pageSize + '&page=' + self.currentPageData, {}).then(function (response) {
                     if (response.code === 1) {
                         self.tableData = response.data.content;
                         self.total = response.data.totalElements;
@@ -159,7 +167,7 @@
             },
             handleDelete(index, row) {
                 var self = this
-                self.$ajax.delete('dbex/admin/topic/' + row.topicId).then(function (response) {
+                self.$ajax.delete('wquestion/admin/topic/' + row.id).then(function (response) {
                     if (response.code === 1) {
                         self.tableData.splice(index, 1)
                         self.$notify({

@@ -65,6 +65,7 @@
                 <el-table
                     ref="multipleTable"
                     :data="optionData"
+                    height="450"
                     border
                     tooltip-effect="dark"
                     style="width: 100%;"
@@ -140,7 +141,7 @@
             return {
                 totalPages: 0,
                 currentPageData: 1,
-                gameData: [],  
+                gameData: [],
                 multipleSelection: [],
                 dialogFormVisible: false,   //游戏配置参数修改弹框
                 dialogTableVisible: false,  //游戏配置参数列表弹框
@@ -255,6 +256,7 @@
                 var self = this
                 self.$ajax.post('wglobal/admin/option/page?size=10&page=' + self.currentPageData,
                     {
+                        refGameId:gameId,
                         gkey:self.filters.gkey
                     }
                 ).then(function (response) {
