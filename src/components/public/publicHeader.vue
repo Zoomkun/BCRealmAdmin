@@ -23,7 +23,7 @@
     .userinfo
             text-align: right
             padding-right: 35px
-            float: right
+            float: right!important
             .userinfo-inner
                 cursor: pointer
                 color: #fff

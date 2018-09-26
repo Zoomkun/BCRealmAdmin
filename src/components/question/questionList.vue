@@ -58,14 +58,8 @@
                 label="结束时间">
             </el-table-column>
             <el-table-column
-                prop="difficulty"
-                label="难度系数"
-                :formatter="formatDifficulty"
-                show-overflow-tooltip>
-            </el-table-column>
-            <el-table-column
                 prop="rewardValue"
-                label="奖励算力"
+                label="奖励数量"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
@@ -76,6 +70,21 @@
             <el-table-column
                 prop="topicNumber"
                 label="题目数量"
+                show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
+                prop="difficultya"
+                label="难度1题数"
+                show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
+                prop="difficultyb"
+                label="难度1题数"
+                show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column
+                prop="difficultyc"
+                label="难度1题数"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column label="操作" width="200px">
