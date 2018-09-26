@@ -38,8 +38,8 @@
                 </el-option>
             </el-select>
         </el-form-item>
-        <el-form-item label="奖励算力">
-            <el-input-number v-model="formData.rewardIsForce" :min="0" label="描述文字"></el-input-number>
+        <el-form-item label="奖励数量">
+            <el-input-number v-model="formData.rewardValue" :min="0" label="描述文字"></el-input-number>
         </el-form-item>
         <el-form-item label="奖励题数">
             <el-input-number v-model="formData.rewardQuestionNumber" :min="0" label="描述文字"></el-input-number>
@@ -91,7 +91,8 @@
                     difficultya:'',
                     difficultyb:'',
                     difficultyc:'',
-                    refRewardId: ''
+                    refRewardId: '',
+                    rewardValue:''
                 },
                 gameData:[],    //
                 rewardData:[], //奖励类型数据
