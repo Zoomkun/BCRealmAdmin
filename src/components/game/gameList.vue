@@ -73,24 +73,36 @@
                     :header-cell-style="{'text-align':'center'}">
                     <el-table-column
                         prop="id"
+                        width="80"
                         label="ID">
                     </el-table-column>
                     <el-table-column
                         prop="gkey"
                         label="键"
                         :span="2"
+                        width="300"
                         show-overflow-tooltip>
                     </el-table-column>
                     <el-table-column
                         prop="gvalue"
                         label="值"
                         :span="2"
+                        width="100"
                         show-overflow-tooltip>
                     </el-table-column>
                     <el-table-column
                         prop="description"
                         label="配置说明"
                         :span="2"
+                        width="280"
+                        show-overflow-tooltip>
+                    </el-table-column>
+                    <el-table-column
+                        prop="isCommon"
+                        label="是否公用"
+                        :span="2"
+                        width="100"
+                        :formatter="formatCommon"
                         show-overflow-tooltip>
                     </el-table-column>
                     <el-table-column label="操作" :span="4">
@@ -174,6 +186,9 @@
             this.getData()
         },
         methods: {
+            formatCommon(row, column) {
+                return row.isCommon == false ? '否' : '是';
+            },
             // 显示转换
             formatShow: function (row, column) {
                 return row.status == 1 ? '开始' : '关闭';
@@ -218,11 +233,14 @@
             //修改游戏配置参数
             updateForm(formName) {
                 var self = this
+                if(self.ruleForm.isCommon == true){
+                    self.ruleForm.refGameId = self.gameId
+                }
                 let data = self.ruleForm
                 let gameId = self.gameId
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        self.$ajax.put('wglobal/admin/option/', data).then(function (response) {
+                        self.$ajax.put('wglobal/admin/option/',data).then(function (response) {
                             if (response.code === 1) {
                                 self.$notify({
                                     title: '成功',

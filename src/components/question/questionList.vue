@@ -64,7 +64,7 @@
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column
-                prop="rewardIsForce"
+                prop="rewardValue"
                 label="奖励算力"
                 show-overflow-tooltip>
             </el-table-column>

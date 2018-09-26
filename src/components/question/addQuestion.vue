@@ -28,6 +28,16 @@
                 @change="changeTime">
             </el-date-picker>
         </el-form-item>
+        <el-form-item label="奖励类型" prop="refRewardId">
+            <el-select v-model="formData.refRewardId" placeholder="请选择" @click.native="getRewardType(formData.refGameId)">
+                <el-option
+                    v-for="item in rewardData"
+                    :key="item.id"
+                    :label="item.rewardDesc"
+                    :value="item.id">
+                </el-option>
+            </el-select>
+        </el-form-item>
         <el-form-item label="奖励算力">
             <el-input-number v-model="formData.rewardIsForce" :min="0" label="描述文字"></el-input-number>
         </el-form-item>
@@ -80,9 +90,31 @@
                     topicNumber: '',
                     difficultya:'',
                     difficultyb:'',
-                    difficultyc:''
+                    difficultyc:'',
+                    refRewardId: ''
                 },
-                gameData:[]
+                gameData:[],    //
+                rewardData:[], //奖励类型数据
+                select: [
+                    [
+                        {
+                            value: 1,
+                            label: '算力'
+                        },
+                        {
+                            value: 2,
+                            label: '积分'
+                        },
+                        {
+                            value: 3,
+                            label: '经验'
+                        },
+                        {
+                            value: 4,
+                            label: 'dbex'
+                        }
+                    ]
+                ],
             };
         },
         methods: {
@@ -90,7 +122,15 @@
                 var self = this;
                 self.$ajax.get('wgame/admin/game/all').then(function (response) {
                     if (response.code === 1) {
-                        self.gameData = response.data;                  
+                        self.gameData = response.data;
+                    }
+                })
+            },
+            getRewardType(gameId){
+                var self = this;
+                self.$ajax.get('wgame/internal/rewards/getGameRewards?gameId=' + gameId).then(function (response) {
+                    if (response.code === 1) {
+                        self.rewardData = response.data;
                     }
                 })
             },

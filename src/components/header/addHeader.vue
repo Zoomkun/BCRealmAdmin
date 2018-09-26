@@ -36,7 +36,7 @@
                     placeholder="选择开始日期时间"
                     value-format="yyyy-MM-dd HH:mm:ss">
                 </el-date-picker>
-                 至 
+                 至
                 <el-date-picker
                     v-model="formData.endTime"
                     type="datetime"
@@ -47,7 +47,7 @@
             <el-form-item label="答题时长" prop="answerTime">
                 <el-input-number v-model="formData.answerTime" :min="0" :max="10000" label="描述文字"></el-input-number>
             </el-form-item>
-            <el-form-item label="奖励数量" prop="rewardQuantity">
+            <el-form-item label="奖励dbex" prop="rewardQuantity">
                 <el-input-number v-model="formData.rewardQuantity" :min="0" :max="10000" label="描述文字"></el-input-number>
             </el-form-item>
             <el-form-item label="冲顶描述" prop="description">
@@ -64,16 +64,6 @@
             </el-form-item>
             <el-form-item label="难度3题数" prop="difficultyc">
                 <el-input-number v-model="formData.difficultyc" :min="0" :max="formData.questionNumber - formData.difficultya - formData.difficultyb" label="描述文字"></el-input-number>
-            </el-form-item>
-            <el-form-item label="奖励类型" prop="rewardType">
-                <el-select v-model="formData.rewardType" placeholder="请选择">
-                    <el-option
-                        v-for="item in select[1]"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
-                    </el-option>
-                </el-select>
             </el-form-item>
             <el-form-item label="参与奖比率" prop="failedShareRate">
                 <el-input-number v-model="formData.failedShareRate" :min="0" :max="10000"
@@ -111,7 +101,6 @@
                     answerStatus: '',
                     description: '',
                     answerTime: '',
-                    rewardType: '',
                     startTime: '',
                     endTime: '',
                     previewTime: '',
@@ -132,9 +121,6 @@
                     }],
                     answerTime: [{
                         required: true, message: '请输入答题时间', trigger: 'blur'
-                    }],
-                    rewardType: [{
-                        required: true, message: '请选择奖励类型', trigger: 'blur'
                     }],
                     startTime: [
                         {required: true, message: '请选择开始时间', trigger: 'blur'}
@@ -169,24 +155,6 @@
                             value: 3,
                             label: '已结束'
                         }
-                    ],
-                    [
-                        {
-                            value: 1,
-                            label: '算力'
-                        }, 
-                        {
-                            value: 2,
-                            label: '积分'
-                        },
-                        {
-                            value: 3,
-                            label: '经验'
-                        }, 
-                        {
-                            value: 4,
-                            label: 'dbex'
-                        }
                     ]
                 ],
             }
@@ -196,7 +164,7 @@
                 var self = this;
                 self.$ajax.get('wgame/admin/game/all').then(function (response) {
                     if (response.code === 1) {
-                        self.gameData = response.data;                  
+                        self.gameData = response.data;
                     }
                 })
             },
