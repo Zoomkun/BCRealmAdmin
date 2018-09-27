@@ -47,7 +47,7 @@
             <el-form-item label="答题时长" prop="answerTime">
                 <el-input-number v-model="formData.answerTime" :min="0" :max="10000" label="描述文字"></el-input-number>
             </el-form-item>
-            <el-form-item label="奖励dbex" prop="rewardQuantity">
+            <el-form-item label="奖励金币" prop="rewardQuantity">
                 <el-input-number v-model="formData.rewardQuantity" :min="0" :max="10000" label="描述文字"></el-input-number>
             </el-form-item>
             <el-form-item label="冲顶描述" prop="description">
