@@ -98,7 +98,7 @@
                 var self = this;
                 self.$ajax.get('wgame/admin/game/all').then(function (response) {
                     if (response.code === 1) {
-                        self.gameData = response.data;                  
+                        self.gameData = response.data;
                     }
                 })
             },
@@ -145,4 +145,3 @@
 </style>
 
 
-    

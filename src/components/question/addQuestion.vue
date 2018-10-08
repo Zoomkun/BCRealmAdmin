@@ -92,7 +92,8 @@
                     difficultyb:'',
                     difficultyc:'',
                     refRewardId: '',
-                    rewardValue:''
+                    rewardValue:'',
+                    refGameId:''
                 },
                 gameData:[],    //
                 rewardData:[], //奖励类型数据

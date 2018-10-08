@@ -86,12 +86,6 @@
                 :span="4">
             </el-table-column>
             <el-table-column
-                prop="rewardType"
-                label="奖励类型"
-                :formatter="formatRewardType"
-                :span="4">
-            </el-table-column>
-            <el-table-column
                 prop="failedShareRate"
                 label="参与奖比率"
                 :span="4">

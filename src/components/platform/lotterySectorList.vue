@@ -54,7 +54,7 @@
                 :span="4">
             </el-table-column>
             <el-table-column
-                prop="refGameId"
+                prop="refRewardName"
                 label="奖励类型"
                 show-overflow-tooltip>
             </el-table-column>
@@ -116,7 +116,7 @@
             },
             getData() {
                 var self = this;
-                self.$ajax.post('wlottery/admin/lottery/page?page=' + self.currentPageData + "&pageSize=10&gameId=" + this.filters.refGameId,
+                self.$ajax.post('http://localhost:8000/admin/lottery/page?page=' + self.currentPageData + "&pageSize=10&gameId=" + this.filters.refGameId,
                     {}
                 ).then(function (response) {
                     if (response.code === 1) {

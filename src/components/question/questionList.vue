@@ -87,6 +87,11 @@
                 label="难度1题数"
                 show-overflow-tooltip>
             </el-table-column>
+            <el-table-column
+                prop="refRewardName"
+                label="奖励类型"
+                show-overflow-tooltip>
+            </el-table-column>
             <el-table-column label="操作" width="200px">
                 <template slot-scope="scope">
                     <el-button

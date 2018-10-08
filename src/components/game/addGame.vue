@@ -16,6 +16,24 @@
                     <el-radio class="radio" :label=2>关闭</el-radio>
                 </el-radio-group>
             </el-form-item>
+            <el-form-item label="奖励类型">
+                <el-checkbox-group v-model="selectionList" @change="selsChange">
+                    <el-checkbox
+                        border
+                        v-for="item in rewardData"
+                        :label="item"
+                        :disabled="item.disabled"
+                        :key="item.rewardDesc">
+                        {{item.rewardDesc}}
+                    </el-checkbox>
+                </el-checkbox-group>
+            </el-form-item>
+            <el-form-item label="游戏类型">
+                <el-radio-group v-model="ruleForm.type">
+                    <el-radio class="radio" :label=1>世界游戏</el-radio>
+                    <el-radio class="radio" :label=2>小游戏</el-radio>
+                </el-radio-group>
+            </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">{{addTitle}}</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -28,6 +46,7 @@
     export default {
         name: 'addGame',
         mounted() {
+            this.getRewardType()
             let self = this
             let data = self.$route.query.data;
             if (data) {
@@ -47,8 +66,11 @@
                     gameName: '',
                     gameAddress: '',
                     gameCode: '',
-                    status: 1
+                    status: 1,
+                    rewardTypeVoList:[],
+                    type:2
                 },
+                rewardData:[],
                 rules: {
                     gameName: [{
                         required: true, message: '请输入游戏名称', trigger: 'blur'
@@ -59,16 +81,26 @@
                     gameCode: [{
                         required: true, message: '请输入游戏编码', trigger: 'blur'
                     }],
-                }
+                },
+                selectionList: [], // 列表选中列
             };
         },
         methods: {
+            getRewardType(){
+                var self = this;
+                self.$ajax.get('wgame/internal/rewards/gameRewards').then(function (response) {
+                    if (response.code === 1) {
+                        self.rewardData = response.data;
+                    }
+                })
+            },
             submitForm(formName) {
                 var self = this
+                self.ruleForm.rewardTypeVoList = self.selectionList
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         self.$ajax({
-                            url: 'wgame/admin/game/add',
+                            url: 'wgame/admin/game/',
                             method: self.method,
                             data: self.ruleForm
                         }).then(function (response) {
@@ -86,6 +118,11 @@
                         return false;
                     }
                 });
+            },
+            // 全选单选多选
+            selsChange(item) {
+                this.selectionList = item;
+                // console.log(item);
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();

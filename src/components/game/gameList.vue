@@ -16,11 +16,13 @@
                 :span="2">
             </el-table-column>
             <el-table-column
+                width="300"
                 prop="gameName"
                 label="游戏名称"
                 :span="2">
             </el-table-column>
             <el-table-column
+                width="300"
                 prop="gameAddress"
                 label="游戏地址"
                 :span="12">
@@ -186,10 +188,11 @@
             this.getData()
         },
         methods: {
+            //配置是否公用
             formatCommon(row, column) {
                 return row.isCommon == false ? '否' : '是';
             },
-            // 显示转换
+            //游戏状态显示转换
             formatShow: function (row, column) {
                 return row.status == 1 ? '开始' : '关闭';
             },
