@@ -36,7 +36,7 @@
             </el-table-column>
             <el-table-column
                 prop="isCommon"
-                label="是否显示"
+                label="是否公用"
                 width="155"
                 :formatter="formatShow">
             </el-table-column>

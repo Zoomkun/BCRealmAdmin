@@ -10,6 +10,16 @@
             <el-form-item label="邮箱" prop="email">
                 <el-input v-model="ruleForm.email"></el-input>
             </el-form-item>
+            <el-form-item label="角色" prop="roleId">
+                <el-select v-model="ruleForm.roleId" placeholder="请选择">
+                    <el-option
+                        v-for="item in roleData"
+                        :key="item.id"
+                        :label="item.name"
+                        :value="item.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item label="用户状态">
                 <el-radio-group v-model="ruleForm.flag">
                     <el-radio class="radio" :label=1>启用</el-radio>
@@ -28,6 +38,7 @@
     export default {
         name: 'addUser',
         mounted() {
+            this.getRoleData()
             let self = this
             let data = self.$route.query.data;
             if (data) {
@@ -47,7 +58,8 @@
                     userName: '',
                     passWord: '',
                     email: '',
-                    flag: 1
+                    flag: 1,
+                    roleId:''
                 },
                 rules: {
                     userName: [{
@@ -59,10 +71,19 @@
                     email: [{
                         required: true, message: '请输入邮箱', trigger: 'blur'
                     }],
-                }
+                },
+                roleData:[] //角色数据
             };
         },
         methods: {
+            getRoleData() {
+                var self = this;
+                self.$ajax.get('wadmin/admin/role/list').then(function (response) {
+                    if (response.code === 1) {
+                        self.roleData = response.data
+                    }
+                })
+            },
             submitForm(formName) {
                 var self = this
                 this.$refs[formName].validate((valid) => {

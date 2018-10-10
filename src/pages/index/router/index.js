@@ -42,11 +42,15 @@ import AddQuestion from '@/components/question/addQuestion.vue'
 import QuestionList from '@/components/question/questionList.vue'
 import QuestionStatistics from '@/components/question/questionStatistics.vue'
 
-//登录
+//登录，用户角色设置
 import Login from '@/components/adminUser/login.vue'
 import AddUser from '@/components/adminUser/addUser.vue'
 import UserList from '@/components/adminUser/userList.vue'
 import EditPwd from '@/components/adminUser/EditPwd.vue'
+import AddRole from '@/components/adminUser/addRole.vue'
+import RoleList from '@/components/adminUser/roleList.vue'
+import AddMenu from '@/components/adminUser/addMenu.vue'
+import MenuList from '@/components/adminUser/menuList.vue'
 
 //游戏
 import AddGame from '@/components/game/addGame.vue'
@@ -250,6 +254,26 @@ export default new Router({
             path: '/coinStatistics',
             name: 'CoinStatistics',
             component: CoinStatistics
+        },
+        {
+            path: '/addRole',
+            name: 'AddRole',
+            component: AddRole
+        },
+        {
+            path: '/roleList',
+            name: 'RoleList',
+            component: RoleList
+        },
+        {
+            path: '/addMenu',
+            name: 'AddMenu',
+            component: AddMenu
+        },
+        {
+            path: '/menuList',
+            name: 'MenuList',
+            component: MenuList
         }
     ],
 })

@@ -104,6 +104,22 @@
                             {
                                 cellName:'用户列表',
                                 index:'/userList'
+                            },
+                            {
+                                cellName:'添加角色',
+                                index:'/addRole'
+                            },
+                            {
+                                cellName:'角色列表',
+                                index:'/roleList'
+                            },
+                            {
+                                cellName:'添加菜单',
+                                index:'/addMenu'
+                            },
+                            {
+                                cellName:'菜单列表',
+                                index:'/menuList'
                             }
                         ]
                     },

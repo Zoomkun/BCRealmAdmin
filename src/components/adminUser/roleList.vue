@@ -13,41 +13,29 @@
             </el-table-column>
             <el-table-column
                 prop="id"
-                label="用户ID"
+                label="角色id"
                 :span="4">
             </el-table-column>
             <el-table-column
-                prop="userName"
-                label=" 用户名"
+                prop="name"
+                label=" 角色名称"
                 :span="4">
             </el-table-column>
             <el-table-column
-                prop="email"
-                label=" 邮箱"
+                prop="description"
+                label=" 角色描述"
                 :span="4">
-            </el-table-column>
-            <el-table-column
-                prop="flag"
-                label="用户状态"
-                :formatter="formatFlag"
-                :span="12">
-            </el-table-column>
-            <el-table-column
-                prop="roleName"
-                label="角色"
-                :span="4">
-            </el-table-column>
-            <el-table-column
-                prop="lastLoginTime"
-                label="最后登录时间"
-                :span="2"
-                show-overflow-tooltip>
             </el-table-column>
             <el-table-column label="操作" :span="4">
                 <template slot-scope="scope">
                     <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)">编辑
+                    </el-button>
+                    <el-button
+                        size="mini"
+                        type="primary"
+                        @click="handleEdit(scope.$index, scope.row)">功能权限
                     </el-button>
                     <el-button
                         size="mini"
@@ -62,7 +50,7 @@
 
 <script>
     export default {
-        name: 'userList',
+        name: 'roleList',
         data() {
             return {
                 tableData: [],
@@ -73,13 +61,9 @@
             this.getData()
         },
         methods: {
-            //用户状态
-            formatFlag(row, col) {
-                return row.flag == 1 ? '启用' : '禁用';
-            },
             getData() {
                 var self = this;
-                self.$ajax.get('wadmin/admin/user/list').then(function (response) {
+                self.$ajax.get('wadmin/admin/role/list').then(function (response) {
                     if (response.code === 1) {
                         self.tableData = response.data
                     }
@@ -105,7 +89,7 @@
             },
             handleDelete(index, row) {
                 var self = this
-                self.$ajax.delete('wadmin/admin/user/' + row.id).then(function (response) {
+                self.$ajax.delete('wadmin/admin/role/' + row.id).then(function (response) {
                     if (response.code === 1) {
                         self.tableData.splice(index, 1)
                         self.$notify({
@@ -118,7 +102,7 @@
                 })
             },
             handleEdit(index, row) {
-                this.$router.push({path: '/addUser', query: {data: row}});
+                this.$router.push({path: '/addRole', query: {data: row}});
             }
         }
     }
