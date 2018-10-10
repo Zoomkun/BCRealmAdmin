@@ -14,11 +14,11 @@ Vue.config.productionTip = false;
 
 let url = '';
 // if (window.location.href.indexOf('test') > -1) {
-//     url = 'http://api.bcrealm.com/api/'
+    url = 'http://api.bcrealm.com/api/'
 // } else if (window.location.href.indexOf('localhost') > -1) {
 //     url = 'http://192.168.31.124:8067/'
 // } else {
-    url = 'http://test.bcrealm.com/api/'
+//     url = 'http://test.bcrealm.com/api/'
 // }
 
 var $ajax = axios.create({
