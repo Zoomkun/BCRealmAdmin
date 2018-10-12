@@ -36,6 +36,7 @@
             </el-table-column>
             <el-table-column
                 prop="createTime"
+                :formatter="dateFormat"
                 label="创建时间">
             </el-table-column>
             <el-table-column
@@ -93,6 +94,7 @@
 </template>
 
 <script>
+    import moment from "moment"
     export default {
         name: "userStatistics",
         data() {
@@ -112,6 +114,14 @@
             this.getData();
         },
         methods: {
+            //创建时间显示格式处理
+            dateFormat:function(row, column) {
+                var date = row.createTime;
+                if (date == undefined) {
+                    return "";
+                }
+                return moment(date).format("YYYY-MM-DD");
+            },
             getData() {
                 var self = this;
                 self.$ajax
