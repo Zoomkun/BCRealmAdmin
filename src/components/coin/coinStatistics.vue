@@ -46,6 +46,7 @@
             </el-table-column>
             <el-table-column
                 prop="createTime"
+                :formatter="dateFormat"
                 label="创建时间">
             </el-table-column>
             <el-table-column
@@ -93,6 +94,7 @@
 </template>
 
 <script>
+    import moment from "moment"
     export default {
         name: "coinStatistics",
         data() {
@@ -115,6 +117,14 @@
             this.getCoinType();
         },
         methods: {
+            //创建时间显示格式处理
+            dateFormat:function(row) {
+                var date = row.createTime;
+                if (date == undefined) {
+                    return "";
+                }
+                return moment(date).format("YYYY-MM-DD");
+            },
             //获取奖励类型接口
             getCoinType() {
                 var self = this;

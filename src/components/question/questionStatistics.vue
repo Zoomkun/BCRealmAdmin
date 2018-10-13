@@ -115,7 +115,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "http://localhost:8009/admin/question/statistics/page?size=20&page=" + self.currentPageData,
+                        "wquestion/admin/question/statistics/page?size=20&page=" + self.currentPageData,
                         {
                             startTime: this.filters.startTime,
                             endTime: this.filters.endTime,
@@ -131,7 +131,7 @@
             },
             getGameData(){
                 var self = this;
-                self.$ajax.get('http://localhost:9091/admin/game/all').then(function (response) {
+                self.$ajax.get('wgame/admin/game/all').then(function (response) {
                     if (response.code === 1) {
                         self.gameData = response.data;
                     }

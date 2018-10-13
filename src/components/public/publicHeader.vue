@@ -46,7 +46,7 @@
                 this.$confirm('确认退出吗?', '提示', {
                     type: 'warning'
                 }).then(function(){
-                    self.$ajax.delete('http://localhost:8067/admin/loginOut'
+                    self.$ajax.delete('wadmin/admin/loginOut'
                     ).then(function(response){
                     if(response.code === 1){
                         self.$notify({
@@ -75,6 +75,7 @@
         },
         mounted() {
             var user = $cookies.get('user');
+            user = JSON.parse(user);
             if (user) {
                 this.sysUserName = user.userName || '';
             }
