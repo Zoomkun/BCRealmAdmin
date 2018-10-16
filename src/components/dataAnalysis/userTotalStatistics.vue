@@ -101,7 +101,7 @@
             return {
                 currentPageData: 1,
                 total: 0,
-                pageSize: 10,
+                pageSize: 5,
                 tableData: [],
                 multipleSelection: [],
                 filters: {

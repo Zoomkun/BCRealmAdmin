@@ -51,6 +51,7 @@ import AddRole from '@/components/adminUser/addRole.vue'
 import RoleList from '@/components/adminUser/roleList.vue'
 import AddMenu from '@/components/adminUser/addMenu.vue'
 import MenuList from '@/components/adminUser/menuList.vue'
+// import Config from '@/components/adminUser/config.vue'
 
 //游戏
 import AddGame from '@/components/game/addGame.vue'
@@ -60,6 +61,10 @@ import GameTotalStatistics from '@/components/game/gameTotalStatistics.vue'
 
 //货币
 import CoinStatistics from '@/components/coin/CoinStatistics.vue'
+
+//系统消息
+import AddMessage from '@/components/message/AddMessage.vue'
+import MessageList from '@/components/message/MessageList.vue'
 
 Vue.use(Router)
 
@@ -274,6 +279,21 @@ export default new Router({
             path: '/menuList',
             name: 'MenuList',
             component: MenuList
+        },
+        // {
+        //     path: '/config',
+        //     name: 'Config',
+        //     component: Config
+        // },
+        {
+            path: '/addMessage',
+            name: 'AddMessage',
+            component: AddMessage
+        },
+        {
+            path: '/messageList',
+            name: 'MessageList',
+            component: MessageList
         }
     ],
 })

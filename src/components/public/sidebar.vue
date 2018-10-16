@@ -264,7 +264,21 @@
                             }
                         ]
                     },
-
+                    {
+                        index: '/messageList',
+                        icon: 'el-icon-bell',
+                        module: '系统消息',
+                        cell: [
+                            {
+                                cellName: '添加消息',
+                                index: '/addMessage',
+                            },
+                            {
+                                cellName:'消息列表',
+                                index:'/messageList',
+                            }
+                        ]
+                    },
                 ]
             };
         },

@@ -142,7 +142,7 @@
         methods: {
             // 显示转换
             formatShow: function (row, column) {
-                return row.isShow == 1 ? '是' : '否';
+                return row.isShow == 0 ? '是' : '否';
             },
             disabled(row, column) {
                 return row.disabled == false ? '是' : '否';
@@ -152,7 +152,9 @@
                 self.$ajax
                     .post(
                         "wnews/admin/news/page?page=" + self.currentPageData + "&pageSize=10",
-                        {}
+                        {
+                            roleId : JSON.parse($cookies.get('user')).roleId
+                        }
                     )
                     .then(function (response) {
                         if (response.code === 1) {

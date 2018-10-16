@@ -1,5 +1,5 @@
 <template>
-    <el-col :span="20">
+    <el-col :span="10">
         <el-form :model="formData" :rules="rules" ref="formData" label-width="100px" class="demo-ruleForm">
             <el-form-item label="冲顶状态" prop="answerStatus">
                 <el-select v-model="formData.answerStatus" placeholder="请选择">
@@ -17,6 +17,16 @@
                         v-for="item in gameData"
                         :key="item.id"
                         :label="item.gameName"
+                        :value="item.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="奖励类型" prop="refRewardId">
+                <el-select v-model="formData.refRewardId" placeholder="请选择" @click.native="getRewardType(formData.refGameId)">
+                    <el-option
+                        v-for="item in rewardData"
+                        :key="item.id"
+                        :label="item.rewardDesc"
                         :value="item.id">
                     </el-option>
                 </el-select>
@@ -95,6 +105,7 @@
         data() {
             return {
                 gameData:[], //游戏列表
+                rewardData:[], //奖励类型数据
                 method: '',//修改还是新增
                 addTitle: '立即添加',
                 formData: {
@@ -140,6 +151,9 @@
                     refGameId: [{
                         required: true, message: '请选择游戏类型', trigger: 'change'
                     }],
+                    refRewardId:[{
+                        required: true, message: '请选择奖励类型', trigger: 'change'
+                    }]
                 },
                 select: [
                     [
@@ -165,6 +179,14 @@
                 self.$ajax.get('wgame/admin/game/all').then(function (response) {
                     if (response.code === 1) {
                         self.gameData = response.data;
+                    }
+                })
+            },
+            getRewardType(gameId){
+                var self = this;
+                self.$ajax.get('wgame/internal/rewards/getGameRewards?gameId=' + gameId).then(function (response) {
+                    if (response.code === 1) {
+                        self.rewardData = response.data;
                     }
                 })
             },
