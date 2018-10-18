@@ -145,7 +145,7 @@
                     });
             },
             handleEdit(index, row) {
-                this.$router.push({path: "/addMiningActivity", query: {data: row}});
+                this.$router.push({path: "/mining/addMiningActivity", query: {data: row}});
             }
         }
     };

@@ -273,7 +273,7 @@
                 })
             },
             handleEdit(index, row) {
-                this.$router.push({path: '/addNews', query: {data: row}});
+                this.$router.push({path: 'news/addNews', query: {data: row}});
             },
             currentChange(){
                 this.getData();

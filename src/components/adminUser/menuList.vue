@@ -114,7 +114,7 @@
                 });
             },
             handleEdit(index, row) {
-                this.$router.push({path: '/addMenu', query: {data: row}});
+                this.$router.push({path: '/user/addMenu', query: {data: row}});
             }
         }
     }

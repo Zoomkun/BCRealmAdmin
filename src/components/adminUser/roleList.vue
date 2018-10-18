@@ -102,7 +102,7 @@
                 })
             },
             handleEdit(index, row) {
-                this.$router.push({path: '/addRole', query: {data: row}});
+                this.$router.push({path: '/user/addRole', query: {data: row}});
             }
         }
     }

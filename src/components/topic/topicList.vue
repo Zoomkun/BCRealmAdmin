@@ -180,7 +180,7 @@
                 })
             },
             handleEdit(index, row) {
-                this.$router.push({path: '/addTopic', query: {data: row}});
+                this.$router.push({path: '/topic/addTopic', query: {data: row}});
             }
         }
     }

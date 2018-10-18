@@ -118,7 +118,7 @@
                 })
             },
             handleEdit(index, row) {
-                this.$router.push({path: '/addUser', query: {data: row}});
+                this.$router.push({path: '/user/addUser', query: {data: row}});
             }
         }
     }

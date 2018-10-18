@@ -226,7 +226,7 @@
             },
             //编辑游戏
             handleEditGame(index, row) {
-                this.$router.push({path: '/addGame', query: {data: row}});
+                this.$router.push({path: '/game/addGame', query: {data: row}});
             },
             //显示编辑游戏参数页面
             handleEditOption(index, row) {
