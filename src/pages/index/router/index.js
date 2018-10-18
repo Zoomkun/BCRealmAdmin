@@ -225,9 +225,9 @@ export default new Router({
                 },
                 {
                     cellName: '问答统计',
-                    name: 'addLotterySector',
+                    name: 'questionStatistics',
                     component: QuestionStatistics,
-                    path:'addLotterySector'
+                    path:'questionStatistics'
                 }
             ]
         },
