@@ -1,7 +1,7 @@
 <template>
     <!--背景图-->
 
-    <div class="note">
+    <div class="note Bg">
         <!--login框，表单+tab标签页的组合-->
         <div class="loginFrame">
             <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-position="left" label-width="0px"
@@ -47,13 +47,6 @@
                 checked: false
             }
         },
-        beforeRouteEnter(to, from, next){
-            if(to.name === 'Login'){
-                next(vm => {
-                    bus.$emit('loginStatus', false)
-                })
-            }
-        },
         methods: {
             login(formName) {
                 var self = this;
@@ -77,8 +70,7 @@
                                     self.$cookies.set('user', JSON.stringify(data),'2h')
                                     self.$ajax.defaults.headers.token = data.token;
 
-                                    bus.$emit('loginStatus', true)
-                                    self.$router.push('/topicList')
+                                    self.$router.push('/topic')
                                 }else{
                                     self.$notify({
                                         title: '失败',
@@ -134,4 +126,6 @@
         right 10%
         top 35%
 
+    .Bg
+        background: url('/static/img/login.png');
 </style>

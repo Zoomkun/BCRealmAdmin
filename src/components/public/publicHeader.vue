@@ -56,7 +56,6 @@
                             duration: 1000
                         })
                         self.$cookies.remove('user')
-                        bus.$emit('loginStatus', false)
                         self.$router.push('/login');
                     }else{
                         self.$notify({
@@ -75,7 +74,6 @@
         },
         mounted() {
             var user = $cookies.get('user');
-            user = JSON.parse(user);
             if (user) {
                 this.sysUserName = user.userName || '';
             }

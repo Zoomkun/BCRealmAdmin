@@ -4,15 +4,7 @@ import Router from 'vue-router'
 //题目问答
 import TopicList from '@/components/topic/topicList.vue'
 import AddTopic from '@/components/topic/addTopic.vue'
-import AddExaminationPaper from '@/components/topic/addExaminationPaper.vue'
-import ExaminationPaperList from '@/components/topic/examinationPaperList.vue'
-import AddReward from '@/components/topic/addReward.vue'
-import RewardList from '@/components/topic/rewardList.vue'
-import AddSuperActivity from '@/components/topic/addSuperActivity.vue'
-import SuperActivityList from '@/components/topic/superActivityList.vue'
-import ActivityStatisticsList from '@/components/topic/activityStatisticsList.vue'
-import QuestionAnswerStatistics from '@/components/topic/questionAnswerStatistics.vue'
-import DrawStatistics from '@/components/topic/drawStatistics.vue'
+import Layout from '@/components/layout/index.vue'
 
 // 数据分析
 import UserStatistics from '@/components/dataAnalysis/userStatistics.vue'
@@ -51,7 +43,7 @@ import AddRole from '@/components/adminUser/addRole.vue'
 import RoleList from '@/components/adminUser/roleList.vue'
 import AddMenu from '@/components/adminUser/addMenu.vue'
 import MenuList from '@/components/adminUser/menuList.vue'
-// import Config from '@/components/adminUser/config.vue'
+import Config from '@/components/adminUser/config.vue'
 
 //游戏
 import AddGame from '@/components/game/addGame.vue'
@@ -70,230 +62,298 @@ Vue.use(Router)
 
 export default new Router({
     mode: 'history',
-    routes: [{
-            path: '/topicList',
-            name: 'TopicList',
-            component: TopicList
+    routes: [
+        {
+            path: '/topic',
+            icon: 'el-icon-tickets',
+            module: '题库管理',
+            component: Layout,
+            children: [
+                {
+                    name: 'topicList',
+                    component: TopicList,
+                    cellName:'题目列表',
+                    path:'topicList'
+                },
+                {
+                    cellName:'添加题目',
+                    name: 'addTopic',
+                    component: AddTopic,
+                    path:'addTopic'
+                }
+            ]
         },
         {
-            path: '/addTopic/:id',
-            name: 'AddTopic',
-            component: AddTopic
+            path: '/user',
+            icon: 'el-icon-setting',
+            component:Layout,
+            module: '用户设置',
+            children: [
+                {
+                    cellName:'添加用户',
+                    name: 'addUser',
+                    component: AddUser,
+                    path:'addUser'
+                },
+                {
+                    cellName:'用户列表',
+                    name: 'userList',
+                    component: UserList,
+                    path:'userList'
+                },
+                {
+                    cellName:'添加角色',
+                    name: 'addRole',
+                    component: AddRole,
+                    path:'addRole'
+                },
+                {
+                    cellName:'角色列表',
+                    name: 'roleList',
+                    component: RoleList,
+                    path:'roleList'
+                },
+                {
+                    cellName:'添加菜单',
+                    name: 'addMenu',
+                    component: AddMenu,
+                    path:'addMenu'
+                },
+                {
+                    cellName:'菜单列表',
+                    name: 'menuList',
+                    component: MenuList,
+                    path:'menuList'
+                },
+                {
+                    cellName:'功能权限',
+                    name: 'config',
+                    component: Config,
+                    path:'config'
+                }
+            ]
         },
         {
-            path: '/addTopic',
-            name: 'AddTopic',
-            component: AddTopic
+            path: '/mining',
+            icon: 'el-icon-menu',
+            component:Layout,
+            module: '挖矿管理',
+            children: [
+                {
+                    cellName: '挖矿活动列表',
+                    name: 'miningActivityList',
+                    component: MiningActivityList,
+                    path:'miningActivityList'
+                },
+                {
+                    cellName: '添加挖矿活动',
+                    name: 'addMiningActivity',
+                    component: AddMiningActivity,
+                    path:'addMiningActivity'
+                }
+            ]
         },
         {
-            path: '/addExaminationPaper/:id',
-            name: 'AddExaminationPaper',
-            component: AddExaminationPaper
+            path: '/header',
+            icon: 'el-icon-edit-outline',
+            component:Layout,
+            module: '冲顶管理',
+            children: [
+                {
+                    cellName: '冲顶列表',
+                    name: 'headerList',
+                    component: HeaderList,
+                    path:'headerList'
+                },
+                {
+                    cellName: '添加冲顶',
+                    name: 'addHeader',
+                    component: AddHeader,
+                    path:'addHeader'
+                },
+                {
+                    cellName: '冲顶统计',
+                    name: 'headerStatistics',
+                    component: HeaderStatistics,
+                    path:'headerStatistics'
+                },
+            ]
         },
         {
-            path: '/addExaminationPaper',
-            name: 'AddExaminationPaper',
-            component: AddExaminationPaper
+            path: '/lottery',
+            icon: 'el-icon-view',
+            module: '抽奖管理',
+            component:Layout,
+            children: [
+                {
+                    cellName:'添加抽奖',
+                    name: 'addLotterySector',
+                    component: AddLotterySector,
+                    path:'addLotterySector'
+                },
+                {
+                    cellName:'奖盘列表',
+                    name: 'lotterySectorList',
+                    component: LotterySectorList,
+                    path:'lotterySectorList'
+                },
+                {
+                    cellName:'抽奖统计',
+                    name: 'lotteryStatistics',
+                    component: LotteryStatistics,
+                    path:'lotteryStatistics'
+                }
+            ]
         },
         {
-            path: '/examinationPaperList',
-            name: 'ExaminationPaperList',
-            component: ExaminationPaperList
+            path: '/question',
+            icon: 'el-icon-edit',
+            module: '问答管理',
+            component:Layout,
+            children: [
+                {
+                    cellName: '问答列表',
+                    name: 'questionList',
+                    component: QuestionList,
+                    path:'questionList'
+                },
+                {
+                    cellName: '创建问答',
+                    name: 'addQuestion',
+                    component: AddQuestion,
+                    path:'addQuestion'
+                },
+                {
+                    cellName: '问答统计',
+                    name: 'addLotterySector',
+                    component: QuestionStatistics,
+                    path:'addLotterySector'
+                }
+            ]
         },
         {
-            path: '/addReward',
-            name: 'AddReward',
-            component: AddReward
+            path: '/userTotal',
+            icon: 'el-icon-tickets',
+            module: '用户数据分析',
+            component:Layout,
+            children: [
+                {
+                    cellName: '注册留存统计',
+                    name: 'userStatistics',
+                    component: UserStatistics,
+                    path:'userStatistics'
+                },
+                {
+                    cellName: '月注册统计',
+                    name: 'userMonthStatistics',
+                    component: UserMonthStatistics,
+                    path:'userMonthStatistics'
+                },
+                {
+                    cellName: '总数据一览',
+                    name: 'userTotalStatistics',
+                    component: UserTotalStatistics,
+                    path:'userTotalStatistics'
+                }
+            ]
         },
         {
-            path: '/rewardList',
-            name: 'RewardList',
-            component: RewardList
+            path: '/news',
+            icon: 'el-icon-news',
+            module: '资讯管理',
+            component:Layout,
+            children: [
+                {
+                    cellName: '新闻管理',
+                    name: 'newsList',
+                    component: NewsList,
+                    path:'newsList'
+                },
+                {
+                    cellName: '添加新闻',
+                    name: 'addNews',
+                    component: AddNews,
+                    path:'addNews'
+                },
+            ]
         },
         {
-            path: '/addSuperActivity',
-            name: 'AddSuperActivity',
-            component: AddSuperActivity
+            path: '/game',
+            icon: 'el-icon-message',
+            module: '游戏管理',
+            component:Layout,
+            children: [
+                {
+                    cellName: '添加游戏',
+                    name: 'addGame',
+                    component: AddGame,
+                    path:'addGame'
+                },
+                {
+                    cellName: '游戏列表',
+                    name: 'gameList',
+                    component: GameList,
+                    path:'gameList'
+                },
+                {
+                    cellName:'游戏注册留存',
+                    name: 'gameStatistics',
+                    component: GameStatistics,
+                    path:'gameStatistics'
+                },
+                {
+                    cellName:'游戏总数据',
+                    name: 'gameTotalStatistics',
+                    component: GameTotalStatistics,
+                    path:'gameTotalStatistics'
+                }
+            ]
         },
         {
-            path: '/superActivityList',
-            name: 'SuperActivityList',
-            component: SuperActivityList
+            path: '/coin',
+            icon: 'el-icon-sold-out',
+            module: '货币数据',
+            component:Layout,
+            children: [
+                {
+                    cellName: '货币详细',
+                    name: 'coinStatistics',
+                    component: CoinStatistics,
+                    path:'coinStatistics'
+                }
+            ]
         },
         {
-            path: '/activityStatisticsList',
-            name: 'ActivityStatisticsList',
-            component: ActivityStatisticsList
-        },
-        {
-            path: '/questionAnswerStatistics',
-            name: 'QuestionAnswerStatistics',
-            component: QuestionAnswerStatistics
-        },
-        {
-            path: '/drawStatistics',
-            name: 'DrawStatistics',
-            component: DrawStatistics
-        },
-        {
-            path: '/userStatistics',
-            name: 'UserStatistics',
-            component: UserStatistics
-        },
-        {
-            path: '/userMonthStatistics',
-            name: 'UserMonthStatistics',
-            component: UserMonthStatistics
-        },
-        {
-            path: '/userTotalStatistics',
-            name: 'UserTotalStatistics',
-            component: UserTotalStatistics
-        },
-        {
-            path: '/newsList',
-            name: 'NewsList',
-            component: NewsList
-        },
-        {
-            path: '/addNews',
-            name: 'AddNews',
-            component: AddNews
-        },
-        {
-            path: '/miningActivityList',
-            name: 'MiningActivityList',
-            component: MiningActivityList
-        },
-        {
-            path: '/addMiningActivity',
-            name: 'AddMiningActivity',
-            component: AddMiningActivity
-        },
-        {
-            path: '/addGame',
-            name: 'AddGame',
-            component: AddGame
-        },
-        {
-            path: '/gameList',
-            name: 'GameList',
-            component: GameList
+            path: '/message',
+            icon: 'el-icon-bell',
+            module: '系统消息',
+            component:Layout,
+            children: [
+                {
+                    cellName: '添加消息',
+                    name: 'addMessage',
+                    component: AddMessage,
+                    path:'addMessage'
+                },
+                {
+                    cellName:'消息列表',
+                    name: 'messageList',
+                    component: MessageList,
+                    path:'messageList'
+                }
+            ]
         },
         {
             path: '/login',
             name: 'Login',
-            component: Login
-        },
-        {
-            path: '/addUser',
-            name: 'AddUser',
-            component: AddUser
-        },
-        {
-            path: '/userList',
-            name: 'UserList',
-            component: UserList
+            component: Login,
+            hidden:true, // 不在侧边栏展示
         },
         {
             path: '/editPwd',
             name: 'EditPwd',
-            component: EditPwd
+            component: EditPwd,
+            hidden:true, // 不在侧边栏展示
         },
-        {
-            path: '/addLotterySector',
-            name: 'AddLotterySector',
-            component: AddLotterySector
-        },
-        {
-            path: '/lotterySectorList',
-            name: 'LotterySectorList',
-            component: LotterySectorList
-        },
-        {
-            path: '/lotteryStatistics',
-            name: 'LotteryStatistics',
-            component: LotteryStatistics
-        },
-        {
-            path: '/addHeader',
-            name: 'AddHeader',
-            component: AddHeader
-        },
-        {
-            path: '/headerList',
-            name: 'HeaderList',
-            component: HeaderList
-        },
-        {
-            path: '/headerStatistics',
-            name: 'HeaderStatistics',
-            component: HeaderStatistics
-        },
-        {
-            path: '/addQuestion',
-            name: 'AddQuestion',
-            component: AddQuestion
-        },
-        {
-            path: '/questionList',
-            name: 'QuestionList',
-            component: QuestionList
-        },
-        {
-            path: '/questionStatistics',
-            name: 'QuestionStatistics',
-            component: QuestionStatistics
-        },
-        {
-            path: '/gameTotalStatistics',
-            name: 'GameTotalStatistics',
-            component: GameTotalStatistics
-        },
-        {
-            path: '/gameStatistics',
-            name: 'GameStatistics',
-            component: GameStatistics
-        },
-        {
-            path: '/coinStatistics',
-            name: 'CoinStatistics',
-            component: CoinStatistics
-        },
-        {
-            path: '/addRole',
-            name: 'AddRole',
-            component: AddRole
-        },
-        {
-            path: '/roleList',
-            name: 'RoleList',
-            component: RoleList
-        },
-        {
-            path: '/addMenu',
-            name: 'AddMenu',
-            component: AddMenu
-        },
-        {
-            path: '/menuList',
-            name: 'MenuList',
-            component: MenuList
-        },
-        // {
-        //     path: '/config',
-        //     name: 'Config',
-        //     component: Config
-        // },
-        {
-            path: '/addMessage',
-            name: 'AddMessage',
-            component: AddMessage
-        },
-        {
-            path: '/messageList',
-            name: 'MessageList',
-            component: MessageList
-        }
     ],
 })
