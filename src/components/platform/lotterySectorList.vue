@@ -161,7 +161,7 @@
                 })
             },
             handleEdit(index, row) {
-                this.$router.push({path: '/addLotterySector', query: {data: row}});
+                this.$router.push({path: '/lottery/addLotterySector', query: {data: row}});
             }
         }
     }

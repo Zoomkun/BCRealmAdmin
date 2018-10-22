@@ -5,11 +5,9 @@
                 <el-input v-model="ruleForm.title"></el-input>
             </el-form-item>
             <el-form-item label="新闻内容" prop="content">
-                <quill-editor
-                    ref="myTextEditor"
-                    v-model="ruleForm.content"
-                    :options="editorOption">
-                </quill-editor>
+                <button @click="check">获取内容</button>
+                <button @click="getUEContent()">获取内容</button>
+                <UE v-model="ruleForm.content" :defaultMsg=defaultMsg :config=config id="editor" type="text/plain"></UE>
             </el-form-item>
             <el-form-item label="是否显示">
                 <el-radio-group v-model="ruleForm.isShow">
@@ -26,31 +24,45 @@
 </template>
 
 <script>
-    import "quill/dist/quill.core.css";
-    import "quill/dist/quill.snow.css";
-    import "quill/dist/quill.bubble.css";
-    import {quillEditor, Quill} from "vue-quill-editor";
-    import {container, ImageExtend, QuillWatch} from "quill-image-extend-module";
 
-    Quill.register("modules/ImageExtend", ImageExtend);
+    import '../../../static/ueditor/ueditor.config.js'
+    import '../../../static/ueditor/ueditor.all.min.js'
+    import '../../../static/ueditor/lang/zh-cn/zh-cn.js'
+    import '../../../static/ueditor/ueditor.parse.min.js'
+
     export default {
         name: "addNews",
         mounted() {
             let self = this;
+            const _this = this;
+            this.editor = UE.getEditor('editor', this.config); // 初始化UE
+            this.editor.addListener("ready", function () {
+                _this.editor.setContent(_this.defaultMsg); // 确保UE加载完成后，放入内容。
+            });
             let data = self.$route.query.data;
             if (data) {
+                this.editor.setContent(data.content);
                 self.addTitle = "立即修改";
                 self.ruleForm = data;
                 self.method = "PUT";
             } else {
                 self.method = "POST";
-            }
-        },
-        components: {
-            quillEditor
+            };
         },
         data() {
             return {
+                editor: null,
+                defaultMsg: '',
+                config: {
+                    autoHeightEnabled: false,
+                    autoFloatEnabled: true,
+                    initialContent:'请输入内容',   //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+                    autoClearinitialContent:true, //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
+                    initialFrameWidth: 1000,
+                    initialFrameHeight: 350,
+                    BaseUrl: '',
+                    UEDITOR_HOME_URL: '/static/ueditor/'
+                },
                 gameData: [],
                 addTitle: "立即添加",
                 max: 3,
@@ -69,47 +81,22 @@
                     }]
                 },
                 content: "",
-                editorOption: {
-                    modules: {
-                        ImageExtend: {
-                            loading: true, // 可选参数 是否显示上传进度和提示语
-                            name: "uploadOss", // 图片参数名
-                            size: 500, // 可选参数 图片大小，单位为M，1M = 1024kb
-                            action: "http://test.bcrealm.com/api/wuser/oss/uploadFile", // 服务器地址, 如果action为空，则采用base64插入图片
-                            // response 为一个函数用来获取服务器返回的具体图片地址
-                            // 例如服务器返回{code: 200; data:{ url: 'baidu.com'}}
-                            // 则 return res.data.url
-                            response: res => {
-                                return res.data;
-                            },
-                            headers: xhr => {
-                            }, // 可选参数 设置请求头部
-                            start: () => {
-                            }, // 可选参数 自定义开始上传触发事件
-                            end: () => {
-                            }, // 可选参数 自定义上传结束触发的事件，无论成功或者失败
-                            error: () => {
-                            }, // 可选参数 自定义网络错误触发的事件
-                            change: (xhr, formData) => {
-                            } // 可选参数 选择图片触发，也可用来设置头部，但比headers多了一个参数，可设置formData
-                        },
-                        toolbar: {
-                            container: container, // container为工具栏，此次引入了全部工具栏，也可自行配置
-                            handlers: {
-                                image: function () {
-                                    // 劫持原来的图片点击按钮事件
-                                    QuillWatch.emit(this.quill.id);
-                                }
-                            }
-                        }
-                    }
-                }
             };
         },
         methods: {
+            //获取文档内容
+            check(){
+                alert(this.editor.getContent())
+            },
+            getUEContent() {
+                let content = this.editor.getContent();
+                console.log(content);
+                alert(content);
+            },
             submitForm(formName) {
                 var self = this;
                 self.ruleForm.roleId = JSON.parse($cookies.get('user')).roleId;
+                self.ruleForm.content = self.editor.getContent();
                 this.$refs[formName].validate(valid => {
                     if (valid) {
                         self
@@ -136,6 +123,9 @@
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
+            },
+            destroyed() {
+                this.editor.destroy();
             }
         }
     };

@@ -24,6 +24,11 @@
                 :formatter="formatShow">
             </el-table-column>
             <el-table-column
+                prop="sourceType"
+                label="来源渠道"
+                :formatter="formatSourceType">
+            </el-table-column>
+            <el-table-column
                 prop="createTime"
                 label="创建日期"
                 show-overflow-tooltip>
@@ -40,6 +45,7 @@
                         @click="handleDelete(scope.$index, scope.row)">删除
                     </el-button>
                     <el-button
+                        v-if="scope.row.sourceType == 1"
                         size="small"
                         @click="handleGameList(scope.row.id)">绑定游戏
                     </el-button>
@@ -140,6 +146,10 @@
             this.getData();
         },
         methods: {
+            //新闻来源渠道转换
+            formatSourceType:function(row){
+                return row.sourceType == 1 ? "内部渠道" :"外部渠道";
+            },
             // 显示转换
             formatShow: function (row, column) {
                 return row.isShow == 0 ? '是' : '否';
@@ -273,7 +283,7 @@
                 })
             },
             handleEdit(index, row) {
-                this.$router.push({path: 'news/addNews', query: {data: row}});
+                this.$router.push({path: '/news/addNews', query: {data: row}});
             },
             currentChange(){
                 this.getData();

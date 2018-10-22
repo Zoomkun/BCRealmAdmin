@@ -167,7 +167,7 @@
                 })
             },
             handleEdit(index, row) {
-                this.$router.push({path: 'question/addQuestion', query: {data: row}});
+                this.$router.push({path: '/question/addQuestion', query: {data: row}});
             },
             handleDelete(index, row) {
                 var self = this

@@ -198,7 +198,7 @@
                 })
             },
             handleEdit(index, row) {
-                this.$router.push({path: 'header/addHeader', query: {data: row}});
+                this.$router.push({path: '/header/addHeader', query: {data: row}});
             }
         }
     }

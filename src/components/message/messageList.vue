@@ -121,7 +121,7 @@
                 })
             },
             handleEdit(index, row) {
-                this.$router.push({path: 'message/addMessage', query: {data: row}});
+                this.$router.push({path: '/message/addMessage', query: {data: row}});
             }
         }
     }
