@@ -24,14 +24,9 @@
     export default {
         name: 'Sidebar',
         mounted(){
-            let sideBarData = this.$router.options.routes;
-            for(let i=0;i<sideBarData.length;i++){
-                if(sideBarData[i].hidden && sideBarData[i].hidden === true){
-                    sideBarData.splice(i,1);
-                    i--;
-                }
-            }
-            this.sideBarData = sideBarData
+            let self = this
+            self.menu()
+            
         },
         data() {
             return {
@@ -43,6 +38,41 @@
             resolvePath(basePath,routePath) {
                 return path.resolve(basePath, routePath)
             },
+            menu(){
+                let sideBarData = this.$router.options.routes;
+                let menu = JSON.parse(localStorage.getItem('menu'))
+                console.log(this.$router)
+                console.log(menu)
+                for(let i=0;i<sideBarData.length;i++){
+
+                    let children = sideBarData[i].children;
+                    if(children){
+                        for(let j=0;j<children.length;j++){
+                            let count = 0
+
+                            for (let k = 0;k<menu.length;k++){
+                                if(menu[k].name == children[j].cellName){
+                                    count ++
+                                }
+                            }
+
+                            if(children[j].hidden && children[j].hidden === true || count === 0){
+                                children.splice(j,1);
+                                j--;
+                            }
+                        }
+                    }
+
+                    if((sideBarData[i].hidden && sideBarData[i].hidden === true) || (sideBarData[i].children && sideBarData[i].children.length === 0)){
+                        sideBarData.splice(i,1);
+                        i--;
+                        continue;
+                    }
+
+                }
+                console.log(sideBarData)
+                this.sideBarData = sideBarData
+            }
         },
     }
 </script>

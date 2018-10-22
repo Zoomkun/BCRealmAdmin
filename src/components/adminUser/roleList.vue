@@ -35,7 +35,7 @@
                     <el-button
                         size="mini"
                         type="primary"
-                        @click="handleEdit(scope.$index, scope.row)">功能权限
+                        @click="handlePermissions(scope.$index, scope.row)">功能权限
                     </el-button>
                     <el-button
                         size="mini"
@@ -103,6 +103,9 @@
             },
             handleEdit(index, row) {
                 this.$router.push({path: '/user/addRole', query: {data: row}});
+            },
+            handlePermissions(index, row){
+                this.$router.push({path: '/user/config', query: {data: row}});
             }
         }
     }

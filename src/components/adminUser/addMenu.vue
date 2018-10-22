@@ -1,40 +1,13 @@
 <template>
-    <el-col :span="4">
+    <el-col :span="24">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-            <el-form-item label="菜单名称" prop="name">
-                <el-input v-model="ruleForm.name" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="菜单路径" prop="url">
-                <el-input v-model="ruleForm.url" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="菜单图标" prop="icon">
-                <el-input v-model="ruleForm.icon"></el-input>
+            <el-form-item label="菜单名称" prop="name" style="width: 400px">
+                <el-input v-model="ruleForm.name" clearable ></el-input>
             </el-form-item>
             <el-form-item label="菜单权限" prop="powerList">
-                <el-input v-model="ruleForm.powerList"></el-input>
-            </el-form-item>
-            <el-form-item label="菜单类型" prop="menuType">
-                <el-select v-model="ruleForm.menuType" placeholder="请选择">
-                    <el-option
-                        v-for="item in options"
-                        :key="item.label"
-                        :label="item.label"
-                        :value="item.value">
-                    </el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="所属父级" prop="parentId">
-                <el-select v-model="ruleForm.parentId" placeholder="请选择">
-                    <el-option
-                        v-for="item in menuData"
-                        :key="item.id"
-                        :label="item.name"
-                        :value="item.id">
-                    </el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="菜单排序" prop="display">
-                <el-input-number v-model="ruleForm.display" :min="1" label="描述文字"></el-input-number>
+                <el-checkbox-group v-model="ruleForm.powerList" @change="handleChecked">
+                    <el-checkbox v-for="feature in features" :label="feature.value" :key="feature.value">{{feature.name}}</el-checkbox>
+                </el-checkbox-group>
             </el-form-item>
             <el-form-item label="菜单状态">
                 <el-radio-group v-model="ruleForm.status">
@@ -58,6 +31,10 @@
             let self = this
             let data = self.$route.query.data;
             if (data) {
+                data.powerList = JSON.parse(data.powerList);
+                if(typeof data.powerList !== 'Array') {
+                    data.powerList = []
+                }
                 self.addTitle = '立即修改'
                 self.ruleForm = data
                 self.method = 'PUT'
@@ -70,15 +47,21 @@
                 addTitle: '立即添加',
                 method: '',
                 max: 4,
+                features: [
+                    {name: '增', value: 'u'},
+                    {name: '删', value: 'd'},
+                    {name: '改', value: 'c'},
+                    {name: '查', value: 's'}
+                ],
                 ruleForm: {
                     name: '',
                     url: '',
-                    icon:'',
-                    menuType:0,
-                    status:1,
-                    parentId:'',
-                    display:'',
-                    powerList:''
+                    icon: '',
+                    menuType: 0,
+                    status: 1,
+                    parentId: '',
+                    display: '',
+                    powerList: []
                 },
                 rules: {
                     name: [{
@@ -89,23 +72,27 @@
                     }],
                 },
                 options: [
-                        {
-                            value: 0,
-                            label: '菜单'
-                        },
-                        {
-                            value: 1,
-                            label: '链接网址'
-                        },
-                        {
-                            value: 2,
-                            label: '隐藏链接'
-                        }
+                    {
+                        value: 0,
+                        label: '菜单'
+                    },
+                    {
+                        value: 1,
+                        label: '链接网址'
+                    },
+                    {
+                        value: 2,
+                        label: '隐藏链接'
+                    }
                 ],
-                menuData:[] //菜单数据
+                menuData: [] //菜单数据
             };
         },
         methods: {
+            handleChecked(value){
+                console.log(value.length)
+                console.log(value)
+            },
             getMenuData() {
                 var self = this;
                 self.$ajax.get('wadmin/admin/menu/list').then(function (response) {
@@ -115,7 +102,8 @@
                 })
             },
             submitForm(formName) {
-                var self = this
+                var self = this;
+                self.ruleForm.powerList = self.ruleForm.powerList.join(',')
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         self.$ajax({
@@ -130,6 +118,7 @@
                                     type: 'success',
                                     duration: 1000
                                 });
+                                self.resetForm('ruleForm')
                             }
                         })
                     } else {

@@ -67,9 +67,10 @@
                                         duration: 1000
                                     });
                                     let data = response.data;
+                                    localStorage.setItem('menu',JSON.stringify(data.roleMenuList))
+                                    data.roleMenuList = []
                                     self.$cookies.set('user', JSON.stringify(data),'2h')
                                     self.$ajax.defaults.headers.token = data.token;
-
                                     self.$router.push('/topic')
                                 }else{
                                     self.$notify({
@@ -89,6 +90,9 @@
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             }
+        },
+        mounted(){
+            console.log(this.$router)
         }
     };
 </script>

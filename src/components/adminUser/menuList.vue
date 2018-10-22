@@ -12,28 +12,8 @@
                 :span="2">
             </el-table-column>
             <el-table-column
-                prop="id"
-                label="菜单id"
-                :span="4">
-            </el-table-column>
-            <el-table-column
                 prop="name"
                 label=" 菜单名称"
-                :span="4">
-            </el-table-column>
-            <el-table-column
-                prop="url"
-                label=" 菜单路径"
-                :span="4">
-            </el-table-column>
-            <el-table-column
-                prop="display"
-                label="排列序号"
-                :span="4">
-            </el-table-column>
-            <el-table-column
-                prop="parentName"
-                label=" 所属父级"
                 :span="4">
             </el-table-column>
             <el-table-column

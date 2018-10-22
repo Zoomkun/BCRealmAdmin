@@ -129,7 +129,8 @@ export default new Router({
                     cellName:'功能权限',
                     name: 'config',
                     component: Config,
-                    path:'config'
+                    path:'config',
+                    hidden:true
                 }
             ]
         },
