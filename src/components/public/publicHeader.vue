@@ -73,7 +73,7 @@
             }
         },
         mounted() {
-            var user = $cookies.get('user');
+            var user = JSON.parse($cookies.get('user'));
             if (user) {
                 this.sysUserName = user.userName || '';
             }

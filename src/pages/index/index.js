@@ -41,7 +41,7 @@ $ajax.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 Vue.prototype.$ajax = $ajax;
 Vue.prototype.$axios = axios;
 if($cookies.get('user')){
-    $ajax.defaults.headers.token = $cookies.get('user').token
+    $ajax.defaults.headers.token = JSON.parse($cookies.get('user')).token
 }
 console.log($ajax.defaults.headers.token)
 /* eslint-disable no-new */

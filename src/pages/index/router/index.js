@@ -317,7 +317,7 @@ export default new Router({
             component:Layout,
             children: [
                 {
-                    cellName: '货币详细',
+                    cellName: '货币详情',
                     name: 'coinStatistics',
                     component: CoinStatistics,
                     path:'coinStatistics'
