@@ -7,7 +7,7 @@
             <el-form-item label="新闻内容" prop="content">
                 <button @click="check">获取内容</button>
                 <button @click="getUEContent()">获取内容</button>
-                <UE v-model="ruleForm.content" :defaultMsg=defaultMsg :config=config id="editor" type="text/plain"></UE>
+                <VueUEditor  @ready="editorReady" v-model="ruleForm.content" :ueditor-config="config"></VueUEditor>
             </el-form-item>
             <el-form-item label="是否显示">
                 <el-radio-group v-model="ruleForm.isShow">
@@ -24,24 +24,14 @@
 </template>
 
 <script>
-
-    import '../../../static/ueditor/ueditor.config.js'
-    import '../../../static/ueditor/ueditor.all.min.js'
-    import '../../../static/ueditor/lang/zh-cn/zh-cn.js'
-    import '../../../static/ueditor/ueditor.parse.min.js'
-
+    import VueUEditor from './UEditor';
     export default {
         name: "addNews",
         mounted() {
             let self = this;
-            const _this = this;
-            this.editor = UE.getEditor('editor', this.config); // 初始化UE
-            this.editor.addListener("ready", function () {
-                _this.editor.setContent(_this.defaultMsg); // 确保UE加载完成后，放入内容。
-            });
+
             let data = self.$route.query.data;
             if (data) {
-                this.editor.setContent(data.content);
                 self.addTitle = "立即修改";
                 self.ruleForm = data;
                 self.method = "PUT";
@@ -53,7 +43,10 @@
             return {
                 editor: null,
                 defaultMsg: '',
-                config: {
+                gameData: [],
+                addTitle: "立即添加",
+                max: 3,
+                config:{
                     autoHeightEnabled: false,
                     autoFloatEnabled: true,
                     initialContent:'请输入内容',   //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
@@ -63,9 +56,6 @@
                     BaseUrl: '',
                     UEDITOR_HOME_URL: '/static/ueditor/'
                 },
-                gameData: [],
-                addTitle: "立即添加",
-                max: 3,
                 ruleForm: {
                     title: "",
                     content: "",
@@ -84,12 +74,19 @@
             };
         },
         methods: {
+            editorReady(editorInstance){
+                this.editor = editorInstance
+                console.log(editorInstance)
+                if(this.$route.query.data && this.$route.query.data.content){
+                    editorInstance.setContent(this.$route.query.data.content)
+                }
+            },
             //获取文档内容
             check(){
                 alert(this.editor.getContent())
             },
-            getUEContent() {
-                let content = this.editor.getContent();
+            getUEContent(editorInstance) {
+                let content = editorInstance.getContent();
                 console.log(content);
                 alert(content);
             },
@@ -97,7 +94,9 @@
                 var self = this;
                 self.ruleForm.roleId = JSON.parse($cookies.get('user')).roleId;
                 self.ruleForm.content = self.editor.getContent();
+                console.log( this.$refs[formName])
                 this.$refs[formName].validate(valid => {
+                    console.log(valid)
                     if (valid) {
                         self
                             .$ajax({
@@ -127,6 +126,9 @@
             destroyed() {
                 this.editor.destroy();
             }
+        },
+        components:{
+            VueUEditor
         }
     };
 </script>

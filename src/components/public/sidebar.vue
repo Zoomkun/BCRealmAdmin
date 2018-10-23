@@ -26,7 +26,7 @@
         mounted(){
             let self = this
             self.menu()
-            
+
         },
         data() {
             return {
@@ -41,8 +41,6 @@
             menu(){
                 let sideBarData = this.$router.options.routes;
                 let menu = JSON.parse(localStorage.getItem('menu'))
-                console.log(this.$router)
-                console.log(menu)
                 for(let i=0;i<sideBarData.length;i++){
 
                     let children = sideBarData[i].children;
@@ -70,7 +68,6 @@
                     }
 
                 }
-                console.log(sideBarData)
                 this.sideBarData = sideBarData
             }
         },
