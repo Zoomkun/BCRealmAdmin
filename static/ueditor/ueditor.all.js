@@ -5812,6 +5812,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
                 checkOffset(this);
                 nativeRange.setStart(this.startContainer, this.startOffset);
                 nativeRange.setEnd(this.endContainer, this.endOffset);
+                console.log(nativeRange)
                 sel.addRange(nativeRange);
             }
             return this;
@@ -8087,12 +8088,15 @@ UE.Editor.defaultOptions = function(editor){
 
                 configUrl && UE.ajax.request(configUrl,{
                     'method': 'GET',
-                    'dataType': isJsonp ? 'jsonp':'',
+                    'dataType': '',
                     'onsuccess':function(r){
                         try {
-                            var config = isJsonp ? r:eval("("+r.responseText+")");
-                            utils.extend(me.options, config);
+                            var config = r
+                            utils.extend(me.options, JSON.parse(config.responseText));
+                            console.log(me.options)
+
                             me.fireEvent('serverConfigLoaded');
+                            console.log(me.fireEvent('serverConfigLoaded'))
                             me._serverConfigLoaded = true;
                         } catch (e) {
                             showErrorMsg(me.getLang('loadconfigFormatError'));
@@ -12665,7 +12669,7 @@ UE.plugins['paragraph'] = function() {
                         } );
                     }
                     tmpRange.setEndAfter( tmpNode );
-                    
+
                     para = range.document.createElement( style );
                     if(attrs){
                         domUtils.setAttributes(para,attrs);
@@ -12677,7 +12681,7 @@ UE.plugins['paragraph'] = function() {
                     //需要内容占位
                     if(domUtils.isEmptyNode(para)){
                         domUtils.fillChar(range.document,para);
-                        
+
                     }
 
                     tmpRange.insertNode( para );
@@ -12801,7 +12805,7 @@ UE.plugins['paragraph'] = function() {
 
         },
         doDirectionality = function(range,editor,forward){
-            
+
             var bookmark,
                 filterFn = function( node ) {
                     return   node.nodeType == 1 ? !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace(node);
@@ -22723,7 +22727,7 @@ UE.plugins['formatmatch'] = function(){
      });
 
     function addList(type,evt){
-        
+
         if(browser.webkit){
             var target = evt.target.tagName == 'IMG' ? evt.target : null;
         }
@@ -22789,7 +22793,7 @@ UE.plugins['formatmatch'] = function(){
 
     me.commands['formatmatch'] = {
         execCommand : function( cmdName ) {
-          
+
             if(flag){
                 flag = 0;
                 list = [];
@@ -22798,7 +22802,7 @@ UE.plugins['formatmatch'] = function(){
             }
 
 
-              
+
             var range = me.selection.getRange();
             img = range.getClosedNode();
             if(!img || img.tagName != 'IMG'){
@@ -24464,6 +24468,13 @@ UE.plugin.register('simpleupload', function (){
         isLoaded = false,
         containerBtn;
 
+    utils.loadFile(document,{
+        src:me.options.UEDITOR_HOME_URL+"third-party/jquery-1.10.2.min.js",
+        tag:"script",
+        type:"text/javascript",
+        defer:"defer"
+    });
+
     function initUploadBtn(){
         var w = containerBtn.offsetWidth || 20,
             h = containerBtn.offsetHeight || 20,
@@ -24507,52 +24518,13 @@ UE.plugin.register('simpleupload', function (){
             domUtils.on(input, 'change', function(){
                 if(!input.value) return;
                 var loadingId = 'loading_' + (+new Date()).toString(36);
-                var params = utils.serializeParam(me.queryCommandValue('serverparam')) || '';
-
                 var imageActionUrl = me.getActionUrl(me.getOpt('imageActionName'));
                 var allowFiles = me.getOpt('imageAllowFiles');
 
                 me.focus();
                 me.execCommand('inserthtml', '<img class="loadingclass" id="' + loadingId + '" src="' + me.options.themePath + me.options.theme +'/images/spacer.gif" title="' + (me.getLang('simpleupload.loading') || '') + '" >');
 
-                function callback(){
-                    try{
-                        var link, json, loader,
-                            body = (iframe.contentDocument || iframe.contentWindow.document).body,
-                            result = body.innerText || body.textContent || '';
-                        json = (new Function("return " + result))();
-                        link = me.options.imageUrlPrefix + json.url;
-                        if(json.state == 'SUCCESS' && json.url) {
-                            loader = me.document.getElementById(loadingId);
-                            loader.setAttribute('src', link);
-                            loader.setAttribute('_src', link);
-                            loader.setAttribute('title', json.title || '');
-                            loader.setAttribute('alt', json.original || '');
-                            loader.removeAttribute('id');
-                            domUtils.removeClasses(loader, 'loadingclass');
-                        } else {
-                            showErrorLoader && showErrorLoader(json.state);
-                        }
-                    }catch(er){
-                        showErrorLoader && showErrorLoader(me.getLang('simpleupload.loadError'));
-                    }
-                    form.reset();
-                    domUtils.un(iframe, 'load', callback);
-                }
-                function showErrorLoader(title){
-                    if(loadingId) {
-                        var loader = me.document.getElementById(loadingId);
-                        loader && domUtils.remove(loader);
-                        me.fireEvent('showmessage', {
-                            'id': loadingId,
-                            'content': title,
-                            'type': 'error',
-                            'timeout': 4000
-                        });
-                    }
-                }
-
-                /* 判断后端配置是否没有加载成功 */
+                /!* 判断后端配置是否没有加载成功 *!/
                 if (!me.getOpt('imageActionName')) {
                     errorHandler(me.getLang('autoupload.errorLoadConfig'));
                     return;
@@ -24565,9 +24537,52 @@ UE.plugin.register('simpleupload', function (){
                     return;
                 }
 
-                domUtils.on(iframe, 'load', callback);
-                form.action = utils.formatUrl(imageActionUrl + (imageActionUrl.indexOf('?') == -1 ? '?':'&') + params);
-                form.submit();
+                var params = utils.serializeParam(me.queryCommandValue('serverparam')) || '';
+                var action = utils.formatUrl(imageActionUrl + (imageActionUrl.indexOf('?') == -1 ? '?' : '&') + params);
+                var formData = new FormData();
+                formData.append("upfile", form[0].files[0] );
+                $.ajax({
+                    url: action,
+                    type: 'POST',
+                    cache: false,
+                    data: formData,
+                    dataType:'json',
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        console.log("data:",data)
+                        // data = JSON.parse(data);
+                        var link, loader,
+                            body = (iframe.contentDocument || iframe.contentWindow.document).body,
+                            result = body.innerText || body.textContent || '';
+                        link = data.url;
+
+                        if(data.state == 'SUCCESS' && data.url) {
+                            loader = me.document.getElementById(loadingId);
+                            loader.setAttribute('src', link);
+                            loader.setAttribute('_src', link);
+                            loader.setAttribute('title', data.title || '');
+                            loader.setAttribute('alt', data.original || '');
+                            loader.removeAttribute('id');
+                            domUtils.removeClasses(loader, 'loadingclass');
+                        } else {
+                            showErrorLoader && showErrorLoader(data.state);
+                        }
+                        form.reset();
+                    }
+                });
+                function showErrorLoader(title){
+                    if(loadingId) {
+                        var loader = me.document.getElementById(loadingId);
+                        loader && domUtils.remove(loader);
+                        me.fireEvent('showmessage', {
+                            'id': loadingId,
+                            'content': title,
+                            'type': 'error',
+                            'timeout': 4000
+                        });
+                    }
+                }
             });
 
             var stateTimer;
@@ -25271,7 +25286,7 @@ UE.ui = baidu.editor.ui = {};
         domUtils = baidu.editor.dom.domUtils,
         UIBase = baidu.editor.ui.UIBase,
         uiUtils = baidu.editor.ui.uiUtils;
-    
+
     var Mask = baidu.editor.ui.Mask = function (options){
         this.initOptions(options);
         this.initUIBase();
@@ -25567,7 +25582,7 @@ UE.ui = baidu.editor.ui = {};
         }
     };
     utils.inherits(Popup, UIBase);
-    
+
     domUtils.on( document, 'mousedown', function ( evt ) {
         var el = evt.target || evt.srcElement;
         closeAllPopup( evt,el );
@@ -25663,7 +25678,7 @@ UE.ui = baidu.editor.ui = {};
     var utils = baidu.editor.utils,
         uiUtils = baidu.editor.ui.uiUtils,
         UIBase = baidu.editor.ui.UIBase;
-    
+
     var TablePicker = baidu.editor.ui.TablePicker = function (options){
         this.initOptions(options);
         this.initTablePicker();
@@ -25747,7 +25762,7 @@ UE.ui = baidu.editor.ui = {};
     var browser = baidu.editor.browser,
         domUtils = baidu.editor.dom.domUtils,
         uiUtils = baidu.editor.ui.uiUtils;
-    
+
     var TPL_STATEFUL = 'onmousedown="$$.Stateful_onMouseDown(event, this);"' +
         ' onmouseup="$$.Stateful_onMouseUp(event, this);"' +
         ( browser.ie ? (
@@ -25756,7 +25771,7 @@ UE.ui = baidu.editor.ui = {};
         : (
         ' onmouseover="$$.Stateful_onMouseOver(event, this);"' +
         ' onmouseout="$$.Stateful_onMouseOut(event, this);"' ));
-    
+
     baidu.editor.ui.Stateful = {
         alwalysHoverable: false,
         target:null,//目标元素和this指向dom不一样
@@ -27381,7 +27396,7 @@ UE.ui = baidu.editor.ui = {};
         setValue : function(value){
             this._value = value;
         }
-        
+
     };
     utils.inherits(MenuButton, SplitButton);
 })();
