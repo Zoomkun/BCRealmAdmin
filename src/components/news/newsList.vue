@@ -163,7 +163,8 @@
                     .post(
                         "wnews/admin/news/page?page=" + self.currentPageData + "&pageSize=10",
                         {
-                            roleId : JSON.parse($cookies.get('user')).roleId
+                            roleId : JSON.parse($cookies.get('user')).roleId,
+                            gameId : JSON.parse($cookies.get('user')).gameId
                         }
                     )
                     .then(function (response) {

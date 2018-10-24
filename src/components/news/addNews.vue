@@ -1,12 +1,10 @@
 <template>
-    <el-col :span="13">
+    <el-col :span="17">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
             <el-form-item label="新闻标题" prop="title">
                 <el-input v-model="ruleForm.title"></el-input>
             </el-form-item>
             <el-form-item label="新闻内容" prop="content">
-                <button @click="check">获取内容</button>
-                <button @click="getUEContent()">获取内容</button>
                 <VueUEditor  @ready="editorReady" v-model="ruleForm.content" :ueditor-config="config"></VueUEditor>
             </el-form-item>
             <el-form-item label="是否显示">
@@ -29,7 +27,6 @@
         name: "addNews",
         mounted() {
             let self = this;
-
             let data = self.$route.query.data;
             if (data) {
                 self.addTitle = "立即修改";
@@ -51,7 +48,7 @@
                     autoFloatEnabled: true,
                     initialContent:'请输入内容',   //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
                     autoClearinitialContent:true, //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
-                    initialFrameWidth: 1000,
+                    initialFrameWidth: 1200,
                     initialFrameHeight: 350,
                     BaseUrl: '',
                     UEDITOR_HOME_URL: '/static/ueditor/'
@@ -60,7 +57,8 @@
                     title: "",
                     content: "",
                     isShow: 0,
-                    roleId:''
+                    roleId:'',
+                    gameId:'',
                 },
                 rules: {
                     title: [{
@@ -81,18 +79,10 @@
                     editorInstance.setContent(this.$route.query.data.content)
                 }
             },
-            //获取文档内容
-            check(){
-                alert(this.editor.getContent())
-            },
-            getUEContent(editorInstance) {
-                let content = editorInstance.getContent();
-                console.log(content);
-                alert(content);
-            },
             submitForm(formName) {
                 var self = this;
                 self.ruleForm.roleId = JSON.parse($cookies.get('user')).roleId;
+                self.ruleForm.gameId = JSON.parse($cookies.get('user')).gameId;
                 self.ruleForm.content = self.editor.getContent();
                 console.log( this.$refs[formName])
                 this.$refs[formName].validate(valid => {
