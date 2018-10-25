@@ -12,25 +12,30 @@
             </el-table-column>
             <el-table-column
                 prop="id"
+                width="200"
                 label="新闻ID">
             </el-table-column>
             <el-table-column
                 prop="title"
+                width="500"
                 label="标题">
             </el-table-column>
             <el-table-column
                 prop="isShow"
                 label="是否显示"
+                width="200"
                 :formatter="formatShow">
             </el-table-column>
             <el-table-column
                 prop="sourceType"
                 label="来源渠道"
+                width="180"
                 :formatter="formatSourceType">
             </el-table-column>
             <el-table-column
                 prop="createTime"
                 label="创建日期"
+                width="200"
                 show-overflow-tooltip>
             </el-table-column>
             <el-table-column label="操作" :span="4">
@@ -46,9 +51,17 @@
                     </el-button>
                     <el-button
                         v-if="scope.row.sourceType == 1"
-                        size="small"
+                        size="mini"
                         @click="handleGameList(scope.row.id)">绑定游戏
                     </el-button>
+                    <span>
+                        <el-button
+                            v-if="scope.row.sourceType == 2 && scope.row.isExamine == 0"
+                            size="mini"
+                            type="primary"
+                            @click="handleExamine(scope.row.id)">审核
+                        </el-button>
+                    </span>
                 </template>
             </el-table-column>
         </el-table>
@@ -276,6 +289,25 @@
                             self.$notify({
                                 title: '提示',
                                 message: '删除成功',
+                                type: 'success',
+                                duration: 1500
+                            })
+                        }
+                    })
+                })
+            },
+            // 审核外部新闻
+            handleExamine(row) {
+                var self = this
+                this.$confirm('确认审核通过吗?', '提示', {
+                    type: 'warning'
+                }).then(function(){
+                    self.$ajax.post('wnews/admin/news/examine/' + row).then(function (response) {
+                        if (response.code === 1) {
+                            self.tableData.splice(index, 1)
+                            self.$notify({
+                                title: '提示',
+                                message: '审核成功',
                                 type: 'success',
                                 duration: 1500
                             })
