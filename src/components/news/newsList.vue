@@ -54,14 +54,12 @@
                         size="mini"
                         @click="handleGameList(scope.row.id)">绑定游戏
                     </el-button>
-                    <span>
-                        <el-button
-                            v-if="scope.row.sourceType == 2 && scope.row.isExamine == 0"
-                            size="mini"
-                            type="primary"
-                            @click="handleExamine(scope.row.id)">审核
-                        </el-button>
-                    </span>
+                    <el-button
+                        v-if="scope.row.sourceType == 2 && scope.row.isExamine == 0 && roleId == 1"
+                        size="mini"
+                        type="primary"
+                        @click="handleExamine(scope.row.id)">审核
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -153,6 +151,7 @@
                 selectionList: [], // 列表选中列
                 selectionListIds: [], // 列表选中列ID
                 newsId:'',
+                roleId:JSON.parse($cookies.get('user')).roleId
             };
         },
         mounted() {
@@ -304,15 +303,18 @@
                 }).then(function(){
                     self.$ajax.post('wnews/admin/news/examine/' + row).then(function (response) {
                         if (response.code === 1) {
-                            self.tableData.splice(index, 1)
                             self.$notify({
                                 title: '提示',
                                 message: '审核成功',
                                 type: 'success',
                                 duration: 1500
                             })
+                            self.getData();
                         }
                     })
+                }).catch(function () {
+                    console.log('error submit!!');
+                    return false;
                 })
             },
             handleEdit(index, row) {

@@ -18,6 +18,7 @@ import AddNews from '@/components/news/addNews.vue'
 //平台挖矿
 import MiningActivityList from '@/components/platform/miningActivityList.vue'
 import AddMiningActivity from '@/components/platform/addMiningActivity.vue'
+import MiningActivityStatistics from '@/components/platform/miningActivityStatistics.vue'
 
 //平台游戏奖盘
 import AddLotterySector from '@/components/platform/addLotterySector.vue'
@@ -151,6 +152,12 @@ export default new Router({
                     name: 'addMiningActivity',
                     component: AddMiningActivity,
                     path:'addMiningActivity'
+                },
+                {
+                    cellName: '挖矿数据统计',
+                    name: 'miningActivityStatistics',
+                    component: MiningActivityStatistics,
+                    path: 'miningActivityStatistics'
                 }
             ]
         },
