@@ -17,13 +17,13 @@
             </el-table-column>
             <el-table-column
                 prop="title"
-                width="500"
+                width="400"
                 label="标题">
             </el-table-column>
             <el-table-column
                 prop="isShow"
                 label="是否显示"
-                width="200"
+                width="150"
                 :formatter="formatShow">
             </el-table-column>
             <el-table-column
@@ -31,6 +31,12 @@
                 label="来源渠道"
                 width="180"
                 :formatter="formatSourceType">
+            </el-table-column>
+            <el-table-column
+                v-if="roleId == 1"
+                prop="gameName"
+                label="绑定游戏"
+                width="250">
             </el-table-column>
             <el-table-column
                 prop="createTime"
@@ -50,11 +56,6 @@
                         @click="handleDelete(scope.$index, scope.row)">删除
                     </el-button>
                     <el-button
-                        v-if="scope.row.sourceType == 1"
-                        size="mini"
-                        @click="handleGameList(scope.row.id)">绑定游戏
-                    </el-button>
-                    <el-button
                         v-if="scope.row.sourceType == 2 && scope.row.isExamine == 0 && roleId == 1"
                         size="mini"
                         type="primary"
@@ -71,65 +72,6 @@
             :page-count="totalPages"
             style="margin-top: 20px">
         </el-pagination>
-        <!--绑定游戏页面-->
-        <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width='45%'
-                   :close-on-click-modal="true" center>
-            <el-table
-                ref="multipleTable"
-                :data="gameData"
-                border
-                tooltip-effect="dark"
-                style="width: 100%;"
-                :cell-style="{'text-align':'center'}"
-                :header-cell-style="{'text-align':'center'}"
-                @selection-change="selsChange">
-                <el-table-column
-                    width="100"
-                    prop="id"
-                    label="游戏ID">
-                </el-table-column>
-                <el-table-column
-                    prop="gameName"
-                    label="游戏名称"
-                    :span="2"
-                    show-overflow-tooltip>
-                </el-table-column>
-                <el-table-column
-                    prop="gameCode"
-                    label="游戏编码"
-                    :span="2"
-                    show-overflow-tooltip>
-                </el-table-column>
-                <el-table-column
-                    width="100"
-                    prop="disabled"
-                    label="是否已绑定"
-                    :formatter="disabled"
-                    :span="2"
-                    show-overflow-tooltip>
-                </el-table-column>
-                <el-table-column label="操作" :span="4" width="130">
-                    <template slot-scope="scope">
-                        <span v-if="scope.row.disabled == false">
-                            <el-button
-                                size="mini"
-                                @click="delGames(scope.row.id)">解绑
-                            </el-button>
-                        </span>
-                        <span v-if="scope.row.disabled == true">
-                            <el-button
-                                size="mini"
-                                type="primary"
-                                @click="addGames(scope.row.id)">绑定
-                            </el-button>
-                        </span>
-                    </template>
-                </el-table-column>
-            </el-table>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click.native="dialogFormVisible=false">取消</el-button>
-            </div>
-        </el-dialog>
     </div>
 </template>
 
@@ -198,62 +140,6 @@
             // 全选单选多选
             selsChange(val) {
                 this.selectionList = val
-            },
-            //解绑游戏
-            delGames(row) {
-                var self = this;
-                this.$confirm('确认解绑该新闻吗？', '提示', {
-                    type: 'warning'
-                }).then(function () {
-                    let newsId = self.newsId;
-                    self.$ajax.post('wnews/admin/news/del/news/join', {
-                        newsId: newsId,
-                        gameId: row
-                    }).then(function (response) {
-                        if (response.code === 1) {
-                            self.$notify({
-                                title: '提示',
-                                message: '解绑成功',
-                                type: 'success',
-                                duration: 1000
-                            })
-                            self.dialogFormVisible = false
-                            self.handleGameList(newsId)
-                        }
-                    })
-                }).catch(function () {
-                    console.log('error submit!!');
-                    return false;
-                })
-
-            },
-            //绑定游戏
-            addGames(row) {
-                var self = this;
-                this.$confirm('确认绑定该新闻吗？', '提示', {
-                    type: 'warning'
-                }).then(function () {
-                        let newsId = self.newsId;
-                        self.$ajax.post('wnews/admin/news/news/join', {
-                            newsId: newsId,
-                            gameId: row
-                        }).then(function (response) {
-                            if (response.code === 1) {
-                                self.$notify({
-                                    title: '提示',
-                                    message: '绑定成功',
-                                    type: 'success',
-                                    duration: 1000
-                                })
-                                self.dialogFormVisible = false
-                                self.handleGameList(newsId)
-                            }
-                        })
-                    }).catch(function () {
-                     console.log('error submit!!');
-                        return false;
-                })
-
             },
             getId(data, key) {// 数据过滤
                 let arr = [];

@@ -86,9 +86,8 @@
                     label="扇区ID">
                 </el-table-column>
                 <el-table-column
-                    prop="rewardType"
+                    prop="rewardName"
                     label="奖励类型"
-                    :formatter="formatRewardType"
                     :span="2"
                     show-overflow-tooltip>
                 </el-table-column>
@@ -138,10 +137,6 @@
             this.getGameData();
         },
         methods: {
-            formatRewardType(row, col) {
-                let data = ['算力', '积分', '经验', 'DBEX']
-                return data[(row.rewardType - 1)]
-            },
             getData() {
                 var self = this;
                 self.$ajax

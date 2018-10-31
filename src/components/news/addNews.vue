@@ -7,6 +7,17 @@
             <el-form-item label="新闻内容" prop="content">
                 <VueUEditor  @ready="editorReady" v-model="ruleForm.content" :ueditor-config="config"></VueUEditor>
             </el-form-item>
+            <el-form-item label="绑定游戏" v-if="roleId == 1">
+                <el-checkbox-group v-model="selectionList" @change="selsChange">
+                    <el-checkbox
+                        border
+                        v-for="item in gameData"
+                        :label="item.id"
+                        :key="item.id">
+                        {{item.gameName}}
+                    </el-checkbox>
+                </el-checkbox-group>
+            </el-form-item>
             <el-form-item label="是否显示">
                 <el-radio-group v-model="ruleForm.isShow">
                     <el-radio class="radio" :label=0>是</el-radio>
@@ -26,6 +37,7 @@
     export default {
         name: "addNews",
         mounted() {
+            this.getGameData()
             let self = this;
             let data = self.$route.query.data;
             if (data) {
@@ -69,24 +81,34 @@
                     }]
                 },
                 content: "",
+                gameData:[],    // 游戏列表数据
+                selectionList: [], // 列表选中列
+                gameIds:[],     //  多个游戏ID
+                roleId:JSON.parse($cookies.get('user')).roleId
             };
         },
         methods: {
             editorReady(editorInstance){
                 this.editor = editorInstance
-                console.log(editorInstance)
                 if(this.$route.query.data && this.$route.query.data.content){
                     editorInstance.setContent(this.$route.query.data.content)
                 }
+            },
+            getGameData(){
+                var self = this;
+                self.$ajax.get('wgame/admin/game/all').then(function (response) {
+                    if (response.code === 1) {
+                        self.gameData = response.data;
+                    }
+                })
             },
             submitForm(formName) {
                 var self = this;
                 self.ruleForm.roleId = JSON.parse($cookies.get('user')).roleId;
                 self.ruleForm.gameId = JSON.parse($cookies.get('user')).gameId;
                 self.ruleForm.content = self.editor.getContent();
-                console.log( this.$refs[formName])
+                self.ruleForm.gameIds = self.selectionList
                 this.$refs[formName].validate(valid => {
-                    console.log(valid)
                     if (valid) {
                         self
                             .$ajax({
@@ -115,7 +137,12 @@
             },
             destroyed() {
                 this.editor.destroy();
-            }
+            },
+            // 全选单选多选
+            selsChange(item) {
+                this.selectionList = item;
+                console.log(item);
+            },
         },
         components:{
             VueUEditor
