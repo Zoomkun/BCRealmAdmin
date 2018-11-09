@@ -168,7 +168,7 @@
                 var self = this;
                 self.$ajax
                     .post(
-                        "http://localhost:8002/admin/mining/activity/page/statistics?size=20&page=" + self.currentPageData,
+                        "wplatform/admin/mining/activity/page/statistics?size=20&page=" + self.currentPageData,
                         {
                             startTime: this.filters.startTime,
                             endTime: this.filters.endTime
