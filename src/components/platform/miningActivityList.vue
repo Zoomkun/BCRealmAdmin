@@ -46,6 +46,11 @@
                 label="总奖励值"
                 :span="4">
             </el-table-column>
+            <el-table-column
+                prop="description"
+                label="活动描述"
+                width="250">
+            </el-table-column>
             <el-table-column label="操作" :span="4">
                 <template slot-scope="scope">
                     <el-button
