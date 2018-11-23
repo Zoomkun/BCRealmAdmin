@@ -148,7 +148,7 @@
                     .then(function (response) {
                         if (response.code === 1) {
                             self.tableData = response.data.list;
-                            self.total = response.data.pages;
+                            self.total = response.data.total;
                         }
                     });
             },
